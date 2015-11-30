@@ -6,11 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment {
-
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public MainActivityFragment() {
 	}
 
@@ -19,4 +20,7 @@ public class MainActivityFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_main, container, false);
 	}
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	/* МЕТОДЫ */
+	/* МЕТОДЫ */
 }
