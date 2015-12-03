@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.binarnahata.rainbowkingdom.Controllers.GameEngine;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
 
@@ -35,8 +36,11 @@ public class MenuFragment extends Fragment {
 		farm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (getContext() instanceof RKMainActivity) {
+				/*if (getContext() instanceof RKMainActivity) {
 					((RKMainActivity)getActivity()).runFragment(new GameFragment());
+				}*/
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
 				}
 			}
 		});

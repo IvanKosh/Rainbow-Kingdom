@@ -8,10 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.binarnahata.rainbowkingdom.Controllers.GameEngine;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 
 public class RKMainActivity extends AppCompatActivity {
@@ -77,6 +79,10 @@ public class RKMainActivity extends AppCompatActivity {
 				.add(R.id.fragment, newFragment)
 				.commit();
 		}
+	}
+
+	public void setGame(SurfaceView engine) {
+		setContentView(engine);
 	}
 	/* МЕТОДЫ */
 }
