@@ -17,7 +17,7 @@ import android.view.WindowManager;
  * @author bat
  * @version 0.1
  */
-public class CanvasView extends View implements ICanvasView  {
+public class AndroidCanvasView extends View implements BH_CanvasView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private Canvas mCanvas;
 	private Paint mPaint;
@@ -28,7 +28,7 @@ public class CanvasView extends View implements ICanvasView  {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public CanvasView(Context context, AttributeSet attrs) {
+	public AndroidCanvasView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		initWidthAndHeight(context);
@@ -43,7 +43,7 @@ public class CanvasView extends View implements ICanvasView  {
 		mCanvas = canvas;
 		//mGameManager.onDraw();
 		mPaint.setColor(Color.BLUE);
-		mCanvas.drawCircle(mWidth/2, mHeight/2, mWidth<mHeight ? mWidth/10 : mHeight/10, mPaint);
+		mCanvas.drawCircle(rndInt(0, mWidth), rndInt(0, mHeight), mWidth < mHeight ? mWidth / 10 : mHeight / 10, mPaint);
 	}
 
 	private void initWidthAndHeight(Context context) {
@@ -60,6 +60,10 @@ public class CanvasView extends View implements ICanvasView  {
 		mPaint = new Paint();
 		mPaint.setAntiAlias(true);
 		mPaint.setStyle(Paint.Style.FILL);
+	}
+
+	static int rndInt(int min, int max) {
+		return (int) (min + Math.random() * (max - min + 1));
 	}
 	/* МЕТОДЫ */
 }

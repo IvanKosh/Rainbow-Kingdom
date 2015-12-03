@@ -36,12 +36,19 @@ public class MenuFragment extends Fragment {
 		farm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment());
-				}*/
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
+					((RKMainActivity)getActivity()).runFragment(new GameFragment());
+					((RKMainActivity)getActivity()).runFragment(new GameFragment());
 				}
+				/*if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
+				}*/
 			}
 		});
 

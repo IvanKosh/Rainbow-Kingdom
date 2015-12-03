@@ -7,7 +7,7 @@ package com.binarnahata.rainbowkingdom.Views;
  * @author bat
  * @version 0.1
  */
-public interface ICanvasView {
+public interface BH_CanvasView {
 	//void drawCircle(SimpleCircle circle);
 
 	//void redraw();

@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
-	<com.binarnahata.rainbowkingdom.Views.CanvasView
+	<com.binarnahata.rainbowkingdom.Views.AndroidCanvasView
 		android:id="@+id/canvas"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>

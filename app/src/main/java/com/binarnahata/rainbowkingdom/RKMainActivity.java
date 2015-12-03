@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.binarnahata.rainbowkingdom.Controllers.GameEngine;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 
 public class RKMainActivity extends AppCompatActivity {
+	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -82,6 +84,7 @@ public class RKMainActivity extends AppCompatActivity {
 	}
 
 	public void setGame(SurfaceView engine) {
+		Log.d(TAG, "setGame");
 		setContentView(engine);
 	}
 	/* МЕТОДЫ */
