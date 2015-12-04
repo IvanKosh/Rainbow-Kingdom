@@ -3,6 +3,7 @@ package com.binarnahata.rainbowkingdom.Controllers;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 import java.text.DecimalFormat;
 
@@ -53,7 +54,7 @@ public class MainThread extends Thread {
 
 	private boolean mRunning; // flag to hold game state
 	private SurfaceHolder mSurfaceHolder;
-	private GameEngine mGamePanel;
+	private BaseSurfaceView mGamePanel;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setRunning(boolean running) {
@@ -61,7 +62,7 @@ public class MainThread extends Thread {
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public MainThread(SurfaceHolder surfaceHolder, GameEngine gamePanel) {
+	public MainThread(SurfaceHolder surfaceHolder, BaseSurfaceView gamePanel) {
 		super();
 		this.mSurfaceHolder = surfaceHolder;
 		this.mGamePanel = gamePanel;

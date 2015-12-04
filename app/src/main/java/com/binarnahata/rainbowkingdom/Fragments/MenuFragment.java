@@ -2,6 +2,7 @@ package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.binarnahata.rainbowkingdom.R;
  * @version 0.1
  */
 public class MenuFragment extends Fragment {
+	private static final String TAG = MenuFragment.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -37,8 +40,16 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment());
-					((RKMainActivity)getActivity()).runFragment(new GameFragment());
+					Log.d(TAG, "run 1");
+					((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(true));
+					Log.d(TAG, "sleep");
+					/*try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}*/
+					Log.d(TAG, "run 2");
+					//((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(false));
 				}
 				/*if (getContext() instanceof RKMainActivity) {
 					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));

@@ -66,7 +66,6 @@ public class Droid {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {
-		Log.d(TAG, "Droid draw");
 		canvas.drawBitmap(mBitmap, mX - (mBitmap.getWidth() / 2),
 			mY - (mBitmap.getHeight() / 2), null);
 	}
