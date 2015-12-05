@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.binarnahata.rainbowkingdom.Controllers.GameEngine;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
 
@@ -41,7 +40,8 @@ public class MenuFragment extends Fragment {
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
 					Log.d(TAG, "run 1");
-					((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(true));
+					//((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(true));
+					((RKMainActivity)getActivity()).runFragment(new GameFragment());
 					Log.d(TAG, "sleep");
 					/*try {
 						Thread.sleep(5000);

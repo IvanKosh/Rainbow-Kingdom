@@ -8,10 +8,8 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
-import com.binarnahata.rainbowkingdom.Fragments.SurfaceViewFragment;
 import com.binarnahata.rainbowkingdom.Models.Droid;
 import com.binarnahata.rainbowkingdom.Models.Speed;
 import com.binarnahata.rainbowkingdom.R;
