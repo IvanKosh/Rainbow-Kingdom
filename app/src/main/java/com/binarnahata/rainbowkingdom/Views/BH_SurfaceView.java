@@ -17,6 +17,7 @@ import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
  */
 public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private String mAvgFps;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -34,5 +35,9 @@ public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolde
 	public abstract void update();
 	public abstract void render(Canvas canvas);
 	public abstract void drawCircle(SimpleCircle circle);
+
+	public void setAvgFps(String avgFps) {
+		mAvgFps = avgFps;
+	}
 	/* МЕТОДЫ */
 }
