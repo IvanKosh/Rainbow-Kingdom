@@ -42,7 +42,17 @@ public class RKFarm extends BH_SurfaceView {
 		mGameLoopThread = new GameLoop(getHolder(), this);
 		mCircles = new ArrayList<>();
 		mPaint = new Paint();
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		mGameLoopThread.setRunning(true);
+		mGameLoopThread.start();
+
 		mRadius = getWidth() < getHeight() ? getWidth()/10 : getHeight()/10;
+
+		Log.d(TAG, String.valueOf(getHeight()));
+		Log.d(TAG, String.valueOf(getWidth()));
 
 		// TODO: delete
 		for (int i = 0; i < 3; i++) {
@@ -51,12 +61,6 @@ public class RKFarm extends BH_SurfaceView {
 			circle.setSpeed(new Speed(Utils.rndFlt(-1, 1), Utils.rndFlt(-1, 1)));
 			mCircles.add(circle);
 		}
-	}
-
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		mGameLoopThread.setRunning(true);
-		mGameLoopThread.start();
 	}
 
 	@Override
@@ -90,8 +94,6 @@ public class RKFarm extends BH_SurfaceView {
 			circle.moveOneStep();
 			checkBounds(circle);
 		}
-
-		Log.d(TAG, "update");
 	}
 
 	private void checkBounds(SimpleCircle circle) {
@@ -105,15 +107,24 @@ public class RKFarm extends BH_SurfaceView {
 
 	@Override
 	public void render(Canvas canvas) {
-
 		mCanvas = canvas;
-		/*for (SimpleCircle circle : mCircles) {
+
+		mCanvas.drawColor(Color.WHITE);
+
+		for (SimpleCircle circle : mCircles) {
+			String temp = new String();
+			temp += String.valueOf(circle.getX());
+			temp += " " + String.valueOf(circle.getY());
+			temp += " " + String.valueOf(circle.getRadius());
+			temp += " " + String.valueOf(circle.getColor());
+			Log.d(TAG, temp);
 			mPaint.setColor(circle.getColor());
-			canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
-			Log.d(TAG, "drawCircle0");
+			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
+		}
+
+		/*for (SimpleCircle circle : mCircles) {
+			Log.d(TAG, String.valueOf(circle.getX()) + " " + String.valueOf(circle.getY()));
 		}*/
-		mPaint.setColor(Color.WHITE);
-		mCanvas.drawCircle(20, 20, 10, mPaint);
 		/*mCanvas.drawColor(Color.BLACK);
 		for (SimpleCircle circle : mCircles) {
 			drawCircle(circle);

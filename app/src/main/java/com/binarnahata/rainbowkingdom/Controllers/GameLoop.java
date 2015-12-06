@@ -95,7 +95,7 @@ public class GameLoop extends Thread {
 					// render state to the screen
 					// draws the canvas on the panel
 					try {
-						mGame.render(canvas);
+						mGame.render(canvas); // TODO: при разрушении Surface не понимает что уже не работает. Проблемы с синхронизацией.
 					}
 					catch (Exception e) {
 						Log.e(TAG, "Фигня какая-то");
