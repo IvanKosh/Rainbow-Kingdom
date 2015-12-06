@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
  */
 public class GameLoop extends Thread {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = MainThread.class.getSimpleName();
+	private static final String TAG = GameLoop.class.getSimpleName();
 
 	// desired fps
 	private final static int    MAX_FPS = 50;
@@ -94,7 +94,12 @@ public class GameLoop extends Thread {
 					mGame.update();
 					// render state to the screen
 					// draws the canvas on the panel
-					mGame.render(canvas);
+					try {
+						mGame.render(canvas);
+					}
+					catch (Exception e) {
+						Log.e(TAG, "Фигня какая-то");
+					}
 					// calculate how long did the cycle take
 					timeDiff = System.currentTimeMillis() - beginTime;
 					// calculate sleep time
