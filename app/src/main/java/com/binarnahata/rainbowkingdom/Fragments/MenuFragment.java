@@ -10,8 +10,6 @@ import android.widget.Button;
 
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
-import com.binarnahata.rainbowkingdom.Refactoring.Fragments.*;
-import com.binarnahata.rainbowkingdom.Refactoring.Fragments.GameFragment;
 
 /**
  * RainbowKingdom
@@ -21,9 +19,8 @@ import com.binarnahata.rainbowkingdom.Refactoring.Fragments.GameFragment;
  * @version 0.1
  */
 public class MenuFragment extends Fragment {
-	private static final String TAG = MenuFragment.class.getSimpleName();
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = MenuFragment.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -41,27 +38,8 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					Log.d(TAG, "run 1");
-					//((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(true));
 					((RKMainActivity)getActivity()).runFragment(new GameFragment());
-					Log.d(TAG, "sleep");
-					/*try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}*/
-					Log.d(TAG, "run 2");
-					//((RKMainActivity)getActivity()).runFragment(new SurfaceViewFragment(false));
 				}
-				/*if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					((RKMainActivity)getActivity()).setGame(new GameEngine(getContext()));
-				}*/
 			}
 		});
 

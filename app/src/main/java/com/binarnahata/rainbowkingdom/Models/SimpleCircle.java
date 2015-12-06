@@ -1,4 +1,4 @@
-package com.binarnahata.rainbowkingdom.Refactoring.Models;
+package com.binarnahata.rainbowkingdom.Models;
 
 /**
  * RainbowKingdom

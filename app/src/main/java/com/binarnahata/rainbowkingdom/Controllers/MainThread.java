@@ -54,7 +54,7 @@ public class MainThread extends Thread {
 
 	private boolean mRunning; // flag to hold game state
 	private SurfaceHolder mSurfaceHolder;
-	private BaseSurfaceView mGamePanel;
+	//private BaseSurfaceView mGamePanel;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setRunning(boolean running) {
@@ -62,10 +62,10 @@ public class MainThread extends Thread {
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public MainThread(SurfaceHolder surfaceHolder, BaseSurfaceView gamePanel) {
+	public MainThread(SurfaceHolder surfaceHolder/*, BaseSurfaceView gamePanel*/) {
 		super();
 		this.mSurfaceHolder = surfaceHolder;
-		this.mGamePanel = gamePanel;
+		//this.mGamePanel = gamePanel;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -181,10 +181,10 @@ public class MainThread extends Thread {
 					beginTime = System.currentTimeMillis();
 					framesSkipped = 0;  // resetting the frames skipped
 					// update game state
-					mGamePanel.update();
+					//mGamePanel.update();
 					// render state to the screen
 					// draws the canvas on the panel
-					mGamePanel.render(canvas);
+					//mGamePanel.render(canvas);
 					// calculate how long did the cycle take
 					timeDiff = System.currentTimeMillis() - beginTime;
 					// calculate sleep time
@@ -201,7 +201,7 @@ public class MainThread extends Thread {
 
 					while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
 						// we need to catch up
-						mGamePanel.update(); // update without rendering
+						//mGamePanel.update(); // update without rendering
 						sleepTime += FRAME_PERIOD;  // add frame period to check if in next frame
 						framesSkipped++;
 					}
@@ -273,7 +273,7 @@ public class MainThread extends Thread {
 			statusIntervalTimer = System.currentTimeMillis();
 			lastStatusStore = statusIntervalTimer;
 			//          Log.d(TAG, "Average FPS:" + df.format(averageFps));
-			mGamePanel.setAvgFps("FPS: " + df.format(averageFps));
+			//mGamePanel.setAvgFps("FPS: " + df.format(averageFps));
 		}
 	}
 

@@ -1,20 +1,12 @@
 package com.binarnahata.rainbowkingdom;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.binarnahata.rainbowkingdom.Controllers.GameEngine;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 
 public class RKMainActivity extends AppCompatActivity {
