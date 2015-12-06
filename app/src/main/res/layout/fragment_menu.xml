@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:src="@android:drawable/btn_star_big_on"/>
+
+	<ImageView
+		android:id="@+id/settings_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentTop="true"
+		android:src="@drawable/settings"/>
+
+	<LinearLayout
+		android:id="@+id/navigation_buttons"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:layout_alignParentBottom="true">
+
+		<Button
+			android:id="@+id/achievements_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Achievements"
+			/>
+
+		<Button
+			android:id="@+id/resources_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Resources"
+			/>
+
+		<Button
+			android:id="@+id/farm_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Farm!!!"
+			/>
+
+	</LinearLayout>
+
+	<ListView
+		android:id="@+id/quests"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@id/navigation_buttons"
+		android:layout_below="@id/settings_button"/>
+
+</RelativeLayout>
