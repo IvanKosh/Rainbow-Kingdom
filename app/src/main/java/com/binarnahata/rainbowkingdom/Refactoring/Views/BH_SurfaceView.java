@@ -1,29 +1,26 @@
-package com.binarnahata.rainbowkingdom.Controllers;
+package com.binarnahata.rainbowkingdom.Refactoring.Views;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.binarnahata.rainbowkingdom.Refactoring.Models.SimpleCircle;
+
 /**
  * RainbowKingdom
- * Created on 04.12.15, 12:28
+ * Created on 05.12.15, 17:25
  *
  * @author bat
  * @version 0.1
  */
-public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHolder.Callback  {
+public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	public String avgFps;
-	public Context mContext;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setAvgFps(String avgFps) {
-		this.avgFps = avgFps;
-	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public BaseSurfaceView(Context context) {
+	public BH_SurfaceView(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
@@ -35,6 +32,6 @@ public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHold
 	/* МЕТОДЫ */
 	public abstract void update();
 	public abstract void render(Canvas canvas);
-	public abstract void displayFps(Canvas canvas, String fps);
+	public abstract void drawCircle(SimpleCircle circle);
 	/* МЕТОДЫ */
 }

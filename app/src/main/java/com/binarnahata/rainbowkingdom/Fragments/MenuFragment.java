@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
+import com.binarnahata.rainbowkingdom.Refactoring.Fragments.*;
+import com.binarnahata.rainbowkingdom.Refactoring.Fragments.GameFragment;
 
 /**
  * RainbowKingdom
