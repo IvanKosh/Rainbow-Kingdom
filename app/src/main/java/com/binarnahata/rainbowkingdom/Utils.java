@@ -34,8 +34,24 @@ public class Utils {
 	}
 
 	public static int rndColor() {
-		Random rnd = new Random();
-		return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+		int r = rndInt(0, 5);
+		switch (r) {
+			case 0:
+				return Color.RED;
+			case 1:
+				return Color.GREEN;
+			case 2:
+				return Color.BLUE;
+			case 3:
+				return Color.YELLOW;
+			case 4:
+				return Color.CYAN;
+			case 5:
+				return Color.MAGENTA;
+		}
+		return Color.RED;
+		/*Random rnd = new Random();
+		return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));*/
 	}
 	/* Рандомы */
 
@@ -119,6 +135,9 @@ public class Utils {
 		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
 	}
 	/* Математика */
+
+	/* Работа с цветами */
+	/* Работа с цветами */
 
 	/* МЕТОДЫ */
 }

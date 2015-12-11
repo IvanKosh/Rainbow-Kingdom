@@ -30,11 +30,12 @@ public class RKFarm extends BH_SurfaceView {
 	private static final String TAG = RKFarm.class.getSimpleName();
 	public static final int MAXIMUM_SPEED = 5;
 	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
-	public static final int START_COUNT_CIRCLES = 0;
+	public static final int START_COUNT_CIRCLES = 3;
 	private final Paint mPaint;
 	private final Context mContext;
 	private GameLoop mGameLoopThread;
 	private ArrayList<SimpleCircle> mCircles;
+	private SimpleCircle mShoot;
 	private Canvas mCanvas;
 
 	private int mRadius;
@@ -61,7 +62,7 @@ public class RKFarm extends BH_SurfaceView {
 		mDiameter = mRadius << 1;
 
 
-		// TODO: delete
+		// TODO: change
 		for (int i = 0; i < START_COUNT_CIRCLES; i++) {
 			SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 				Utils.rndInt(0, getHeight()), mRadius, Utils.rndColor());
@@ -110,6 +111,82 @@ public class RKFarm extends BH_SurfaceView {
 				checkCirclesCollisionsAndSetNewOptions(circle1, circle2);
 			}
 		}
+
+		if (mShoot != null) {
+			mShoot.moveOneStep();
+
+			for (SimpleCircle circle : mCircles) {
+				if (canMerge(circle.getColor(), mShoot.getColor())) {
+					SimpleCircle tempCircle = checkCirclesCollisionsAndMerge(mShoot, circle);
+					if (tempCircle != null) {
+						mCircles.add(tempCircle);
+						break;
+					}
+				}
+				checkCirclesCollisionsAndSetNewOptions(mShoot, circle);
+			}
+		}
+	}
+
+	private boolean canMerge(int color1, int color2) {
+		if (color1 == Color.RED || color1 == Color.BLUE || color1 == Color.GREEN) {
+			if (color2 == Color.RED || color2 == Color.BLUE || color2 == Color.GREEN) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private SimpleCircle checkCirclesCollisionsAndMerge(SimpleCircle circle1, SimpleCircle circle2) {
+		double dx = circle1.getX()-circle2.getX();
+		double dy = circle1.getY()-circle2.getY();
+		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
+			SimpleCircle resultCircle = new SimpleCircle((int) ((circle1.getX() + circle2.getX()) / 2),
+				(int) ((circle1.getY() + circle2.getY()) / 2), mRadius,
+				getMergeColor(circle1.getColor(), circle2.getColor()));
+			resultCircle.setSpeed(new Speed((circle1.getSpeed().getVectorX() + circle2.getSpeed().getVectorX()) / 2,
+				(circle1.getSpeed().getVectorY() + circle2.getSpeed().getVectorY()) / 2));
+			return resultCircle;
+		}
+		return null;
+	}
+
+	private int getMergeColor(int color1, int color2) {
+		if (color1 == Color.RED) {
+			if (color2 == Color.BLUE) {
+				return Color.MAGENTA;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.YELLOW;
+			}
+			if (color2 == Color.RED) {
+				return Color.RED;
+			}
+		}
+		if (color1 == Color.BLUE) {
+			if (color2 == Color.RED) {
+				return Color.MAGENTA;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.CYAN;
+			}
+			if (color2 == Color.BLUE) {
+				return Color.BLUE;
+			}
+		}
+		if (color1 == Color.GREEN) {
+			if (color2 == Color.RED) {
+				return Color.YELLOW;
+			}
+			if (color2 == Color.BLUE) {
+				return Color.CYAN;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.GREEN;
+			}
+		}
+		return 0;
 	}
 
 	private void checkCirclesCollisionsAndSetNewOptions(SimpleCircle circle1, SimpleCircle circle2) {
@@ -182,7 +259,9 @@ public class RKFarm extends BH_SurfaceView {
 			mPaint.setColor(circle.getColor());
 			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
 		}
-
+		if (mShoot != null) {
+			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
+		}
 		/*for (SimpleCircle circle : mCircles) {
 			Log.d(TAG, String.valueOf(circle.getX()) + " " + String.valueOf(circle.getY()));
 		}*/
@@ -202,10 +281,10 @@ public class RKFarm extends BH_SurfaceView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			SimpleCircle circle = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
-			circle.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
-			if (circle.getSpeed() != null) {
-				mCircles.add(circle);
+			mShoot = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
+			mShoot.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+			if (mShoot.getSpeed() == null) {
+				mShoot = null;
 			}
 		}
 
