@@ -47,7 +47,6 @@ public class RKFarm extends BH_SurfaceView {
 	public RKFarm(Context context) {
 		super(context);
 		mContext = context;
-		Log.d(TAG, "create");
 		mGameLoopThread = new GameLoop(getHolder(), this);
 		mCircles = new ArrayList<>();
 		mPaint = new Paint();
@@ -61,8 +60,6 @@ public class RKFarm extends BH_SurfaceView {
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
 
-		Log.d(TAG, String.valueOf(getHeight()));
-		Log.d(TAG, String.valueOf(getWidth()));
 
 		// TODO: delete
 		for (int i = 0; i < START_COUNT_CIRCLES; i++) {
@@ -204,16 +201,10 @@ public class RKFarm extends BH_SurfaceView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		Log.d(TAG, String.valueOf(event.getX()) + " " + String.valueOf(event.getY()));
-
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			/*SimpleCircle circle = new SimpleCircle((int)event.getX(),
-				(int)event.getY(), mRadius, Utils.rndColor());
-			circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));*/
 			SimpleCircle circle = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
 			circle.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 			if (circle.getSpeed() != null) {
-				Log.d(TAG, circle.getSpeed().toString());
 				mCircles.add(circle);
 			}
 		}
@@ -233,11 +224,9 @@ public class RKFarm extends BH_SurfaceView {
 			new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(0, h)));
 
 		if (intersection == null) {
-			Log.d(TAG, "not left");
 			intersection = Utils.rayIntersection(ray,
 				new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(w, 0)));
 			if (intersection == null) {
-				Log.d(TAG, "not up");
 				intersection = Utils.rayIntersection(ray,
 					new Utils.Segment(new DoublePoint(w, 0), new DoublePoint(w, h)));
 			}
@@ -247,34 +236,9 @@ public class RKFarm extends BH_SurfaceView {
 			return null;
 		}
 
-		Log.d(TAG, intersection.toString());
-
-		Log.d(TAG, String.valueOf(toX - t) + " " + String.valueOf(intersection.x - t));
-		Log.d(TAG, String.valueOf(toY-h) + " " + (intersection.y-h));
-
-		Log.d(TAG, intersection.toString());
-
 		double distance = Utils.distanceBetweenTwoPoint(new DoublePoint(t, h), intersection);
 
 		return new Speed(MAXIMUM_SPEED*(toX-t)/distance, MAXIMUM_SPEED*(h-toY)/distance);
-
-		/*int sX = w / 2;
-		int sY = h;
-		double x = -sX - (sY*(toX-sX)/(toY-sY));
-		double y = 0;
-
-		if (x < 0) {
-			x = 0;
-			Log.d(TAG, "x < 0");
-		}
-		if (w < x) {
-			x = w;
-			Log.d(TAG, "x > w");
-		}
-		y = sY + (x-sX)*(toY-sY)/(toX-sX);
-
-		Log.d(TAG, "new");
-		return new Speed(MAXIMUM_SPEED*(sX-toX)/(sX-x), MAXIMUM_SPEED*(sY-toY)/(sY-y));*/
 	}
 	/* МЕТОДЫ */
 }
