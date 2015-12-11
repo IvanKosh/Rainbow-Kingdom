@@ -2,7 +2,6 @@ package com.binarnahata.rainbowkingdom.Views;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,6 +10,7 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
@@ -122,7 +122,7 @@ public class RKFarm extends BH_SurfaceView {
 			mShoot.checkBounds(getWidth(), getHeight());
 
 			for (SimpleCircle circle : mCircles) {
-				if (canMerge(circle.getColor(), mShoot.getColor())) {
+				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
 					SimpleCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
 						mCircles.add(tempCircle);

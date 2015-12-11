@@ -1,5 +1,6 @@
 package com.binarnahata.rainbowkingdom.Models;
 
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Utils;
 
@@ -130,7 +131,7 @@ public class SimpleCircle {
 		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
 			SimpleCircle resultCircle = new SimpleCircle((int) ((mX + circle.getX()) / 2),
 				(int) ((mY + circle.getY()) / 2), mRadius,
-				Utils.mergeColor(mColor, circle.getColor()));
+				Color.mergeColor(mColor, circle.getColor()));
 			resultCircle.setSpeed(new Speed((mSpeed.getVectorX() + circle.getSpeed().getVectorX()) / 2,
 				(mSpeed.getVectorY() + circle.getSpeed().getVectorY()) / 2));
 			return resultCircle;
