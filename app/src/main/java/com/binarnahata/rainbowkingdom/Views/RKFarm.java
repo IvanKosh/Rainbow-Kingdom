@@ -30,7 +30,6 @@ public class RKFarm extends BH_SurfaceView {
 	private static final String TAG = RKFarm.class.getSimpleName();
 	public static final int MAXIMUM_SPEED = 5;
 	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
-	public static final int START_COUNT_CIRCLES = 3;
 	private final Paint mPaint;
 	private final Context mContext;
 	private GameLoop mGameLoopThread;
@@ -40,7 +39,6 @@ public class RKFarm extends BH_SurfaceView {
 
 	private int mRadius;
 	private int mDiameter;
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -62,13 +60,20 @@ public class RKFarm extends BH_SurfaceView {
 		mDiameter = mRadius << 1;
 
 
-		// TODO: change
-		for (int i = 0; i < START_COUNT_CIRCLES; i++) {
-			SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
-				Utils.rndInt(0, getHeight()), mRadius, Utils.rndColor());
-			circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
-			mCircles.add(circle);
-		}
+		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
+		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		mCircles.add(circle);
+
+		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.GREEN);
+		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		mCircles.add(circle);
+
+		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
+		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		mCircles.add(circle);
 	}
 
 	@Override
@@ -98,22 +103,24 @@ public class RKFarm extends BH_SurfaceView {
 
 	@Override
 	public void update() {
+		// движение по плоскости
 		for (SimpleCircle circle : mCircles) {
 			circle.moveOneStep();
-			checkBounds(circle);
+			circle.checkBounds(getWidth(), getHeight());
 		}
 
-		for (SimpleCircle circle1 : mCircles) {
-			SimpleCircle circle2;
-			for (int i = mCircles.indexOf(circle1) + 1; i < mCircles.size(); i++) {
-				circle2 = mCircles.get(i);
-
-				checkCirclesCollisionsAndSetNewOptions(circle1, circle2);
+		// разрешение коллизии между шарами
+		for (SimpleCircle circle : mCircles) {
+			for (int i = mCircles.indexOf(circle) + 1; i < mCircles.size(); i++) {
+				circle.checkCollisionsAndSetNewOptions(mCircles.get(i));
 			}
 		}
 
+		// движение выстрела и
 		if (mShoot != null) {
+			Log.d(TAG, mShoot.centerToString());
 			mShoot.moveOneStep();
+			mShoot.checkBounds(getWidth(), getHeight());
 
 			for (SimpleCircle circle : mCircles) {
 				if (canMerge(circle.getColor(), mShoot.getColor())) {
@@ -123,7 +130,7 @@ public class RKFarm extends BH_SurfaceView {
 						break;
 					}
 				}
-				checkCirclesCollisionsAndSetNewOptions(mShoot, circle);
+				mShoot.checkCollisionsAndSetNewOptions(circle);
 			}
 		}
 	}
@@ -189,60 +196,6 @@ public class RKFarm extends BH_SurfaceView {
 		return 0;
 	}
 
-	private void checkCirclesCollisionsAndSetNewOptions(SimpleCircle circle1, SimpleCircle circle2) {
-		double dx = circle1.getX()-circle2.getX();
-		double dy = circle1.getY()-circle2.getY();
-		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
-			// вычисление новых параметров
-			double p1 = dx * dy / Math.pow(distanceBetweenCircles, 2);
-			double p2 = Math.pow(dx / distanceBetweenCircles, 2);
-			double p3 = Math.pow(dy / distanceBetweenCircles, 2);
-
-			double d1 = circle1.getSpeed().getVectorY() * p1
-				+ circle1.getSpeed().getVectorX() * p2
-				- circle2.getSpeed().getVectorY() * p1
-				- circle2.getSpeed().getVectorX() * p2;
-			double d2 = circle1.getSpeed().getVectorX() * p1
-				+ circle1.getSpeed().getVectorY() * p3
-				- circle2.getSpeed().getVectorX() * p1
-				- circle2.getSpeed().getVectorY() * p3;
-
-			// изменение направления движения
-			circle1.setSpeed(new Speed(circle1.getSpeed().getVectorX() - d1, circle1.getSpeed().getVectorY() - d2));
-			circle2.setSpeed(new Speed(circle2.getSpeed().getVectorX() + d1, circle2.getSpeed().getVectorY() + d2));
-
-			// при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-			p3 = (mDiameter - distanceBetweenCircles) / 2; //при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-			p1 = p3 * (dx / distanceBetweenCircles);
-			p2 = p3 * (dy / distanceBetweenCircles);
-			circle1.setX((float) (circle1.getX() + p1));
-			circle1.setY((float) (circle1.getY() + p2));
-			circle2.setX((float) (circle2.getX() - p1));
-			circle2.setY((float) (circle2.getY() - p2));
-		}
-	}
-
-	private void checkBounds(SimpleCircle circle) {
-		if (circle.getX() < 0) {
-			// нужно увеличивать X
-			circle.getSpeed().toRight();
-		}
-		if (getWidth() < circle.getX()) {
-			// нужно уменьшать X
-			circle.getSpeed().toLeft();
-		}
-
-		if (circle.getY() < 0) {
-			// нужно увеличивать Y
-			circle.getSpeed().toDown();
-		}
-		if (getHeight() < circle.getY()) {
-			// нужно уменьшать Y
-			circle.getSpeed().toUp();
-		}
-	}
-
 	@Override
 	public void render(Canvas canvas) {
 		mCanvas = canvas;
@@ -260,6 +213,7 @@ public class RKFarm extends BH_SurfaceView {
 			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
 		}
 		if (mShoot != null) {
+			mPaint.setColor(mShoot.getColor());
 			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
 		}
 		/*for (SimpleCircle circle : mCircles) {

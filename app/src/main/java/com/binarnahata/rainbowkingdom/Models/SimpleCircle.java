@@ -16,6 +16,7 @@ public class SimpleCircle {
 	private float mX;
 	private float mY;
 	private int mRadius;
+	private int mDiameter;
 	private int mColor;
 	private Speed mSpeed;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -39,8 +40,9 @@ public class SimpleCircle {
 	public void setSpeed(Speed speed) {
 		mSpeed = speed;
 	}
-	public void setRadius(int radius) { // TODO: delete after
+	public void setRadius(int radius) {
 		mRadius = radius;
+		mDiameter = radius << 1;
 	}
 	public void setX(float x) {
 		mX = x;
@@ -53,7 +55,7 @@ public class SimpleCircle {
 	public SimpleCircle(int x, int y, int radius, int color) {
 		mX = x;
 		mY = y;
-		mRadius = radius;
+		setRadius(radius);
 		mColor = color;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -61,6 +63,64 @@ public class SimpleCircle {
 	public void moveOneStep() {
 		mX += mSpeed.getVectorX();
 		mY += mSpeed.getVectorY();
+	}
+
+	public void checkBounds(int width, int height) {
+		if (mX < 0) {
+			// нужно увеличивать X
+			mSpeed.toRight();
+		}
+		if (width < mX) {
+			// нужно уменьшать X
+			mSpeed.toLeft();
+		}
+
+		if (mY < 0) {
+			// нужно увеличивать Y
+			mSpeed.toDown();
+		}
+		if (height < mY) {
+			// нужно уменьшать Y
+			mSpeed.toUp();
+		}
+	}
+
+	public void checkCollisionsAndSetNewOptions(SimpleCircle circle) {
+		double dx = mX-circle.getX();
+		double dy = mY-circle.getY();
+		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
+			// вычисление новых параметров
+			double p1 = dx * dy / Math.pow(distanceBetweenCircles, 2);
+			double p2 = Math.pow(dx / distanceBetweenCircles, 2);
+			double p3 = Math.pow(dy / distanceBetweenCircles, 2);
+
+			double d1 = mSpeed.getVectorY() * p1
+				+ mSpeed.getVectorX() * p2
+				- circle.getSpeed().getVectorY() * p1
+				- circle.getSpeed().getVectorX() * p2;
+			double d2 = mSpeed.getVectorX() * p1
+				+ mSpeed.getVectorY() * p3
+				- circle.getSpeed().getVectorX() * p1
+				- circle.getSpeed().getVectorY() * p3;
+
+			// изменение направления движения
+			mSpeed = new Speed(mSpeed.getVectorX() - d1, mSpeed.getVectorY() - d2);
+			circle.setSpeed(new Speed(circle.getSpeed().getVectorX() + d1, circle.getSpeed().getVectorY() + d2));
+
+			// при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
+			p3 = (mDiameter - distanceBetweenCircles) / 2; //при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
+			p1 = p3 * (dx / distanceBetweenCircles);
+			p2 = p3 * (dy / distanceBetweenCircles);
+			mX = (float) (mX + p1);
+			mY = (float) (mY + p2);
+			circle.setX((float) (circle.getX() - p1));
+			circle.setY((float) (circle.getY() - p2));
+		}
+	}
+
+	public String centerToString() {
+		return "Center:(" + String.valueOf(mX) + ", " + String.valueOf(mY) + ")";
 	}
 	/* МЕТОДЫ */
 }
