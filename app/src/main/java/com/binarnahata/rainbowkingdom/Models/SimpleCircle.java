@@ -35,8 +35,18 @@ public class SimpleCircle {
 	public Speed getSpeed() {
 		return mSpeed;
 	}
+
 	public void setSpeed(Speed speed) {
 		mSpeed = speed;
+	}
+	public void setRadius(int radius) { // TODO: delete after
+		mRadius = radius;
+	}
+	public void setX(float x) {
+		mX = x;
+	}
+	public void setY(float y) {
+		mY = y;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

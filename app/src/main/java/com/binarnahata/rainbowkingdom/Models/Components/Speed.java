@@ -11,19 +11,19 @@ public class Speed {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Speed.class.getSimpleName();
 
-	private float mVectorX;
-	private float mVectorY;
+	private double mVectorX;
+	private double mVectorY;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public float getVectorX() {
+	public double getVectorX() {
 		return mVectorX;
 	}
-	public float getVectorY() {
+	public double getVectorY() {
 		return mVectorY;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Speed(float vectorX, float vectorY) {
+	public Speed(double vectorX, double vectorY) {
 		mVectorX = vectorX;
 		mVectorY = vectorY;
 	}
@@ -35,6 +35,22 @@ public class Speed {
 
 	public void toggleYDirection() {
 		mVectorY = -mVectorY;
+	}
+
+	public void toRight() {
+		mVectorX = Math.abs(mVectorX);
+	}
+
+	public void toLeft() {
+		mVectorX = -Math.abs(mVectorX);
+	}
+
+	public void toDown() {
+		mVectorY = Math.abs(mVectorY);
+	}
+
+	public void toUp() {
+		mVectorY = -Math.abs(mVectorY);
 	}
 	/* МЕТОДЫ */
 }
