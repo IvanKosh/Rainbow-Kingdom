@@ -118,19 +118,24 @@ public class RKFarm extends BH_SurfaceView {
 
 		// движение выстрела и
 		if (mShoot != null) {
-			Log.d(TAG, mShoot.centerToString());
 			mShoot.moveOneStep();
 			mShoot.checkBounds(getWidth(), getHeight());
 
 			for (SimpleCircle circle : mCircles) {
 				if (canMerge(circle.getColor(), mShoot.getColor())) {
-					SimpleCircle tempCircle = checkCirclesCollisionsAndMerge(mShoot, circle);
+					SimpleCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
 						mCircles.add(tempCircle);
+						mCircles.remove(circle);
+						mShoot = null;
 						break;
 					}
 				}
-				mShoot.checkCollisionsAndSetNewOptions(circle);
+				if (mShoot.checkCollisionsAndSetNewOptions(circle)) {
+					mCircles.add(mShoot);
+					mShoot = null;
+					break; //TODO: можно ли так?
+				}
 			}
 		}
 	}
@@ -142,58 +147,6 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 		return false;
-	}
-
-	private SimpleCircle checkCirclesCollisionsAndMerge(SimpleCircle circle1, SimpleCircle circle2) {
-		double dx = circle1.getX()-circle2.getX();
-		double dy = circle1.getY()-circle2.getY();
-		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
-			SimpleCircle resultCircle = new SimpleCircle((int) ((circle1.getX() + circle2.getX()) / 2),
-				(int) ((circle1.getY() + circle2.getY()) / 2), mRadius,
-				getMergeColor(circle1.getColor(), circle2.getColor()));
-			resultCircle.setSpeed(new Speed((circle1.getSpeed().getVectorX() + circle2.getSpeed().getVectorX()) / 2,
-				(circle1.getSpeed().getVectorY() + circle2.getSpeed().getVectorY()) / 2));
-			return resultCircle;
-		}
-		return null;
-	}
-
-	private int getMergeColor(int color1, int color2) {
-		if (color1 == Color.RED) {
-			if (color2 == Color.BLUE) {
-				return Color.MAGENTA;
-			}
-			if (color2 == Color.GREEN) {
-				return Color.YELLOW;
-			}
-			if (color2 == Color.RED) {
-				return Color.RED;
-			}
-		}
-		if (color1 == Color.BLUE) {
-			if (color2 == Color.RED) {
-				return Color.MAGENTA;
-			}
-			if (color2 == Color.GREEN) {
-				return Color.CYAN;
-			}
-			if (color2 == Color.BLUE) {
-				return Color.BLUE;
-			}
-		}
-		if (color1 == Color.GREEN) {
-			if (color2 == Color.RED) {
-				return Color.YELLOW;
-			}
-			if (color2 == Color.BLUE) {
-				return Color.CYAN;
-			}
-			if (color2 == Color.GREEN) {
-				return Color.GREEN;
-			}
-		}
-		return 0;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models;
 
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
+import com.binarnahata.rainbowkingdom.Utils;
 
 /**
  * RainbowKingdom
@@ -85,7 +86,7 @@ public class SimpleCircle {
 		}
 	}
 
-	public void checkCollisionsAndSetNewOptions(SimpleCircle circle) {
+	public boolean checkCollisionsAndSetNewOptions(SimpleCircle circle) {
 		double dx = mX-circle.getX();
 		double dy = mY-circle.getY();
 		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
@@ -116,7 +117,25 @@ public class SimpleCircle {
 			mY = (float) (mY + p2);
 			circle.setX((float) (circle.getX() - p1));
 			circle.setY((float) (circle.getY() - p2));
+
+			return true;
 		}
+		return false;
+	}
+
+	public SimpleCircle checkCollisionsAndMerge(SimpleCircle circle) {
+		double dx = mX-circle.getX();
+		double dy = mY-circle.getY();
+		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
+			SimpleCircle resultCircle = new SimpleCircle((int) ((mX + circle.getX()) / 2),
+				(int) ((mY + circle.getY()) / 2), mRadius,
+				Utils.mergeColor(mColor, circle.getColor()));
+			resultCircle.setSpeed(new Speed((mSpeed.getVectorX() + circle.getSpeed().getVectorX()) / 2,
+				(mSpeed.getVectorY() + circle.getSpeed().getVectorY()) / 2));
+			return resultCircle;
+		}
+		return null;
 	}
 
 	public String centerToString() {

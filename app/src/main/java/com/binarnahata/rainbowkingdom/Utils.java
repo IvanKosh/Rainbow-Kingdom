@@ -137,6 +137,42 @@ public class Utils {
 	/* Математика */
 
 	/* Работа с цветами */
+	public static int mergeColor(int color1, int color2) {
+		if (color1 == Color.RED) {
+			if (color2 == Color.BLUE) {
+				return Color.MAGENTA;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.YELLOW;
+			}
+			if (color2 == Color.RED) {
+				return Color.RED;
+			}
+		}
+		if (color1 == Color.BLUE) {
+			if (color2 == Color.RED) {
+				return Color.MAGENTA;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.CYAN;
+			}
+			if (color2 == Color.BLUE) {
+				return Color.BLUE;
+			}
+		}
+		if (color1 == Color.GREEN) {
+			if (color2 == Color.RED) {
+				return Color.YELLOW;
+			}
+			if (color2 == Color.BLUE) {
+				return Color.CYAN;
+			}
+			if (color2 == Color.GREEN) {
+				return Color.GREEN;
+			}
+		}
+		return 0;
+	}
 	/* Работа с цветами */
 
 	/* МЕТОДЫ */
