@@ -114,6 +114,10 @@ public class Utils {
 		}
 		return null;
 	}
+
+	public static double distanceBetweenTwoPoint(DoublePoint start, DoublePoint end) {
+		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+	}
 	/* Математика */
 
 	/* МЕТОДЫ */

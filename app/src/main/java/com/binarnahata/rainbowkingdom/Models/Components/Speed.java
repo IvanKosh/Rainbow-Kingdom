@@ -52,5 +52,10 @@ public class Speed {
 	public void toUp() {
 		mVectorY = -Math.abs(mVectorY);
 	}
+
+	@Override
+	public String toString () {
+		return String.valueOf(mVectorX) + " " + String.valueOf(mVectorY);
+	}
 	/* МЕТОДЫ */
 }

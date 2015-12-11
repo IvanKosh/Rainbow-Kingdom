@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class RKFarm extends BH_SurfaceView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKFarm.class.getSimpleName();
-	public static final int MAXIMUM_SPEED = 1;
+	public static final int MAXIMUM_SPEED = 5;
 	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
 	public static final int START_COUNT_CIRCLES = 0;
 	private final Paint mPaint;
@@ -213,6 +213,7 @@ public class RKFarm extends BH_SurfaceView {
 			SimpleCircle circle = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
 			circle.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 			if (circle.getSpeed() != null) {
+				Log.d(TAG, circle.getSpeed().toString());
 				mCircles.add(circle);
 			}
 		}
@@ -232,9 +233,11 @@ public class RKFarm extends BH_SurfaceView {
 			new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(0, h)));
 
 		if (intersection == null) {
+			Log.d(TAG, "not left");
 			intersection = Utils.rayIntersection(ray,
 				new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(w, 0)));
 			if (intersection == null) {
+				Log.d(TAG, "not up");
 				intersection = Utils.rayIntersection(ray,
 					new Utils.Segment(new DoublePoint(w, 0), new DoublePoint(w, h)));
 			}
@@ -244,7 +247,16 @@ public class RKFarm extends BH_SurfaceView {
 			return null;
 		}
 
-		return new Speed(MAXIMUM_SPEED*(toX-t)/(intersection.x-t), MAXIMUM_SPEED*(toY-h)/(intersection.y-h));
+		Log.d(TAG, intersection.toString());
+
+		Log.d(TAG, String.valueOf(toX - t) + " " + String.valueOf(intersection.x - t));
+		Log.d(TAG, String.valueOf(toY-h) + " " + (intersection.y-h));
+
+		Log.d(TAG, intersection.toString());
+
+		double distance = Utils.distanceBetweenTwoPoint(new DoublePoint(t, h), intersection);
+
+		return new Speed(MAXIMUM_SPEED*(toX-t)/distance, MAXIMUM_SPEED*(h-toY)/distance);
 
 		/*int sX = w / 2;
 		int sY = h;
