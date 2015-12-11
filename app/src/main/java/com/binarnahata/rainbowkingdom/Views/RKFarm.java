@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
@@ -211,7 +212,9 @@ public class RKFarm extends BH_SurfaceView {
 			circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));*/
 			SimpleCircle circle = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
 			circle.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
-			mCircles.add(circle);
+			if (circle.getSpeed() != null) {
+				mCircles.add(circle);
+			}
 		}
 
 		if (mCircles.size() > MAXIMUM_NUMBER_OF_CIRCLES) {
@@ -222,7 +225,26 @@ public class RKFarm extends BH_SurfaceView {
 
 	private Speed calculationSpeedForNewCircle(float toX, float toY, int w, int h) {
 		int t = w / 2;
-		return new Speed(-MAXIMUM_SPEED*(t-toX)/t, -MAXIMUM_SPEED*(h-toY)/h);
+
+		Utils.Ray ray = new Utils.Ray(new DoublePoint(w/2, h), new DoublePoint(toX, toY));
+
+		DoublePoint intersection = Utils.rayIntersection(ray,
+			new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(0, h)));
+
+		if (intersection == null) {
+			intersection = Utils.rayIntersection(ray,
+				new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(w, 0)));
+			if (intersection == null) {
+				intersection = Utils.rayIntersection(ray,
+					new Utils.Segment(new DoublePoint(w, 0), new DoublePoint(w, h)));
+			}
+		}
+
+		if (intersection == null) {
+			return null;
+		}
+
+		return new Speed(MAXIMUM_SPEED*(toX-t)/(intersection.x-t), MAXIMUM_SPEED*(toY-h)/(intersection.y-h));
 
 		/*int sX = w / 2;
 		int sY = h;
