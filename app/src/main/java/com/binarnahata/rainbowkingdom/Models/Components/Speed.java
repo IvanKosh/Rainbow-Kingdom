@@ -1,9 +1,11 @@
 package com.binarnahata.rainbowkingdom.Models.Components;
 
+import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
-import com.binarnahata.rainbowkingdom.Libs.Rectangle;
+import com.binarnahata.rainbowkingdom.Libs.Ray;
+import com.binarnahata.rainbowkingdom.Libs.Segment;
 import com.binarnahata.rainbowkingdom.Utils;
 
 /**
@@ -40,21 +42,26 @@ public class Speed {
 	 * @param rectangle
 	 * @param target
 	 */
-	public static Speed getSpeedForShoot (Rectangle rectangle, DoublePoint target) {
-		double t = rectangle.width / 2 + rectangle.x;
-		double h = rectangle.height + rectangle.y;
+	public static Speed getSpeedForShoot (Rect rectangle, DoublePoint target) {
+		double t = rectangle.right / 2 + rectangle.left;
+		double h = rectangle.bottom + rectangle.top;
 
-		Utils.Ray ray = new Utils.Ray(new DoublePoint(t, h), target);
+		Point LeftBottomPoint = new Point(rectangle.left, rectangle.bottom);
+		Point LeftTopPoint = new Point(rectangle.left, rectangle.top);
+		Point RightTopPoint = new Point(rectangle.right, rectangle.top);
+		Point RightBottomPoint = new Point(rectangle.right, rectangle.bottom);
+
+		Ray ray = new Ray(new DoublePoint(t, h), target);
 
 		DoublePoint intersection = Utils.rayIntersection(ray,
-			new Utils.Segment(rectangle.getBottomLeftPoint(), rectangle.getTopLeftPoint()));
+			new Segment(LeftBottomPoint, LeftTopPoint));
 
 		if (intersection == null) {
 			intersection = Utils.rayIntersection(ray,
-				new Utils.Segment(rectangle.getTopLeftPoint(), rectangle.getTopRightPoint()));
+				new Segment(LeftTopPoint, RightTopPoint));
 			if (intersection == null) {
 				intersection = Utils.rayIntersection(ray,
-					new Utils.Segment(rectangle.getTopRightPoint(), rectangle.getBottomRightPoint()));
+					new Segment(RightTopPoint, RightBottomPoint));
 			}
 		}
 

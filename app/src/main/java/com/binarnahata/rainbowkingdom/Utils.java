@@ -1,11 +1,10 @@
 package com.binarnahata.rainbowkingdom;
 
 import android.graphics.Color;
-import android.graphics.Point;
 
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
-
-import java.util.Random;
+import com.binarnahata.rainbowkingdom.Libs.Ray;
+import com.binarnahata.rainbowkingdom.Libs.Segment;
 
 /**
  * RainbowKingdom
@@ -69,26 +68,6 @@ public class Utils {
 	/**
 	 * Пересечение луча и отрезка
 	 */
-	public static class Ray {
-		public DoublePoint start;
-		public DoublePoint point;
-
-		public Ray(DoublePoint start, DoublePoint point) {
-			this.start = start;
-			this.point = point;
-		}
-	}
-
-	public static class Segment {
-		public DoublePoint start;
-		public DoublePoint end;
-
-		public Segment(DoublePoint start, DoublePoint end) {
-			this.start = start;
-			this.end = end;
-		}
-	}
-
 	public static double[][] matrixCeilReplace(double[][] matrix, double[] replacement, int ceil){
 		for(int i = 0; i<replacement.length; i++){
 			matrix[i][ceil]=replacement[i];

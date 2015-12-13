@@ -3,6 +3,7 @@ package com.binarnahata.rainbowkingdom.Views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -10,7 +11,6 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
-import com.binarnahata.rainbowkingdom.Libs.Rectangle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
@@ -161,11 +161,16 @@ public class RKFarm extends BH_SurfaceView {
 	}
 
 	@Override
+	public void drawImage(Canvas canvas) {
+
+	}
+
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (mShoot == null) {
 				mShoot = new SimpleCircle(getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
-				mShoot.setSpeed(Speed.getSpeedForShoot(new Rectangle(0, 0, getWidth(), getHeight()), new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+				mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 				if (mShoot.getSpeed() == null) {
 					mShoot = null;
 				}

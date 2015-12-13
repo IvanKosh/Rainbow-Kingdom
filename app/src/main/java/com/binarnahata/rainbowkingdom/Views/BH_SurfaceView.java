@@ -39,5 +39,7 @@ public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolde
 	public void setAvgFps(String avgFps) {
 		mAvgFps = avgFps;
 	}
+
+	public abstract void drawImage(Canvas canvas);
 	/* МЕТОДЫ */
 }
