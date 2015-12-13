@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
+import com.binarnahata.rainbowkingdom.Libs.Rectangle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 public class RKFarm extends BH_SurfaceView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKFarm.class.getSimpleName();
-	public static final int MAXIMUM_SPEED = 5;
 	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
 	private final Paint mPaint;
 	private final Context mContext;
@@ -38,7 +38,6 @@ public class RKFarm extends BH_SurfaceView {
 	private Canvas mCanvas;
 
 	private int mRadius;
-	private int mDiameter;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -57,22 +56,21 @@ public class RKFarm extends BH_SurfaceView {
 		mGameLoopThread.start();
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
-		mDiameter = mRadius << 1;
 
 
 		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
-		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.GREEN);
-		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
-		circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 	}
 
@@ -140,15 +138,6 @@ public class RKFarm extends BH_SurfaceView {
 		}
 	}
 
-	private boolean canMerge(int color1, int color2) {
-		if (color1 == Color.RED || color1 == Color.BLUE || color1 == Color.GREEN) {
-			if (color2 == Color.RED || color2 == Color.BLUE || color2 == Color.GREEN) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public void render(Canvas canvas) {
 		mCanvas = canvas;
@@ -156,12 +145,6 @@ public class RKFarm extends BH_SurfaceView {
 		mCanvas.drawColor(Color.WHITE);
 
 		for (SimpleCircle circle : mCircles) {
-			/*String temp = new String();
-			temp += String.valueOf(circle.getX());
-			temp += " " + String.valueOf(circle.getY());
-			temp += " " + String.valueOf(circle.getRadius());
-			temp += " " + String.valueOf(circle.getColor());
-			Log.d(TAG, temp);*/
 			mPaint.setColor(circle.getColor());
 			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
 		}
@@ -169,14 +152,6 @@ public class RKFarm extends BH_SurfaceView {
 			mPaint.setColor(mShoot.getColor());
 			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
 		}
-		/*for (SimpleCircle circle : mCircles) {
-			Log.d(TAG, String.valueOf(circle.getX()) + " " + String.valueOf(circle.getY()));
-		}*/
-		/*mCanvas.drawColor(Color.BLACK);
-		for (SimpleCircle circle : mCircles) {
-			drawCircle(circle);
-			Log.d(TAG, "drawCircle1");
-		}*/
 	}
 
 	@Override
@@ -188,10 +163,12 @@ public class RKFarm extends BH_SurfaceView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			mShoot = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
-			mShoot.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
-			if (mShoot.getSpeed() == null) {
-				mShoot = null;
+			if (mShoot == null) {
+				mShoot = new SimpleCircle(getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
+				mShoot.setSpeed(Speed.getSpeedForShoot(new Rectangle(0, 0, getWidth(), getHeight()), new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+				if (mShoot.getSpeed() == null) {
+					mShoot = null;
+				}
 			}
 		}
 
@@ -199,32 +176,6 @@ public class RKFarm extends BH_SurfaceView {
 			((RKMainActivity)mContext).runFragment(new MenuFragment());
 		}
 		return true;
-	}
-
-	private Speed calculationSpeedForNewCircle(float toX, float toY, int w, int h) {
-		int t = w / 2;
-
-		Utils.Ray ray = new Utils.Ray(new DoublePoint(w/2, h), new DoublePoint(toX, toY));
-
-		DoublePoint intersection = Utils.rayIntersection(ray,
-			new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(0, h)));
-
-		if (intersection == null) {
-			intersection = Utils.rayIntersection(ray,
-				new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(w, 0)));
-			if (intersection == null) {
-				intersection = Utils.rayIntersection(ray,
-					new Utils.Segment(new DoublePoint(w, 0), new DoublePoint(w, h)));
-			}
-		}
-
-		if (intersection == null) {
-			return null;
-		}
-
-		double distance = Utils.distanceBetweenTwoPoint(new DoublePoint(t, h), intersection);
-
-		return new Speed(MAXIMUM_SPEED*(toX-t)/distance, MAXIMUM_SPEED*(h-toY)/distance);
 	}
 	/* МЕТОДЫ */
 }
