@@ -17,7 +17,7 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class GamePanel {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = GamePanel.class.getSimpleName();
-	public static final String TEXT_BALLS_N = "Balls: N";
+	public static final String TEXT_BALLS_N = "Balls: ";
 
 	private final Bitmap mFon;
 	private final Bitmap mForLeft;
@@ -31,20 +31,21 @@ public class GamePanel {
 	private Rect mRectForLeft;
 	private Rect mRectForRight;
 
-	private int mBallsPosX;
-	private int mBallsPosY;
+	private int mAvailableBalls;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public GamePanel(Rect dstRect, Bitmap fon, Bitmap forLeft, Bitmap forRight) {
+	public GamePanel(Rect dstRect, Bitmap fon, Bitmap forLeft, Bitmap forRight, int availableBalls) {
 		mFon = fon;
 		mForLeft = forLeft;
 		mForRight = forRight;
+		mAvailableBalls = availableBalls;
 		mTextSize = dstRect.height() >> 1;
 
 		mPaint = new Paint();
-		mPaint.setColor(Color.BLACK);
+		mPaint.setColor(Color.WHITE);
 		mPaint.setTextAlign(Paint.Align.CENTER);
 		mPaint.setTextSize(mTextSize);
 
@@ -57,10 +58,6 @@ public class GamePanel {
 
 		mRectForLeft = new Rect(centerRect.left, centerRect.top, centerRect.left, centerRect.right + forLeft.getWidth());
 		mRectForRight = new Rect(centerRect.right - forRight.getWidth(), centerRect.top, centerRect.right-forRight.getWidth(), centerRect.bottom);
-
-		mBallsPosX = (mRectForRight.width() / 2);
-		mBallsPosY = (int) ((mRectForRight.height() / 2) - ((mPaint.descent() + mPaint.ascent()) / 2)) ;
-
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -71,7 +68,7 @@ public class GamePanel {
 		canvas.drawBitmap(mFon, null, mRectRight, null);
 
 		//canvas.drawText(TEXT_BALLS_N, mRectRight.centerX(), mRectRight.centerY(), mPaint);
-		drawCenter(canvas, TEXT_BALLS_N);
+		drawCenter(canvas, TEXT_BALLS_N + mAvailableBalls);
 	}
 
 	private void drawCenter(Canvas canvas, String text) {

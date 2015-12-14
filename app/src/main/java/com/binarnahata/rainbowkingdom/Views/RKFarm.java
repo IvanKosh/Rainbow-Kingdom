@@ -88,7 +88,8 @@ public class RKFarm extends BH_SurfaceView {
 		mGamePanel = new GamePanel(new Rect(mRectField.left, mRectField.bottom, getWidth(), getHeight()),//mRectField,
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
-			BitmapFactory.decodeResource(getResources(), R.drawable.for_right));
+			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
+			7);
 	}
 
 	@Override
