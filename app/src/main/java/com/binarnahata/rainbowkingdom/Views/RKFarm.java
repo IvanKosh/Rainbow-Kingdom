@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
+import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.GamePanel;
@@ -36,15 +38,15 @@ public class RKFarm extends BH_SurfaceView {
 	private final Paint mPaint;
 	private final Context mContext;
 	private GameLoop mGameLoopThread;
-	private ArrayList<SimpleCircle> mCircles;
-	private SimpleCircle mShoot;
+	private ArrayList<BitmapCircle> mCircles;
+	private BitmapCircle mShoot;
 	private Canvas mCanvas;
 	private GamePanel mGamePanel;
 
 	private int mRadius;
 	private int mDiameter;
 	private Rect mRectField;
-
+	private Bitmap mBall;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -66,17 +68,19 @@ public class RKFarm extends BH_SurfaceView {
 		mDiameter = mRadius << 1;
 		mRectField = new Rect(0, 0, getWidth(), getHeight()-mDiameter);
 
-		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+
+		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.GREEN);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
+		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
@@ -85,6 +89,9 @@ public class RKFarm extends BH_SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right));
+
+		/*testCircle = new BitmapCircle(
+			BitmapFactory.decodeResource(getResources(), R.drawable.ball), 100, 100, mRadius, Color.RED);*/
 	}
 
 	@Override
@@ -134,7 +141,7 @@ public class RKFarm extends BH_SurfaceView {
 
 			for (SimpleCircle circle : mCircles) {
 				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
-					SimpleCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
+					BitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
 						mCircles.add(tempCircle);
 						mCircles.remove(circle);
@@ -157,13 +164,11 @@ public class RKFarm extends BH_SurfaceView {
 
 		mCanvas.drawColor(Color.WHITE);
 
-		for (SimpleCircle circle : mCircles) {
-			mPaint.setColor(circle.getColor());
-			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
+		for (BitmapCircle circle : mCircles) {
+			circle.draw(mCanvas, mPaint);
 		}
 		if (mShoot != null) {
-			mPaint.setColor(mShoot.getColor());
-			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
+			mShoot.draw(mCanvas, mPaint);
 		}
 
 		mGamePanel.draw(canvas);
@@ -184,7 +189,7 @@ public class RKFarm extends BH_SurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (mShoot == null) {
-				mShoot = new SimpleCircle(getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
+				mShoot = new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 				if (mShoot.getSpeed() == null) {
 					mShoot = null;

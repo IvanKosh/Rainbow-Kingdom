@@ -17,12 +17,12 @@ public class SimpleCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = SimpleCircle.class.getSimpleName();
 
-	private float mX;
-	private float mY;
-	private int mRadius;
-	private int mDiameter;
-	private int mColor;
-	private Speed mSpeed;
+	protected float mX;
+	protected float mY;
+	protected int mRadius;
+	protected int mDiameter;
+	protected int mColor;
+	protected Speed mSpeed;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public float getX() {
