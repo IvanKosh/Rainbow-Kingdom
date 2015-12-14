@@ -64,7 +64,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
-		mRectField = new Rect(0, getHeight()-mDiameter, getWidth(), getHeight());
+		mRectField = new Rect(0, 0, getWidth(), getHeight()-mDiameter);
 
 		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
@@ -81,7 +81,7 @@ public class RKFarm extends BH_SurfaceView {
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		mGamePanel = new GamePanel(mRectField,
+		mGamePanel = new GamePanel(new Rect(mRectField.left, mRectField.bottom, getWidth(), getHeight()),//mRectField,
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right));
@@ -117,7 +117,7 @@ public class RKFarm extends BH_SurfaceView {
 		// движение по плоскости
 		for (SimpleCircle circle : mCircles) {
 			circle.moveOneStep();
-			circle.checkBounds(getWidth(), getHeight());
+			circle.checkBounds(mRectField);
 		}
 
 		// разрешение коллизии между шарами
@@ -130,7 +130,7 @@ public class RKFarm extends BH_SurfaceView {
 		// движение выстрела и
 		if (mShoot != null) {
 			mShoot.moveOneStep();
-			mShoot.checkBounds(getWidth(), getHeight());
+			mShoot.checkBounds(mRectField);
 
 			for (SimpleCircle circle : mCircles) {
 				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {

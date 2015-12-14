@@ -1,5 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models;
 
+import android.graphics.Rect;
+
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Utils;
@@ -67,21 +69,21 @@ public class SimpleCircle {
 		mY += mSpeed.getVectorY();
 	}
 
-	public void checkBounds(int width, int height) {
-		if (mX < 0) {
+	public void checkBounds(Rect bounds/*int width, int height*/) {
+		if (mX < bounds.left) {
 			// нужно увеличивать X
 			mSpeed.toRight();
 		}
-		if (width < mX) {
+		if (bounds.right < mX) {
 			// нужно уменьшать X
 			mSpeed.toLeft();
 		}
 
-		if (mY < 0) {
+		if (mY < bounds.top) {
 			// нужно увеличивать Y
 			mSpeed.toDown();
 		}
-		if (height < mY) {
+		if (bounds.bottom < mY) {
 			// нужно уменьшать Y
 			mSpeed.toUp();
 		}
