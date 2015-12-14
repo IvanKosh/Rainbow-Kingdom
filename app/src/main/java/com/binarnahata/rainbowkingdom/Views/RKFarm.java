@@ -89,9 +89,6 @@ public class RKFarm extends BH_SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right));
-
-		/*testCircle = new BitmapCircle(
-			BitmapFactory.decodeResource(getResources(), R.drawable.ball), 100, 100, mRadius, Color.RED);*/
 	}
 
 	@Override
