@@ -144,5 +144,10 @@ public class SimpleCircle {
 	public String centerToString() {
 		return "Center:(" + String.valueOf(mX) + ", " + String.valueOf(mY) + ")";
 	}
+
+	public void offset(int dx, int dy) {
+		mX += dx;
+		mY += dy;
+	}
 	/* МЕТОДЫ */
 }

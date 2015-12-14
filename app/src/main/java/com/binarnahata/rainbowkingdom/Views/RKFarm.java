@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
+import com.binarnahata.rainbowkingdom.Models.BallPool;
 import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
@@ -47,6 +49,8 @@ public class RKFarm extends BH_SurfaceView {
 	private int mDiameter;
 	private Rect mRectField;
 	private Bitmap mBall;
+	private BallPool mBallPool;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -90,6 +94,8 @@ public class RKFarm extends BH_SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
 			7);
+
+		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
 	}
 
 	@Override
@@ -132,7 +138,7 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 
-		// движение выстрела и
+		// движение и коллизия выстрела
 		if (mShoot != null) {
 			mShoot.moveOneStep();
 			mShoot.checkBounds(mRectField);
@@ -154,6 +160,8 @@ public class RKFarm extends BH_SurfaceView {
 				}
 			}
 		}
+
+		mBallPool.update();
 	}
 
 	@Override
@@ -169,25 +177,15 @@ public class RKFarm extends BH_SurfaceView {
 			mShoot.draw(mCanvas, mPaint);
 		}
 
+		mBallPool.draw(canvas, mPaint);
 		mGamePanel.draw(canvas);
-	}
-
-	@Override
-	public void drawCircle(SimpleCircle circle) {
-		mPaint.setColor(circle.getColor());
-		mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
-	}
-
-	@Override
-	public void drawImage(Canvas canvas) {
-
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (mShoot == null) {
-				mShoot = new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
+				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 				if (mShoot.getSpeed() == null) {
 					mShoot = null;
