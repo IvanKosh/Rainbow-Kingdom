@@ -43,6 +43,7 @@ public class RKFarm extends BH_SurfaceView {
 
 	private int mRadius;
 	private int mDiameter;
+	private Rect mRectField;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -63,6 +64,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
+		mRectField = new Rect(0, getHeight()-mDiameter, getWidth(), getHeight());
 
 		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
@@ -79,9 +81,10 @@ public class RKFarm extends BH_SurfaceView {
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		mGamePanel = new GamePanel(
+		mGamePanel = new GamePanel(mRectField,
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
-			BitmapFactory.decodeResource(getResources(), R.drawable.gun));
+			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
+			BitmapFactory.decodeResource(getResources(), R.drawable.for_right));
 	}
 
 	@Override
@@ -163,7 +166,7 @@ public class RKFarm extends BH_SurfaceView {
 			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
 		}
 
-		mGamePanel.draw(canvas, new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()));
+		mGamePanel.draw(canvas);
 	}
 
 	@Override
