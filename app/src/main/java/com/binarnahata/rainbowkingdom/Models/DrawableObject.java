@@ -1,5 +1,8 @@
 package com.binarnahata.rainbowkingdom.Models;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+
 /**
  * RainbowKingdom
  * Created on 13.12.15, 15:58
@@ -29,6 +32,6 @@ public abstract class DrawableObject {
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public abstract void draw(float x, float y, float scaleX, float scaleY);
+	public abstract void draw(Canvas canvas, Rect dstRect);
 	/* МЕТОДЫ */
 }

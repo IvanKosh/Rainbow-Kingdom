@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Views;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -13,7 +14,9 @@ import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
+import com.binarnahata.rainbowkingdom.Models.GamePanel;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
+import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Utils;
 
@@ -36,8 +39,11 @@ public class RKFarm extends BH_SurfaceView {
 	private ArrayList<SimpleCircle> mCircles;
 	private SimpleCircle mShoot;
 	private Canvas mCanvas;
+	private GamePanel mGamePanel;
 
 	private int mRadius;
+	private int mDiameter;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -56,7 +62,7 @@ public class RKFarm extends BH_SurfaceView {
 		mGameLoopThread.start();
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
-
+		mDiameter = mRadius << 1;
 
 		SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
 			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
@@ -72,6 +78,10 @@ public class RKFarm extends BH_SurfaceView {
 			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
+
+		mGamePanel = new GamePanel(
+			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
+			BitmapFactory.decodeResource(getResources(), R.drawable.gun));
 	}
 
 	@Override
@@ -152,6 +162,8 @@ public class RKFarm extends BH_SurfaceView {
 			mPaint.setColor(mShoot.getColor());
 			mCanvas.drawCircle(mShoot.getX(), mShoot.getY(), mShoot.getRadius(), mPaint);
 		}
+
+		mGamePanel.draw(canvas, new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()));
 	}
 
 	@Override
