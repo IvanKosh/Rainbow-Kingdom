@@ -54,6 +54,10 @@ public class SimpleCircle {
 	public void setY(float y) {
 		mY = y;
 	}
+
+	public void setColor(int color) {
+		mColor = color;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public SimpleCircle(int x, int y, int radius, int color) {

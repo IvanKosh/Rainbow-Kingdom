@@ -39,6 +39,16 @@ public class BitmapCircle extends SimpleCircle {
 			null);
 	}
 
+	public void drawScale(Canvas canvas, Paint paint, float scale) {
+		paint.setColor(mColor);
+		float r = mRadius * scale;
+		canvas.drawCircle(mX, mY, r, paint);
+		canvas.drawBitmap(mBitmap, null,
+			new Rect((int) (mX - r), (int) (mY-r),
+				(int) (mX+r), (int)(mY+r)),
+			null);
+	}
+
 	@Override
 	public BitmapCircle checkCollisionsAndMerge(SimpleCircle circle) {
 		double dx = mX-circle.getX();

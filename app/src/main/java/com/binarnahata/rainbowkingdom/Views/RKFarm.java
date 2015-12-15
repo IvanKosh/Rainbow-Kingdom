@@ -19,6 +19,7 @@ import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.GamePanel;
+import com.binarnahata.rainbowkingdom.Models.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
@@ -50,6 +51,7 @@ public class RKFarm extends BH_SurfaceView {
 	private Rect mRectField;
 	private Bitmap mBall;
 	private BallPool mBallPool;
+	private ResourceDisplay mResourceDisplay;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -96,6 +98,7 @@ public class RKFarm extends BH_SurfaceView {
 			7);
 
 		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
+		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
 	}
 
 	@Override
@@ -179,6 +182,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		mBallPool.draw(canvas, mPaint);
 		mGamePanel.draw(canvas);
+		mResourceDisplay.draw(canvas, mPaint);
 	}
 
 	@Override

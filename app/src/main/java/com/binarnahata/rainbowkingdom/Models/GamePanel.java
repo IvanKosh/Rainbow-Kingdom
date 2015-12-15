@@ -25,8 +25,8 @@ public class GamePanel {
 	private final Paint mPaint;
 	private final int mTextSize;
 
-	private Rect mRectLeft;
-	private Rect mRectRight;
+	public Rect mRectLeft;
+	public Rect mRectRight;
 
 	private Rect mRectForLeft;
 	private Rect mRectForRight;
