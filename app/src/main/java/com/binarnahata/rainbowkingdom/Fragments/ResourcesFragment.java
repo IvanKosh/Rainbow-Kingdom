@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.R;
@@ -86,6 +87,9 @@ public class ResourcesFragment extends Fragment {
 			TextView local_red = (TextView) view.findViewById(R.id.local_yellow);
 				local_red.setText("Yellow: " + check);
 		}
+
+		TableLayout global = (TableLayout) view.findViewById(R.id.global_table);
+		global.setVisibility(View.INVISIBLE);
 
 		return view;
 	}
