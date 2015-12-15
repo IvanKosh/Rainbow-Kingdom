@@ -152,6 +152,30 @@ public class RKFarm extends BH_SurfaceView {
 					if (tempCircle != null) {
 						mCircles.add(tempCircle);
 						mCircles.remove(circle);
+
+						if (tempCircle.getColor() == circle.getColor()) {
+							switch (tempCircle.getColor()) {
+								case Color.RED:
+									mResourceDisplay.setRed();
+									break;
+								case Color.GREEN:
+									mResourceDisplay.setGreed();
+									break;
+								case Color.BLUE:
+									mResourceDisplay.setBlue();
+									break;
+								case Color.CYAN:
+									mResourceDisplay.setCyan();
+									break;
+								case Color.MAGENTA:
+									mResourceDisplay.setMagenta();
+									break;
+								case Color.YELLOW:
+									mResourceDisplay.setYellow();
+									break;
+							}
+						}
+
 						mShoot = null;
 						break;
 					}

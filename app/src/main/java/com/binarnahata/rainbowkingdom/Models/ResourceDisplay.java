@@ -24,6 +24,11 @@ public class ResourceDisplay {
 	private Rect mField;
 
 	public DisplayAmount red;
+	public DisplayAmount green;
+	public DisplayAmount blue;
+	public DisplayAmount cyan;
+	public DisplayAmount magenta;
+	public DisplayAmount yellow;
 
 	public DisplayAmount now;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -40,6 +45,11 @@ public class ResourceDisplay {
 		mAmountX = radius << 2;
 
 		red = new DisplayAmount();
+		green = new DisplayAmount();
+		blue = new DisplayAmount();
+		cyan = new DisplayAmount();
+		magenta = new DisplayAmount();
+		yellow = new DisplayAmount();
 
 		now = red;
 
@@ -53,6 +63,42 @@ public class ResourceDisplay {
 	public void draw(Canvas canvas, Paint paint) {
 		mCircle.drawScale(canvas, paint, 0.75f);
 		now.display(canvas, mAmountX, mCenterY);
+	}
+
+	public void setRed() {
+		now = red;
+		mCircle.setColor(Color.RED);
+		now.amount++;
+	}
+
+	public void setGreed() {
+		now = green;
+		mCircle.setColor(Color.GREEN);
+		now.amount++;
+	}
+
+	public void setBlue() {
+		now = blue;
+		mCircle.setColor(Color.BLUE);
+		now.amount++;
+	}
+
+	public void setCyan() {
+		now = cyan;
+		mCircle.setColor(Color.CYAN);
+		now.amount++;
+	}
+
+	public void setMagenta() {
+		now = magenta;
+		mCircle.setColor(Color.MAGENTA);
+		now.amount++;
+	}
+
+	public void setYellow() {
+		now = yellow;
+		mCircle.setColor(Color.YELLOW);
+		now.amount++;
 	}
 	/* МЕТОДЫ */
 }
