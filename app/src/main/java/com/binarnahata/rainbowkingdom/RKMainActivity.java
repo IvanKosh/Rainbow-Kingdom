@@ -1,23 +1,20 @@
 package com.binarnahata.rainbowkingdom;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.SurfaceView;
 
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+
+import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
-
-	private SharedPreferences mSettings;
-	private SharedPreferences.Editor mEditor;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -67,23 +64,17 @@ public class RKMainActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}*/
 	public void runFragment(Fragment newFragment) {
-		Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment);
-		if (fragment == null) {
-			mFragmentManager.beginTransaction()
-				.add(R.id.fragment, newFragment)
-				.commit();
+		List<Fragment> fragmentList = mFragmentManager.getFragments();
+		if (fragmentList != null) {
+			for (Fragment fragment : fragmentList) {
+				mFragmentManager.beginTransaction()
+					.remove(fragment)
+					.commit();
+			}
 		}
-		else {
-			mFragmentManager.beginTransaction()
-				.remove(fragment)
-				.add(R.id.fragment, newFragment)
-				.commit();
-		}
-	}
-
-	public void setGame(SurfaceView engine) {
-		Log.d(TAG, "setGame");
-		setContentView(engine);
+		mFragmentManager.beginTransaction()
+			.add(R.id.fragment, newFragment)
+			.commit();
 	}
 	/* МЕТОДЫ */
 }

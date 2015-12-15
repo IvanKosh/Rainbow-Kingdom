@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
+import com.binarnahata.rainbowkingdom.Fragments.GameFragment;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
@@ -231,7 +232,7 @@ public class RKFarm extends BH_SurfaceView {
 				mResourceDisplay.magenta.amount,
 				mResourceDisplay.yellow.amount
 				);
-			((RKMainActivity) mContext).runFragment(new MenuFragment());
+			((RKMainActivity)mContext).runFragment(new MenuFragment());
 		}
 		return true;
 	}

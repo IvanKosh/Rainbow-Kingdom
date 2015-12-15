@@ -32,5 +32,8 @@ public class GameFragment extends Fragment {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	public void doBack() {
+
+	}
 	/* МЕТОДЫ */
 }
