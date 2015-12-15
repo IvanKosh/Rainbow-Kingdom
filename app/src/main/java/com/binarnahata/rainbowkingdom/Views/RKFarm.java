@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Models.BallPool;
 import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
@@ -222,7 +223,15 @@ public class RKFarm extends BH_SurfaceView {
 		}
 
 		if (mCircles.size() > MAXIMUM_NUMBER_OF_CIRCLES) {
-			((RKMainActivity)mContext).runFragment(new MenuFragment());
+			ResourcesFragment.offsetAmounts(getContext(),
+				mResourceDisplay.red.amount,
+				mResourceDisplay.green.amount,
+				mResourceDisplay.blue.amount,
+				mResourceDisplay.cyan.amount,
+				mResourceDisplay.magenta.amount,
+				mResourceDisplay.yellow.amount
+				);
+			((RKMainActivity) mContext).runFragment(new MenuFragment());
 		}
 		return true;
 	}
