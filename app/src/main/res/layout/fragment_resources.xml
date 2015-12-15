@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center_horizontal">
+
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TableRow
+			android:gravity="center">
+			<TextView
+				android:padding="@dimen/fab_margin"
+				android:gravity="center"
+				android:text="Local"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:gravity="center">
+			<TextView
+				android:id="@+id/local_red"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="RED"
+				android:layout_width="match_parent"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/local_cyan"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="CYAN"
+				android:layout_width="match_parent"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:layout_width="match_parent"
+			android:gravity="center">
+			<TextView
+				android:id="@+id/local_green"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="GREEN"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/local_magenta"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="MAGENTA"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:layout_width="match_parent"
+			android:gravity="center">
+			<TextView
+				android:id="@+id/local_blue"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="BLUE"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/local_yellow"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="YELLOW"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+	</TableLayout>
+
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TableRow
+			android:gravity="center">
+			<TextView
+				android:padding="@dimen/fab_margin"
+				android:gravity="center"
+				android:text="Global"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:gravity="center">
+			<TextView
+				android:id="@+id/global_red"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="RED"
+				android:layout_width="match_parent"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/global_cyan"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="CYAN"
+				android:layout_width="match_parent"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:layout_width="match_parent"
+			android:gravity="center">
+			<TextView
+				android:id="@+id/global_green"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="GREEN"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/global_magenta"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="MAGENTA"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+		<TableRow
+			android:layout_width="match_parent"
+			android:gravity="center">
+			<TextView
+				android:id="@+id/global_blue"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="BLUE"
+				android:minWidth="@dimen/minWidth"/>
+			<TextView
+				android:id="@+id/global_yellow"
+				android:gravity="center"
+				android:padding="@dimen/fab_margin"
+				android:text="YELLOW"
+				android:minWidth="@dimen/minWidth"/>
+		</TableRow>
+
+	</TableLayout>
+
+</LinearLayout>

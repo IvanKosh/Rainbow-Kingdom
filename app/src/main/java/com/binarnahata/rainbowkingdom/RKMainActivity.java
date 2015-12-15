@@ -1,5 +1,6 @@
 package com.binarnahata.rainbowkingdom;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,11 +9,15 @@ import android.util.Log;
 import android.view.SurfaceView;
 
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 
 public class RKMainActivity extends AppCompatActivity {
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
+
+	private SharedPreferences mSettings;
+	private SharedPreferences.Editor mEditor;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -36,6 +41,7 @@ public class RKMainActivity extends AppCompatActivity {
 					.setAction("Action", null).show();
 			}
 		});*/
+		ResourcesFragment.initSettings(this);
 	}
 
 	/*@Override
