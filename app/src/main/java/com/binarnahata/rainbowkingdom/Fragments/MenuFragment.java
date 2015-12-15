@@ -43,6 +43,16 @@ public class MenuFragment extends Fragment {
 			}
 		});
 
+		Button resources = (Button) view.findViewById(R.id.resources_button);
+		resources.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).runFragment(new ResourcesFragment());
+				}
+			}
+		});
+
 		return view;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

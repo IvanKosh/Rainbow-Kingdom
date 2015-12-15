@@ -1,18 +1,28 @@
 package com.binarnahata.rainbowkingdom.Views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
+import com.binarnahata.rainbowkingdom.Models.BallPool;
+import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
+import com.binarnahata.rainbowkingdom.Models.GamePanel;
+import com.binarnahata.rainbowkingdom.Models.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
+import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Utils;
 
@@ -28,17 +38,21 @@ import java.util.ArrayList;
 public class RKFarm extends BH_SurfaceView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKFarm.class.getSimpleName();
-	public static final int MAXIMUM_SPEED = 5;
 	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
-	public static final int START_COUNT_CIRCLES = 0;
 	private final Paint mPaint;
 	private final Context mContext;
 	private GameLoop mGameLoopThread;
-	private ArrayList<SimpleCircle> mCircles;
+	private ArrayList<BitmapCircle> mCircles;
+	private BitmapCircle mShoot;
 	private Canvas mCanvas;
+	private GamePanel mGamePanel;
 
 	private int mRadius;
 	private int mDiameter;
+	private Rect mRectField;
+	private Bitmap mBall;
+	private BallPool mBallPool;
+	private ResourceDisplay mResourceDisplay;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -47,7 +61,6 @@ public class RKFarm extends BH_SurfaceView {
 	public RKFarm(Context context) {
 		super(context);
 		mContext = context;
-		Log.d(TAG, "create");
 		mGameLoopThread = new GameLoop(getHolder(), this);
 		mCircles = new ArrayList<>();
 		mPaint = new Paint();
@@ -60,17 +73,33 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
+		mRectField = new Rect(0, 0, getWidth(), getHeight()-mDiameter);
 
-		Log.d(TAG, String.valueOf(getHeight()));
-		Log.d(TAG, String.valueOf(getWidth()));
+		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
-		// TODO: delete
-		for (int i = 0; i < START_COUNT_CIRCLES; i++) {
-			SimpleCircle circle = new SimpleCircle(Utils.rndInt(0, getWidth()),
-				Utils.rndInt(0, getHeight()), mRadius, Utils.rndColor());
-			circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));
-			mCircles.add(circle);
-		}
+		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		mCircles.add(circle);
+
+		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.GREEN);
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		mCircles.add(circle);
+
+		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
+			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
+		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		mCircles.add(circle);
+
+		mGamePanel = new GamePanel(new Rect(mRectField.left, mRectField.bottom, getWidth(), getHeight()),//mRectField,
+			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
+			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
+			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
+			7);
+
+		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
+		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
 	}
 
 	@Override
@@ -100,73 +129,67 @@ public class RKFarm extends BH_SurfaceView {
 
 	@Override
 	public void update() {
+		// движение по плоскости
 		for (SimpleCircle circle : mCircles) {
 			circle.moveOneStep();
-			checkBounds(circle);
+			circle.checkBounds(mRectField);
 		}
 
-		for (SimpleCircle circle1 : mCircles) {
-			SimpleCircle circle2;
-			for (int i = mCircles.indexOf(circle1) + 1; i < mCircles.size(); i++) {
-				circle2 = mCircles.get(i);
-
-				checkCirclesCollisionsAndSetNewOptions(circle1, circle2);
+		// разрешение коллизии между шарами
+		for (SimpleCircle circle : mCircles) {
+			for (int i = mCircles.indexOf(circle) + 1; i < mCircles.size(); i++) {
+				circle.checkCollisionsAndSetNewOptions(mCircles.get(i));
 			}
 		}
-	}
 
-	private void checkCirclesCollisionsAndSetNewOptions(SimpleCircle circle1, SimpleCircle circle2) {
-		double dx = circle1.getX()-circle2.getX();
-		double dy = circle1.getY()-circle2.getY();
-		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
-			// вычисление новых параметров
-			double p1 = dx * dy / Math.pow(distanceBetweenCircles, 2);
-			double p2 = Math.pow(dx / distanceBetweenCircles, 2);
-			double p3 = Math.pow(dy / distanceBetweenCircles, 2);
+		// движение и коллизия выстрела
+		if (mShoot != null) {
+			mShoot.moveOneStep();
+			mShoot.checkBounds(mRectField);
 
-			double d1 = circle1.getSpeed().getVectorY() * p1
-				+ circle1.getSpeed().getVectorX() * p2
-				- circle2.getSpeed().getVectorY() * p1
-				- circle2.getSpeed().getVectorX() * p2;
-			double d2 = circle1.getSpeed().getVectorX() * p1
-				+ circle1.getSpeed().getVectorY() * p3
-				- circle2.getSpeed().getVectorX() * p1
-				- circle2.getSpeed().getVectorY() * p3;
+			for (SimpleCircle circle : mCircles) {
+				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
+					BitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
+					if (tempCircle != null) {
+						mCircles.add(tempCircle);
+						mCircles.remove(circle);
 
-			// изменение направления движения
-			circle1.setSpeed(new Speed(circle1.getSpeed().getVectorX() - d1, circle1.getSpeed().getVectorY() - d2));
-			circle2.setSpeed(new Speed(circle2.getSpeed().getVectorX() + d1, circle2.getSpeed().getVectorY() + d2));
+						if (tempCircle.getColor() == circle.getColor()) {
+							switch (tempCircle.getColor()) {
+								case Color.RED:
+									mResourceDisplay.setRed();
+									break;
+								case Color.GREEN:
+									mResourceDisplay.setGreed();
+									break;
+								case Color.BLUE:
+									mResourceDisplay.setBlue();
+									break;
+								case Color.CYAN:
+									mResourceDisplay.setCyan();
+									break;
+								case Color.MAGENTA:
+									mResourceDisplay.setMagenta();
+									break;
+								case Color.YELLOW:
+									mResourceDisplay.setYellow();
+									break;
+							}
+						}
 
-			// при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-			p3 = (mDiameter - distanceBetweenCircles) / 2; //при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-			p1 = p3 * (dx / distanceBetweenCircles);
-			p2 = p3 * (dy / distanceBetweenCircles);
-			circle1.setX((float) (circle1.getX() + p1));
-			circle1.setY((float) (circle1.getY() + p2));
-			circle2.setX((float) (circle2.getX() - p1));
-			circle2.setY((float) (circle2.getY() - p2));
+						mShoot = null;
+						break;
+					}
+				}
+				if (mShoot.checkCollisionsAndSetNewOptions(circle)) {
+					mCircles.add(mShoot);
+					mShoot = null;
+					break; //TODO: можно ли так?
+				}
+			}
 		}
-	}
 
-	private void checkBounds(SimpleCircle circle) {
-		if (circle.getX() < 0) {
-			// нужно увеличивать X
-			circle.getSpeed().toRight();
-		}
-		if (getWidth() < circle.getX()) {
-			// нужно уменьшать X
-			circle.getSpeed().toLeft();
-		}
-
-		if (circle.getY() < 0) {
-			// нужно увеличивать Y
-			circle.getSpeed().toDown();
-		}
-		if (getHeight() < circle.getY()) {
-			// нужно уменьшать Y
-			circle.getSpeed().toUp();
-		}
+		mBallPool.update();
 	}
 
 	@Override
@@ -175,106 +198,42 @@ public class RKFarm extends BH_SurfaceView {
 
 		mCanvas.drawColor(Color.WHITE);
 
-		for (SimpleCircle circle : mCircles) {
-			/*String temp = new String();
-			temp += String.valueOf(circle.getX());
-			temp += " " + String.valueOf(circle.getY());
-			temp += " " + String.valueOf(circle.getRadius());
-			temp += " " + String.valueOf(circle.getColor());
-			Log.d(TAG, temp);*/
-			mPaint.setColor(circle.getColor());
-			mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
+		for (BitmapCircle circle : mCircles) {
+			circle.draw(mCanvas, mPaint);
+		}
+		if (mShoot != null) {
+			mShoot.draw(mCanvas, mPaint);
 		}
 
-		/*for (SimpleCircle circle : mCircles) {
-			Log.d(TAG, String.valueOf(circle.getX()) + " " + String.valueOf(circle.getY()));
-		}*/
-		/*mCanvas.drawColor(Color.BLACK);
-		for (SimpleCircle circle : mCircles) {
-			drawCircle(circle);
-			Log.d(TAG, "drawCircle1");
-		}*/
-	}
-
-	@Override
-	public void drawCircle(SimpleCircle circle) {
-		mPaint.setColor(circle.getColor());
-		mCanvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), mPaint);
+		mBallPool.draw(canvas, mPaint);
+		mGamePanel.draw(canvas);
+		mResourceDisplay.draw(canvas, mPaint);
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		Log.d(TAG, String.valueOf(event.getX()) + " " + String.valueOf(event.getY()));
-
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			/*SimpleCircle circle = new SimpleCircle((int)event.getX(),
-				(int)event.getY(), mRadius, Utils.rndColor());
-			circle.setSpeed(new Speed(Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED), Utils.rndFlt(-MAXIMUM_SPEED, MAXIMUM_SPEED)));*/
-			SimpleCircle circle = new SimpleCircle(getWidth()/2, getHeight(), mRadius, Utils.rndColor());
-			circle.setSpeed(calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
-			if (circle.getSpeed() != null) {
-				Log.d(TAG, circle.getSpeed().toString());
-				mCircles.add(circle);
+			if (mShoot == null) {
+				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
+				mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+				if (mShoot.getSpeed() == null) {
+					mShoot = null;
+				}
 			}
 		}
 
 		if (mCircles.size() > MAXIMUM_NUMBER_OF_CIRCLES) {
-			((RKMainActivity)mContext).runFragment(new MenuFragment());
+			ResourcesFragment.offsetAmounts(getContext(),
+				mResourceDisplay.red.amount,
+				mResourceDisplay.green.amount,
+				mResourceDisplay.blue.amount,
+				mResourceDisplay.cyan.amount,
+				mResourceDisplay.magenta.amount,
+				mResourceDisplay.yellow.amount
+				);
+			((RKMainActivity) mContext).runFragment(new MenuFragment());
 		}
 		return true;
-	}
-
-	private Speed calculationSpeedForNewCircle(float toX, float toY, int w, int h) {
-		int t = w / 2;
-
-		Utils.Ray ray = new Utils.Ray(new DoublePoint(w/2, h), new DoublePoint(toX, toY));
-
-		DoublePoint intersection = Utils.rayIntersection(ray,
-			new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(0, h)));
-
-		if (intersection == null) {
-			Log.d(TAG, "not left");
-			intersection = Utils.rayIntersection(ray,
-				new Utils.Segment(new DoublePoint(0, 0), new DoublePoint(w, 0)));
-			if (intersection == null) {
-				Log.d(TAG, "not up");
-				intersection = Utils.rayIntersection(ray,
-					new Utils.Segment(new DoublePoint(w, 0), new DoublePoint(w, h)));
-			}
-		}
-
-		if (intersection == null) {
-			return null;
-		}
-
-		Log.d(TAG, intersection.toString());
-
-		Log.d(TAG, String.valueOf(toX - t) + " " + String.valueOf(intersection.x - t));
-		Log.d(TAG, String.valueOf(toY-h) + " " + (intersection.y-h));
-
-		Log.d(TAG, intersection.toString());
-
-		double distance = Utils.distanceBetweenTwoPoint(new DoublePoint(t, h), intersection);
-
-		return new Speed(MAXIMUM_SPEED*(toX-t)/distance, MAXIMUM_SPEED*(h-toY)/distance);
-
-		/*int sX = w / 2;
-		int sY = h;
-		double x = -sX - (sY*(toX-sX)/(toY-sY));
-		double y = 0;
-
-		if (x < 0) {
-			x = 0;
-			Log.d(TAG, "x < 0");
-		}
-		if (w < x) {
-			x = w;
-			Log.d(TAG, "x > w");
-		}
-		y = sY + (x-sX)*(toY-sY)/(toX-sX);
-
-		Log.d(TAG, "new");
-		return new Speed(MAXIMUM_SPEED*(sX-toX)/(sX-x), MAXIMUM_SPEED*(sY-toY)/(sY-y));*/
 	}
 	/* МЕТОДЫ */
 }

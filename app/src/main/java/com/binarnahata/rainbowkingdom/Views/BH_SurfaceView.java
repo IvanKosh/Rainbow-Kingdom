@@ -34,7 +34,6 @@ public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolde
 	/* МЕТОДЫ */
 	public abstract void update();
 	public abstract void render(Canvas canvas);
-	public abstract void drawCircle(SimpleCircle circle);
 
 	public void setAvgFps(String avgFps) {
 		mAvgFps = avgFps;
