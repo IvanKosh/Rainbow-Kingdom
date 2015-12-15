@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.binarnahata.rainbowkingdom.Models.ColorAnarchy.DisplayAmount;
-import com.binarnahata.rainbowkingdom.Models.ColorAnarchy.RedDisplayAmount;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 /**
@@ -19,16 +17,13 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class ResourceDisplay {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = ResourceDisplay.class.getSimpleName();
+	private final int mAmountX;
+	private final int mCenterY;
 
 	private BitmapCircle mCircle;
 	private Rect mField;
 
-	public RedDisplayAmount red;
-	public RedDisplayAmount green;
-	public RedDisplayAmount blue;
-	public RedDisplayAmount cyan;
-	public RedDisplayAmount magenta;
-	public RedDisplayAmount yellow;
+	public DisplayAmount red;
 
 	public DisplayAmount now;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -42,13 +37,22 @@ public class ResourceDisplay {
 		mField = field;
 		mCircle = new BitmapCircle(bitmap, radius << 1, mField.centerY(), radius, Color.RED);
 
+		mAmountX = radius << 2;
+
+		red = new DisplayAmount();
+
 		now = red;
+
+
+		Rect r = new Rect();
+		now.paint.getTextBounds("0", 0, "0".length(), r);
+		mCenterY = (int) (field.height() / 2f + r.height() / 2f - r.bottom + field.top);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {
 		mCircle.drawScale(canvas, paint, 0.75f);
-		now.display(canvas);
+		now.display(canvas, mAmountX, mCenterY);
 	}
 	/* МЕТОДЫ */
 }
