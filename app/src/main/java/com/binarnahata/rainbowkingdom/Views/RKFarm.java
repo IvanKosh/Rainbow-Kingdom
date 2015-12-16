@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
-import com.binarnahata.rainbowkingdom.Fragments.GameFragment;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
@@ -21,6 +20,7 @@ import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.GamePanel;
+import com.binarnahata.rainbowkingdom.Models.Mark;
 import com.binarnahata.rainbowkingdom.Models.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
 import com.binarnahata.rainbowkingdom.R;
@@ -54,6 +54,7 @@ public class RKFarm extends BH_SurfaceView {
 	private Bitmap mBall;
 	private BallPool mBallPool;
 	private ResourceDisplay mResourceDisplay;
+	private Mark mMark;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -101,6 +102,8 @@ public class RKFarm extends BH_SurfaceView {
 
 		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
+
+		mMark = new Mark(mPaint);
 	}
 
 	@Override
@@ -191,6 +194,7 @@ public class RKFarm extends BH_SurfaceView {
 		}
 
 		mBallPool.update();
+		mMark.update();
 	}
 
 	@Override
@@ -198,6 +202,8 @@ public class RKFarm extends BH_SurfaceView {
 		mCanvas = canvas;
 
 		mCanvas.drawColor(Color.WHITE);
+
+		mMark.draw(canvas);
 
 		for (BitmapCircle circle : mCircles) {
 			circle.draw(mCanvas, mPaint);
@@ -216,9 +222,12 @@ public class RKFarm extends BH_SurfaceView {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (mShoot == null) {
 				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
-				mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
-				if (mShoot.getSpeed() == null) {
-					mShoot = null;
+				if (mShoot != null) {
+					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+					if (mShoot.getSpeed() == null) {
+						mShoot.setSpeed(new Speed(0, 1.0));
+					}
+					mMark.setCoordinate((int)event.getX(), (int) event.getY());
 				}
 			}
 		}
