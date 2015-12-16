@@ -39,7 +39,7 @@ import java.util.ArrayList;
 public class RKFarm extends BH_SurfaceView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKFarm.class.getSimpleName();
-	public static final int MAXIMUM_NUMBER_OF_CIRCLES = 20;
+	public static final int START_NUMBER_OF_BALLS_ON_THE_FIELD = 3;
 	private final Paint mPaint;
 	private final Context mContext;
 	private GameLoop mGameLoopThread;
@@ -55,17 +55,21 @@ public class RKFarm extends BH_SurfaceView {
 	private BallPool mBallPool;
 	private ResourceDisplay mResourceDisplay;
 	private Mark mMark;
+	private int mMaximumNumberOfCircles;
+	private int mRating;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public RKFarm(Context context) {
+	public RKFarm(Context context, int number, int rating) {
 		super(context);
 		mContext = context;
 		mGameLoopThread = new GameLoop(getHolder(), this);
 		mCircles = new ArrayList<>();
 		mPaint = new Paint();
+		mMaximumNumberOfCircles = number;
+		mRating = rating;
 	}
 
 	@Override
@@ -98,7 +102,7 @@ public class RKFarm extends BH_SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
-			7);
+			mMaximumNumberOfCircles - START_NUMBER_OF_BALLS_ON_THE_FIELD);
 
 		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
@@ -232,14 +236,14 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 
-		if (mCircles.size() > MAXIMUM_NUMBER_OF_CIRCLES) {
+		if (mCircles.size() > mMaximumNumberOfCircles) {
 			ResourcesFragment.offsetAmounts(getContext(),
-				mResourceDisplay.red.amount,
-				mResourceDisplay.green.amount,
-				mResourceDisplay.blue.amount,
-				mResourceDisplay.cyan.amount,
-				mResourceDisplay.magenta.amount,
-				mResourceDisplay.yellow.amount
+				mResourceDisplay.red.amount * mRating,
+				mResourceDisplay.green.amount * mRating,
+				mResourceDisplay.blue.amount * mRating,
+				mResourceDisplay.cyan.amount * mRating,
+				mResourceDisplay.magenta.amount * mRating,
+				mResourceDisplay.yellow.amount * mRating
 				);
 			((RKMainActivity)mContext).runFragment(new MenuFragment());
 		}

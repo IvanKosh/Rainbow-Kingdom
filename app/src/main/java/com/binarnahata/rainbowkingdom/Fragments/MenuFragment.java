@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
+import com.binarnahata.rainbowkingdom.Utils;
 
 /**
  * RainbowKingdom
@@ -33,12 +34,42 @@ public class MenuFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
+		Button fast = (Button) view.findViewById(R.id.fast_button);
+		fast.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(6, 3));
+				}
+			}
+		});
+
+		Button average = (Button) view.findViewById(R.id.average_button);
+		average.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(10, 2));
+				}
+			}
+		});
+
+		Button slow = (Button) view.findViewById(R.id.slow_button);
+		slow.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(20, 1));
+				}
+			}
+		});
+
 		Button farm = (Button) view.findViewById(R.id.farm_button);
 		farm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment());
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(Utils.rndCircles(), 2));
 				}
 			}
 		});

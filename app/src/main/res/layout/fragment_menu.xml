@@ -43,7 +43,37 @@
 			android:id="@+id/farm_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Farm!!!"
+			android:text="Q-Farm"
+			/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/farm_buttons"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:layout_above="@id/navigation_buttons">
+
+		<Button
+			android:id="@+id/fast_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="3+3 Farm"
+			/>
+
+		<Button
+			android:id="@+id/average_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="3+7 Farm"
+			/>
+
+		<Button
+			android:id="@+id/slow_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="3+17 Farm"
 			/>
 
 	</LinearLayout>
@@ -52,7 +82,7 @@
 		android:id="@+id/quests"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_above="@id/navigation_buttons"
+		android:layout_above="@id/farm_buttons"
 		android:layout_below="@id/settings_button"/>
 
 </RelativeLayout>
