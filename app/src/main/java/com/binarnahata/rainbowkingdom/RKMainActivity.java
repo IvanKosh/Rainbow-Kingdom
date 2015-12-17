@@ -1,6 +1,11 @@
 package com.binarnahata.rainbowkingdom;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +19,22 @@ public class RKMainActivity extends AppCompatActivity {
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
+
+	private boolean mIsBound = false;
+	private BackgroundMusicService mServ;
+
+	private ServiceConnection Scon = new ServiceConnection(){
+		public void onServiceConnected(ComponentName name, IBinder binder) {
+			mServ = ((BackgroundMusicService.ServiceBinder)binder).getService();
+		}
+
+		public void onServiceDisconnected(ComponentName name) {
+			mServ = null;
+		}
+
+	};
+	private Intent mMusic;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -39,6 +60,10 @@ public class RKMainActivity extends AppCompatActivity {
 		});*/
 		ResourcesFragment.initSettings(this);
 
+
+		mMusic = new Intent();
+		mMusic.setClass(this, BackgroundMusicService.class);
+		startService(mMusic);
 	}
 
 	/*@Override
@@ -75,6 +100,27 @@ public class RKMainActivity extends AppCompatActivity {
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, newFragment)
 			.commit();
+	}
+
+	void doBindService(){
+		bindService(new Intent(this, BackgroundMusicService.class),
+			Scon, Context.BIND_AUTO_CREATE);
+		mIsBound = true;
+	}
+
+	void doUnbindService()
+	{
+		if(mIsBound)
+		{
+			unbindService(Scon);
+			mIsBound = false;
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		stopService(mMusic);
 	}
 	/* МЕТОДЫ */
 }
