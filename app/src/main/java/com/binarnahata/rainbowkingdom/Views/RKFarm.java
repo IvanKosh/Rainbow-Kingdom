@@ -1,5 +1,6 @@
 package com.binarnahata.rainbowkingdom.Views;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -42,6 +47,8 @@ public class RKFarm extends BH_SurfaceView {
 	public static final int START_NUMBER_OF_BALLS_ON_THE_FIELD = 3;
 	private final Paint mPaint;
 	private final Context mContext;
+	private int[] mSoundIndexes;
+	private SoundPool mSoundPool;
 	private GameLoop mGameLoopThread;
 	private ArrayList<BitmapCircle> mCircles;
 	private BitmapCircle mShoot;
@@ -62,6 +69,7 @@ public class RKFarm extends BH_SurfaceView {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	@TargetApi(21)
 	public RKFarm(Context context, int number, int rating) {
 		super(context);
 		mContext = context;
@@ -70,6 +78,36 @@ public class RKFarm extends BH_SurfaceView {
 		mPaint = new Paint();
 		mMaximumNumberOfCircles = number;
 		mRating = rating;
+
+		if (android.os.Build.VERSION.SDK_INT < 21) {
+			setSoundPool17();
+		}
+		else {
+			setSoundPool21();
+		}
+
+		//setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+		mSoundIndexes = new int[10];
+		mSoundIndexes[0] = mSoundPool.load(context, R.raw.water_drop, 1);
+		mSoundIndexes[1] = mSoundPool.load(context, R.raw.pool_ball, 1);
+	}
+
+	@TargetApi(17)
+	private void setSoundPool17() {
+		mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+	}
+
+	@TargetApi(21)
+	private void setSoundPool21() {
+		AudioAttributes attrs = new AudioAttributes.Builder()
+			.setUsage(AudioAttributes.USAGE_GAME)
+			.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+			.build();
+		mSoundPool = new SoundPool.Builder()
+			.setMaxStreams(10)
+			.setAudioAttributes(attrs)
+			.build();
 	}
 
 	@Override
@@ -127,6 +165,7 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 		Log.d(TAG, "Thread was shut down cleanly");
+		mSoundPool.release();
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -159,6 +198,7 @@ public class RKFarm extends BH_SurfaceView {
 				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
 					BitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
+						mSoundPool.play(mSoundIndexes[0], 1, 1, 1, 0, 1.0f);
 						mCircles.add(tempCircle);
 						mCircles.remove(circle);
 
@@ -190,6 +230,7 @@ public class RKFarm extends BH_SurfaceView {
 					}
 				}
 				if (mShoot.checkCollisionsAndSetNewOptions(circle)) {
+					mSoundPool.play(mSoundIndexes[1], 1, 1, 1, 0, 1.0f);
 					mCircles.add(mShoot);
 					mShoot = null;
 					break; //TODO: можно ли так?
