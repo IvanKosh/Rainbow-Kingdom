@@ -1,12 +1,16 @@
 package com.binarnahata.rainbowkingdom;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.binarnahata.rainbowkingdom.Controllers.BackgroundMusic;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Views.MusicService;
 
 import java.util.List;
 
@@ -14,6 +18,9 @@ public class RKMainActivity extends AppCompatActivity {
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
+	private MusicService mMusicService;
+	private BackgroundMusic mBackgroundMusic;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -38,6 +45,9 @@ public class RKMainActivity extends AppCompatActivity {
 			}
 		});*/
 		ResourcesFragment.initSettings(this);
+
+		mBackgroundMusic = new BackgroundMusic(this);
+		mBackgroundMusic.run();
 	}
 
 	/*@Override
