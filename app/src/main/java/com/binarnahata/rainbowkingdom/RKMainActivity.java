@@ -48,6 +48,10 @@ public class RKMainActivity extends AppCompatActivity {
 
 		mBackgroundMusic = new BackgroundMusic(this);
 		mBackgroundMusic.run();
+
+		Intent music = new Intent();
+		music.setClass(this,MusicService.class);
+		startService(music);
 	}
 
 	/*@Override
