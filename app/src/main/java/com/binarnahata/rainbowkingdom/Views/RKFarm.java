@@ -227,12 +227,14 @@ public class RKFarm extends BH_SurfaceView {
 
 						mShoot = null;
 						mGamePanel.incrementAvailableBalls();
+						mMark.die();
 						break;
 					}
 				}
 				if (mShoot.checkCollisionsAndSetNewOptions(circle)) {
 					mSoundPool.play(mSoundIndexes[1], 1, 1, 1, 0, 1.0f);
 					mCircles.add(mShoot);
+					mMark.die();
 					mShoot = null;
 					break; //TODO: можно ли так?
 				}

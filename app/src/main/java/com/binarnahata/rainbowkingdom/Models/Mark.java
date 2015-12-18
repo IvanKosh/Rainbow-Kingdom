@@ -44,6 +44,10 @@ public class Mark {
 			canvas.drawCircle(mX, mY, 3, mPaint);
 		}
 	}
+
+	public void die() {
+		mLive = 0;
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */
