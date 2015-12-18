@@ -117,26 +117,26 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
-		mRectField = new Rect(0, 0, getWidth(), getHeight()-mDiameter);
+		mRectField = new Rect(mRadius, mRadius, getWidth()-mRating, getHeight()-mDiameter*2);
 
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
-		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
-			Utils.rndInt(0, getHeight()), mRadius, Color.RED);
+		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.RED);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
-			Utils.rndInt(0, getHeight()), mRadius, Color.GREEN);
+		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.GREEN);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new BitmapCircle(mBall, Utils.rndInt(0, getWidth()),
-			Utils.rndInt(0, getHeight()), mRadius, Color.BLUE);
+		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.BLUE);
 		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		mGamePanel = new GamePanel(new Rect(mRectField.left, mRectField.bottom, getWidth(), getHeight()),//mRectField,
+		mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
