@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.binarnahata.rainbowkingdom.Fragments.GameFragment;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 
@@ -121,6 +122,18 @@ public class RKMainActivity extends AppCompatActivity {
 	public void onDestroy() {
 		super.onDestroy();
 		stopService(mMusic);
+	}
+
+	@Override
+	public void onBackPressed() {
+		BackPressedInterface fragment = (BackPressedInterface) mFragmentManager.findFragmentById(R.id.fragment);
+		Fragment next = fragment.getNext();
+		if (next == null) {
+			super.onBackPressed();
+		}
+		else {
+			runFragment(next);
+		}
 	}
 	/* МЕТОДЫ */
 }

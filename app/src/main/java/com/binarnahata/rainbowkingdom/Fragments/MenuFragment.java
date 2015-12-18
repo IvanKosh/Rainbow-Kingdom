@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.binarnahata.rainbowkingdom.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.Utils;
@@ -19,7 +20,7 @@ import com.binarnahata.rainbowkingdom.Utils;
  * @author bat
  * @version 0.1
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MenuFragment.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -85,6 +86,11 @@ public class MenuFragment extends Fragment {
 		});
 
 		return view;
+	}
+
+	@Override
+	public Fragment getNext() {
+		return null;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

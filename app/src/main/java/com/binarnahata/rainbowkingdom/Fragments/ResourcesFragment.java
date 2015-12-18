@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.binarnahata.rainbowkingdom.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.R;
 
 /**
@@ -20,7 +21,7 @@ import com.binarnahata.rainbowkingdom.R;
  * @author bat
  * @version 0.1
  */
-public class ResourcesFragment extends Fragment {
+public class ResourcesFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = ResourcesFragment.class.getSimpleName();
 	public static final String APP_PREFERENCES = "resources";
@@ -141,6 +142,11 @@ public class ResourcesFragment extends Fragment {
 			.putInt(APP_LOCAL_YELLOW, y)
 			.apply();
 
+	}
+
+	@Override
+	public Fragment getNext() {
+		return new MenuFragment();
 	}
 	/* МЕТОДЫ */
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.binarnahata.rainbowkingdom.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Views.RKFarm;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ import java.util.UUID;
  * @author bat
  * @version 0.1
  */
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = GameFragment.class.getSimpleName();
 	private static final String EXTRA_NUMBER_OF_CIRCLES = "number of circles";
@@ -52,6 +53,11 @@ public class GameFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		return new RKFarm(getContext(), mNumber, mRating);
+	}
+
+	@Override
+	public Fragment getNext() {
+		return new MenuFragment();
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
