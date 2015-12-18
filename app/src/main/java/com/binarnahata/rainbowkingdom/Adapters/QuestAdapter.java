@@ -1,23 +1,16 @@
 package com.binarnahata.rainbowkingdom.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.R;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -72,7 +65,7 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 
 		try {
 			if (convertView == null) {
-				mView = mInflater.inflate(R.layout.quest_list, parent, false);
+				mView = mInflater.inflate(R.layout.item_quest, parent, false);
 				holder = new ViewHolder();
 
 				holder.text = (TextView) mView.findViewById(R.id.text);
