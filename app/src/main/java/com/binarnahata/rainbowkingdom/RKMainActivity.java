@@ -1,23 +1,41 @@
 package com.binarnahata.rainbowkingdom;
 
-import android.content.SharedPreferences;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.SurfaceView;
 
+import com.binarnahata.rainbowkingdom.Fragments.GameFragment;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+
+import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private FragmentManager mFragmentManager;
 
-	private SharedPreferences mSettings;
-	private SharedPreferences.Editor mEditor;
+	private boolean mIsBound = false;
+	private BackgroundMusicService mServ;
+
+	private ServiceConnection Scon = new ServiceConnection(){
+		public void onServiceConnected(ComponentName name, IBinder binder) {
+			mServ = ((BackgroundMusicService.ServiceBinder)binder).getService();
+		}
+
+		public void onServiceDisconnected(ComponentName name) {
+			mServ = null;
+		}
+
+	};
+	private Intent mMusic;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -42,6 +60,11 @@ public class RKMainActivity extends AppCompatActivity {
 			}
 		});*/
 		ResourcesFragment.initSettings(this);
+
+
+		mMusic = new Intent();
+		mMusic.setClass(this, BackgroundMusicService.class);
+		startService(mMusic);
 	}
 
 	/*@Override
@@ -67,23 +90,50 @@ public class RKMainActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}*/
 	public void runFragment(Fragment newFragment) {
-		Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment);
-		if (fragment == null) {
-			mFragmentManager.beginTransaction()
-				.add(R.id.fragment, newFragment)
-				.commit();
+		List<Fragment> fragmentList = mFragmentManager.getFragments();
+		if (fragmentList != null) {
+			for (Fragment fragment : fragmentList) {
+				mFragmentManager.beginTransaction()
+					.remove(fragment)
+					.commit();
+			}
 		}
-		else {
-			mFragmentManager.beginTransaction()
-				.remove(fragment)
-				.add(R.id.fragment, newFragment)
-				.commit();
+		mFragmentManager.beginTransaction()
+			.add(R.id.fragment, newFragment)
+			.commit();
+	}
+
+	void doBindService(){
+		bindService(new Intent(this, BackgroundMusicService.class),
+			Scon, Context.BIND_AUTO_CREATE);
+		mIsBound = true;
+	}
+
+	void doUnbindService()
+	{
+		if(mIsBound)
+		{
+			unbindService(Scon);
+			mIsBound = false;
 		}
 	}
 
-	public void setGame(SurfaceView engine) {
-		Log.d(TAG, "setGame");
-		setContentView(engine);
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		stopService(mMusic);
+	}
+
+	@Override
+	public void onBackPressed() {
+		BackPressedInterface fragment = (BackPressedInterface) mFragmentManager.findFragmentById(R.id.fragment);
+		Fragment next = fragment.getNext();
+		if (next == null) {
+			super.onBackPressed();
+		}
+		else {
+			runFragment(next);
+		}
 	}
 	/* МЕТОДЫ */
 }

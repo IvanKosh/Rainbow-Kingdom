@@ -31,6 +31,9 @@ public class BallPool {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public BitmapCircle getCircle() {
+		if (needMoveState) {
+			return null;
+		}
 		BitmapCircle circle	= mFirstBall;
 		mFirstBall = mSecondBall;
 		mSecondBall = new BitmapCircle(mBitmap, mTo.x, mTo.y + 2*mDiameter,
@@ -71,6 +74,9 @@ public class BallPool {
 				else {
 					needMoveState = false;
 				}
+			}
+			else {
+				needMoveState = false;
 			}
 		}
 	}

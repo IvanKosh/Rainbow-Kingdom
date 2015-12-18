@@ -116,12 +116,12 @@ public class GameLoop extends Thread {
 						}
 					}
 
-					while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
+					/*while (sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS) {
 						// we need to catch up
 						mGame.update(); // update without rendering
 						sleepTime += FRAME_PERIOD;  // add frame period to check if in next frame
 						framesSkipped++;
-					}
+					}*/
 
 					if (framesSkipped > 0) {
 						Log.d(TAG, "Skipped:" + framesSkipped);

@@ -113,6 +113,19 @@ public class Utils {
 	public static double distanceBetweenTwoPoint(DoublePoint start, DoublePoint end) {
 		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
 	}
+
+	public static int rndCircles() {
+		switch (rndInt(0, 2)) {
+			case 0:
+				return 6;
+			case 1:
+				return 10;
+			case 2:
+				return 20;
+			default:
+				return 10;
+		}
+	}
 	/* Математика */
 
 	/* Работа с цветами */

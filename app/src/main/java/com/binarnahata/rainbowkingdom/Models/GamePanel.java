@@ -34,7 +34,12 @@ public class GamePanel {
 	private int mAvailableBalls;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-
+	public void incrementAvailableBalls() {
+		mAvailableBalls++;
+	}
+	public void decrementAvailableBalls() {
+		mAvailableBalls--;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public GamePanel(Rect dstRect, Bitmap fon, Bitmap forLeft, Bitmap forRight, int availableBalls) {
