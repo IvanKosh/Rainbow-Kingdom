@@ -226,6 +226,7 @@ public class RKFarm extends BH_SurfaceView {
 						}
 
 						mShoot = null;
+						mGamePanel.incrementAvailableBalls();
 						break;
 					}
 				}
@@ -273,20 +274,21 @@ public class RKFarm extends BH_SurfaceView {
 						mShoot.setSpeed(new Speed(0, 1.0));
 					}
 					mMark.setCoordinate((int)event.getX(), (int) event.getY());
+					mGamePanel.decrementAvailableBalls();
 				}
 			}
-		}
 
-		if (mCircles.size() > mMaximumNumberOfCircles) {
-			ResourcesFragment.offsetAmounts(getContext(),
-				mResourceDisplay.red.amount * mRating,
-				mResourceDisplay.green.amount * mRating,
-				mResourceDisplay.blue.amount * mRating,
-				mResourceDisplay.cyan.amount * mRating,
-				mResourceDisplay.magenta.amount * mRating,
-				mResourceDisplay.yellow.amount * mRating
+			if (mCircles.size() == mMaximumNumberOfCircles) {
+				ResourcesFragment.offsetAmounts(getContext(),
+					mResourceDisplay.red.amount * mRating,
+					mResourceDisplay.green.amount * mRating,
+					mResourceDisplay.blue.amount * mRating,
+					mResourceDisplay.cyan.amount * mRating,
+					mResourceDisplay.magenta.amount * mRating,
+					mResourceDisplay.yellow.amount * mRating
 				);
-			((RKMainActivity)mContext).runFragment(new MenuFragment());
+				((RKMainActivity)mContext).runFragment(new MenuFragment());
+			}
 		}
 		return true;
 	}
