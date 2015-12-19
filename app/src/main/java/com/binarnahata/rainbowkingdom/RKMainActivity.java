@@ -48,46 +48,15 @@ public class RKMainActivity extends AppCompatActivity {
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, new MenuFragment())
 			.commit();
-		/*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);*/
-
-		/*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-					.setAction("Action", null).show();
-			}
-		});*/
 		ResourcesFragment.initSettings(this);
 
+		doBindService();
 		mBackgroundMusic = new Intent();
 		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
 		startService(mBackgroundMusic);
 	}
-
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}*/
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	/*@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}*/
 	public void runFragment(Fragment newFragment) {
 		List<Fragment> fragmentList = mFragmentManager.getFragments();
 		if (fragmentList != null) {
@@ -120,6 +89,7 @@ public class RKMainActivity extends AppCompatActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		doUnbindService();
 		stopService(mBackgroundMusic);
 	}
 
