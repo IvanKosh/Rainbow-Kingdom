@@ -43,8 +43,6 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 		super.onCreate(savedBundleInstance);
 
 		initQuestList();
-		mQuestListArray.add(new Quest(getContext()));
-		mQuestListArray.add(new Quest(getContext()));
 		initQuestAdapter();
 	}
 
@@ -117,10 +115,24 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	/* МЕТОДЫ */
 	private void initQuestList() {
 		mQuestListArray = QuestData.getInstance(getActivity()).getQuestArrayList();
+
+		while (mQuestListArray.size() < 10) {
+			mQuestListArray.add(new Quest(getContext()));
+		}
 	}
 
 	private void initQuestAdapter() {
-		mQuestAdapter = new QuestAdapter(getContext(), 0, mQuestListArray);
+		mQuestAdapter = new QuestAdapter(getContext(), 0, mQuestListArray, new QuestAdapter.Callbacks() {
+			@Override
+			public void onSelect() {
+
+			}
+		});
+	}
+
+	@Override
+	public void onPause() {
+		QuestData.getInstance(getActivity()).saveData(mQuestListArray);
 	}
 	/* МЕТОДЫ */
 }

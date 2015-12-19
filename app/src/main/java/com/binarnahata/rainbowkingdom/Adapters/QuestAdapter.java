@@ -43,9 +43,10 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 	}*/
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public QuestAdapter(Context context, int resource, ArrayList<Quest> questArrayList) {
+	public QuestAdapter(Context context, int resource, ArrayList<Quest> questArrayList, Callbacks callbacks) {
 		super(context, resource);
 		mQuestArrayList = questArrayList;
+		mCallbacks = callbacks;
 
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

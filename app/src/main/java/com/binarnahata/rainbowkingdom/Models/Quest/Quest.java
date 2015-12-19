@@ -68,7 +68,6 @@ public class Quest {
 			mExperience += questRequest.amount;
 		}
 		mExperience *= QUEST_RATION - mQuestRequestList.size();
-		Log.d(TAG, String.valueOf(mExperience));
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException{
