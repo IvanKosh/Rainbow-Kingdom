@@ -28,7 +28,7 @@ public class Quest {
 	private int mHeroAvatar;
 	private String mText;
 	private ArrayList<QuestRequest> mQuestRequestList;
-	private int mExperince;
+	private int mExperience;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public UUID getId() {
@@ -40,13 +40,17 @@ public class Quest {
 	public String getText() {
 		return mText;
 	}
-	public ArrayList<QuestRequest> getQuestRequestList() {
-		return mQuestRequestList;
-	}
-	public int getExperince() {
-		return mExperince;
+	public int getExperience() {
+		return mExperience;
 	}
 
+	public String getStringQuestRequestList() {
+		String result = new String();
+		for (QuestRequest questRequest : mQuestRequestList) {
+			result += questRequest.toString();
+		}
+		return result;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Quest(Context context) {
@@ -58,11 +62,11 @@ public class Quest {
 			mQuestRequestList.add(new QuestRequest());
 		}
 
-		mExperince = 0;
+		mExperience = 0;
 		for (QuestRequest questRequest : mQuestRequestList) {
-			mExperince += questRequest.amount;
+			mExperience += questRequest.amount;
 		}
-		mExperince *= QUEST_RATION - mQuestRequestList.size();
+		mExperience *= QUEST_RATION - mQuestRequestList.size();
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException{

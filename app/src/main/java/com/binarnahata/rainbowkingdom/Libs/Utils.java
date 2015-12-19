@@ -3,6 +3,9 @@ package com.binarnahata.rainbowkingdom.Libs;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.util.Log;
+
+import java.util.Random;
 
 /**
  * RainbowKingdom
@@ -14,20 +17,21 @@ import android.graphics.Point;
 public class Utils {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Utils.class.getSimpleName();
+	private static final Random random = new Random();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Utils(){}
+	public Utils(){
+		random.setSeed(System.currentTimeMillis());
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* Рандомы */
 	public static int rndInt(int min, int max) {
-		return (int) (min + Math.random() * (max - min + 1));
-	}
-
-	public static float rndFlt(float min, float max) {
-		return (float) (min + (max - min) * Math.random());
+		int r = random.nextInt(max - min) + min;
+		Log.d(TAG, String.valueOf(r));
+		return r;
 	}
 
 	public static int rndColor() {

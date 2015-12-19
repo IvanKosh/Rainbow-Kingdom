@@ -59,6 +59,8 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 	public static class ViewHolder {
 		public TextView text;
 		public ImageView image;
+		public TextView request;
+		public TextView experience;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -73,8 +75,14 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 				holder.image = (ImageView)view.findViewById(R.id.image);
 				holder.image.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
 
-				holder.text = (TextView) view.findViewById(R.id.text);
+				holder.text = (TextView)view.findViewById(R.id.text);
 				holder.text.setText(mQuestArrayList.get(position).getText());
+
+				holder.request = (TextView)view.findViewById(R.id.request);
+				holder.request.setText(mQuestArrayList.get(position).getStringQuestRequestList());
+				
+				holder.experience = (TextView)view.findViewById(R.id.experience);
+				holder.experience.setText(mQuestArrayList.get(position).getExperience());
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();

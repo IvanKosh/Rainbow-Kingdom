@@ -121,17 +121,17 @@ public class RKFarm extends BH_SurfaceView {
 
 		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.RED);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.GREEN);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.BLUE);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,

@@ -53,6 +53,25 @@ public class Color {
 
 		return ((or != WHITE && and == BLACK) || (and != BLACK && or == WHITE));
 	}
+
+	public static String getName(int color) {
+		switch (color) {
+			case RED:
+				return "red";
+			case GREEN:
+				return "green";
+			case BLUE:
+				return "blue";
+			case YELLOW:
+				return "yellow";
+			case CYAN:
+				return "cyan";
+			case MAGENTA:
+				return "magenta";
+			default:
+				return "BLACK";
+		}
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */

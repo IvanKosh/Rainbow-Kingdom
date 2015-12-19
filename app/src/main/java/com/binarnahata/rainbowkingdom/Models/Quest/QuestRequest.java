@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,10 @@ public class QuestRequest {
 	public int amount;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	@Override
+	public String toString() {
+		return Color.getName(color) + ": " + amount + " ";
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public QuestRequest() {
