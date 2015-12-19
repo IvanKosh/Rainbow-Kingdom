@@ -5,7 +5,7 @@ import android.graphics.Rect;
 
 import com.binarnahata.rainbowkingdom.Libs.Ray;
 import com.binarnahata.rainbowkingdom.Libs.Segment;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 /**
  * RainbowKingdom

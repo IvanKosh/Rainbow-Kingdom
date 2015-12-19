@@ -1,11 +1,8 @@
-package com.binarnahata.rainbowkingdom;
+package com.binarnahata.rainbowkingdom.Libs;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-
-import com.binarnahata.rainbowkingdom.Libs.Ray;
-import com.binarnahata.rainbowkingdom.Libs.Segment;
 
 /**
  * RainbowKingdom

@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 /**
  * RainbowKingdom

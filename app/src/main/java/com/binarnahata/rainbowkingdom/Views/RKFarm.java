@@ -28,7 +28,7 @@ import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

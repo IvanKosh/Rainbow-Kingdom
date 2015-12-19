@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.binarnahata.rainbowkingdom.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.R;
 
 /**
