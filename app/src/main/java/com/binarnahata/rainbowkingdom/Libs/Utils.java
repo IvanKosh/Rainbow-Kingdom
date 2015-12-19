@@ -3,7 +3,6 @@ package com.binarnahata.rainbowkingdom.Libs;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -30,7 +29,6 @@ public class Utils {
 	/* Рандомы */
 	public static int rndInt(int min, int max) {
 		int r = random.nextInt(max - min) + min;
-		Log.d(TAG, String.valueOf(r));
 		return r;
 	}
 

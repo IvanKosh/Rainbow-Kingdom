@@ -82,7 +82,7 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 				holder.request.setText(mQuestArrayList.get(position).getStringQuestRequestList());
 				
 				holder.experience = (TextView)view.findViewById(R.id.experience);
-				holder.experience.setText(mQuestArrayList.get(position).getExperience());
+				holder.experience.setText(String.valueOf(mQuestArrayList.get(position).getExperience()));
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();

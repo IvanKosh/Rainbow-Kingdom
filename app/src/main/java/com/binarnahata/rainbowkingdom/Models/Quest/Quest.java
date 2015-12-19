@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
@@ -22,7 +23,7 @@ public class Quest {
 	private static final String TAG = Quest.class.getSimpleName();
 	private static final String JSON_ID = "id";
 	public static final int MAX_QUEST_REQUESTING = 3;
-	public static final int QUEST_RATION = MAX_QUEST_REQUESTING - 1;
+	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
 
 	private UUID mId;
 	private int mHeroAvatar;
@@ -67,6 +68,7 @@ public class Quest {
 			mExperience += questRequest.amount;
 		}
 		mExperience *= QUEST_RATION - mQuestRequestList.size();
+		Log.d(TAG, String.valueOf(mExperience));
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException{
