@@ -22,19 +22,19 @@ public class RKMainActivity extends AppCompatActivity {
 	private FragmentManager mFragmentManager;
 
 	private boolean mIsBound = false;
-	private BackgroundMusicService mServ;
+	private BackgroundMusicService mBackgroundMusicService;
 
-	private ServiceConnection Scon = new ServiceConnection(){
+	private ServiceConnection mServiceConnection = new ServiceConnection(){
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			mServ = ((BackgroundMusicService.ServiceBinder)binder).getService();
+			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();
 		}
 
 		public void onServiceDisconnected(ComponentName name) {
-			mServ = null;
+			mBackgroundMusicService = null;
 		}
 
 	};
-	private Intent mMusic;
+	private Intent mBackgroundMusic;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -61,10 +61,9 @@ public class RKMainActivity extends AppCompatActivity {
 		});*/
 		ResourcesFragment.initSettings(this);
 
-
-		mMusic = new Intent();
-		mMusic.setClass(this, BackgroundMusicService.class);
-		startService(mMusic);
+		mBackgroundMusic = new Intent();
+		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
+		startService(mBackgroundMusic);
 	}
 
 	/*@Override
@@ -105,7 +104,7 @@ public class RKMainActivity extends AppCompatActivity {
 
 	void doBindService(){
 		bindService(new Intent(this, BackgroundMusicService.class),
-			Scon, Context.BIND_AUTO_CREATE);
+			mServiceConnection, Context.BIND_AUTO_CREATE);
 		mIsBound = true;
 	}
 
@@ -113,7 +112,7 @@ public class RKMainActivity extends AppCompatActivity {
 	{
 		if(mIsBound)
 		{
-			unbindService(Scon);
+			unbindService(mServiceConnection);
 			mIsBound = false;
 		}
 	}
@@ -121,7 +120,7 @@ public class RKMainActivity extends AppCompatActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		stopService(mMusic);
+		stopService(mBackgroundMusic);
 	}
 
 	@Override
