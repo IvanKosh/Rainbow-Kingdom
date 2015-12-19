@@ -53,9 +53,8 @@ public class Utils {
 		return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));*/
 	}
 
-	public static int rndHeroAvatar(Context context) {
-		String name = "hero_avatar" + rndInt(0, 18);
-		return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+	public static String rndHeroAvatar() {
+		return "hero_avatar" + rndInt(0, 18);
 	}
 	/* Рандомы */
 

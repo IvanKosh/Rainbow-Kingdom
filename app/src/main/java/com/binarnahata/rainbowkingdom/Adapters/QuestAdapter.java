@@ -34,19 +34,18 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 		return mQuestArrayList.size();
 	}
 
-	/*public Quest getItem(Quest position) {
+	public Quest getItem(Quest position) {
 		return position;
 	}
 
 	public long getItemId(int position) {
 		return position;
-	}*/
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public QuestAdapter(Context context, int resource, ArrayList<Quest> questArrayList, Callbacks callbacks) {
+	public QuestAdapter(Context context, int resource, ArrayList<Quest> questArrayList) {
 		super(context, resource);
 		mQuestArrayList = questArrayList;
-		mCallbacks = callbacks;
 
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}

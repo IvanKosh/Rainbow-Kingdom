@@ -22,11 +22,15 @@ public class Quest {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Quest.class.getSimpleName();
 	private static final String JSON_ID = "id";
+	private static final String JSON_HERO_AVATAR = "hero_avatar";
+	private static final String JSON_TEXT = "text";
+	private static final String JSON_EXPERIENCE = "experience";
 	public static final int MAX_QUEST_REQUESTING = 3;
 	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
+	private Context mContext;
 
 	private UUID mId;
-	private int mHeroAvatar;
+	private String mHeroAvatar;
 	private String mText;
 	private ArrayList<QuestRequest> mQuestRequestList;
 	private int mExperience;
@@ -36,7 +40,7 @@ public class Quest {
 		return mId;
 	}
 	public int getHeroAvatar() {
-		return mHeroAvatar;
+		return mContext.getResources().getIdentifier(mHeroAvatar, "drawable", mContext.getPackageName());
 	}
 	public String getText() {
 		return mText;
@@ -55,8 +59,9 @@ public class Quest {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Quest(Context context) {
+		mContext = context;
 		mId = UUID.randomUUID();
-		mHeroAvatar = Utils.rndHeroAvatar(context);
+		mHeroAvatar = Utils.rndHeroAvatar();
 		mText = "Quest text";
 		mQuestRequestList = new ArrayList<>();
 		for (int i = Utils.rndInt(1, MAX_QUEST_REQUESTING); i > 0; i--) {
@@ -72,12 +77,18 @@ public class Quest {
 
 	public Quest(JSONObject jsonObject) throws JSONException{
 		mId = UUID.fromString(jsonObject.getString(JSON_ID));
+		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
+		mText = (String) jsonObject.get(JSON_TEXT);
+		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public JSONObject toJSON() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put(JSON_ID, mId.toString());
+		json.put(JSON_HERO_AVATAR, mHeroAvatar);
+		json.put(JSON_TEXT, mText);
+		json.put(JSON_EXPERIENCE, mExperience);
 		return json;
 	}
 	/* МЕТОДЫ */

@@ -25,13 +25,21 @@ public class QuestData {
 	private ArrayList<Quest> mQuestArrayList;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public ArrayList<Quest> getQuestArrayList (){
+		return mQuestArrayList;
+	}
+
+	public Quest getQuest(UUID id) {
+		for (Quest quest : mQuestArrayList) {
+			if(quest.getId().equals(id)){
+				return quest;
+			}
+		}
+
+		return null;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	/* МЕТОДЫ */
-	/* МЕТОДЫ */
-
-
 	private QuestData (Context context) {
 		mContext = context;
 		mQuestDateJSON = new QuestDateJSON(mContext, FILENAME);
@@ -48,21 +56,8 @@ public class QuestData {
 		}
 		return sQuestData;
 	}
-
-	public ArrayList<Quest> getQuestArrayList (){
-		return mQuestArrayList;
-	}
-
-	public Quest getQuest(UUID id) {
-		for (Quest quest : mQuestArrayList) {
-			if(quest.getId().equals(id)){
-				return quest;
-			}
-		}
-
-		return null;
-	}
-
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	/* МЕТОДЫ */
 	public boolean saveData() {
 		try {
 			mQuestDateJSON.saveData(mQuestArrayList);
@@ -76,4 +71,5 @@ public class QuestData {
 		mQuestArrayList = list;
 		saveData();
 	}
+	/* МЕТОДЫ */
 }
