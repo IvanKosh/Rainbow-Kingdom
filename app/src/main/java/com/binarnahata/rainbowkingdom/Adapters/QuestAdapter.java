@@ -1,13 +1,14 @@
 package com.binarnahata.rainbowkingdom.Adapters;
 
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.R;
@@ -16,82 +17,77 @@ import java.util.ArrayList;
 
 /**
  * RainbowKingdom
- * Created on 18.12.15, 18:36
+ * Created on 19.12.15, 19:35
  *
  * @author bat
  * @version 0.1
  */
-public class QuestAdapter extends ArrayAdapter<Quest> {
+public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = QuestAdapter.class.getSimpleName();
-	private final LayoutInflater mInflater;
 
-	private Callbacks mCallbacks;
 	private ArrayList<Quest> mQuestArrayList;
+	private Callback mCallback;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public int getCount() {
-		return mQuestArrayList.size();
-	}
-
-	public Quest getItem(Quest position) {
-		return position;
-	}
-
-	public long getItemId(int position) {
-		return position;
-	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public QuestAdapter(Context context, int resource, ArrayList<Quest> questArrayList) {
-		super(context, resource);
-		mQuestArrayList = questArrayList;
-
-		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	public QuestAdapter(ArrayList<Quest> quests, Callback callback) {
+		mQuestArrayList = quests;
+		mCallback = callback;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public interface Callbacks {
-		void onSelect();
+	public static class ViewHolder extends RecyclerView.ViewHolder {
+		public RelativeLayout mRelativeLayout;
+		public ImageView mImage;
+		public TextView mText;
+		public TextView mRequest;
+		public TextView mExperience;
+		public ViewHolder(View view) {
+			super(view);
+
+			mRelativeLayout = (RelativeLayout)view.findViewById(R.id.container);
+			mImage = (ImageView)view.findViewById(R.id.image);
+			mText = (TextView)view.findViewById(R.id.text);
+			mRequest = (TextView)view.findViewById(R.id.request);
+			mExperience = (TextView)view.findViewById(R.id.experience);
+		}
 	}
+
 	/* МЕТОДЫ */
 
-	public static class ViewHolder {
-		public TextView text;
-		public ImageView image;
-		public TextView request;
-		public TextView experience;
+	@Override
+	public QuestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+												   int viewType) {
+		View view = LayoutInflater.from(parent.getContext())
+			.inflate(R.layout.item_quest, parent, false);
+
+		ViewHolder vh = new ViewHolder(view);
+		return vh;
 	}
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		View view = convertView;
-		final ViewHolder holder;
-
-		try {
-			if (convertView == null) {
-				view = mInflater.inflate(R.layout.item_quest, parent, false);
-				holder = new ViewHolder();
-
-				holder.image = (ImageView)view.findViewById(R.id.image);
-				holder.image.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
-
-				holder.text = (TextView)view.findViewById(R.id.text);
-				holder.text.setText(mQuestArrayList.get(position).getText());
-
-				holder.request = (TextView)view.findViewById(R.id.request);
-				holder.request.setText(mQuestArrayList.get(position).getStringQuestRequestList());
-				
-				holder.experience = (TextView)view.findViewById(R.id.experience);
-				holder.experience.setText(String.valueOf(mQuestArrayList.get(position).getExperience()));
-				view.setTag(holder);
-			} else {
-				holder = (ViewHolder) view.getTag();
+	@Override
+	public void onBindViewHolder(ViewHolder holder, final int position) {
+		holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mQuestArrayList.remove(position);
+				mCallback.onSelect();
 			}
+		});
+		holder.mImage.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
+		holder.mText.setText(mQuestArrayList.get(position).getText());
+		holder.mRequest.setText(mQuestArrayList.get(position).getStringQuestRequestList());
+		holder.mExperience.setText(String.valueOf(mQuestArrayList.get(position).getExperience()));
+	}
 
-		} catch (Exception e) {
-			Log.e(TAG, "Error 1. " + e.toString());
-		}
+	@Override
+	public int getItemCount() {
+		return (mQuestArrayList != null ? mQuestArrayList.size() : 0);
+	}
 
-		return view;
+	public interface Callback {
+		void onSelect();
 	}
 }

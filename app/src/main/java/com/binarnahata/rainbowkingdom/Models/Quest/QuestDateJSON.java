@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +63,7 @@ public class QuestDateJSON {
 	}
 
 	public ArrayList<Quest> loadData() throws JSONException, IOException {
-		ArrayList<Quest> personArrayListData = new ArrayList<>();
+		ArrayList<Quest> questArrayList = new ArrayList<>();
 		BufferedReader reader = null;
 
 		try {
@@ -76,16 +77,16 @@ public class QuestDateJSON {
 
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			for (int i = 0; i < array.length(); i++) {
-				personArrayListData.add(new Quest(array.getJSONObject(i)));
+				questArrayList.add(new Quest(array.getJSONObject(i)));
 			}
 		} catch (FileNotFoundException e) {
-			//Log.e(TAG, "Error 5. " + e.toString());
+			Log.e(TAG, "Error 5. " + e.toString());
 		} finally {
 			if (reader != null) {
 				reader.close();
 			}
 		}
 
-		return personArrayListData;
+		return questArrayList;
 	}
 }
