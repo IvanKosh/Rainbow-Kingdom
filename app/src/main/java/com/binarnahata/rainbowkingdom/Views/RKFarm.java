@@ -10,7 +10,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,7 +18,6 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
-import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Models.BallPool;
 import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
@@ -271,7 +269,7 @@ public class RKFarm extends BH_SurfaceView {
 			if (mShoot == null) {
 				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				if (mShoot != null) {
-					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new Point((int) event.getX(), (int) event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 					if (mShoot.getSpeed() == null) {
 						mShoot.setSpeed(new Speed(0, 1.0));
 					}

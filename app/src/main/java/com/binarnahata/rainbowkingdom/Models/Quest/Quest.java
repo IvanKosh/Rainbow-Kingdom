@@ -21,7 +21,10 @@ public class Quest {
 	private static final String JSON_ID = "id";
 
 	private UUID mId;
+	private int mHeroAvatar;
+	private String mText;
 	private ArrayList<QuestRequest> mQuestRequestList;
+	private int mExperince;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public UUID getId () {

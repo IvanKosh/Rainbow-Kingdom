@@ -1,5 +1,7 @@
 package com.binarnahata.rainbowkingdom.Libs;
 
+import android.graphics.Point;
+
 /**
  * RainbowKingdom
  * Created on 13.12.15, 16:43
@@ -11,13 +13,13 @@ public class Ray {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Ray.class.getSimpleName();
 
-	public DoublePoint start;
-	public DoublePoint point;
+	public Point start;
+	public Point point;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Ray(DoublePoint start, DoublePoint point) {
+	public Ray(Point start, Point point) {
 		this.start = start;
 		this.point = point;
 	}

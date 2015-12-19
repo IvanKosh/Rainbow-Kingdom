@@ -1,8 +1,9 @@
 package com.binarnahata.rainbowkingdom;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 
-import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Libs.Ray;
 import com.binarnahata.rainbowkingdom.Libs.Segment;
 
@@ -52,6 +53,11 @@ public class Utils {
 		/*Random rnd = new Random();
 		return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));*/
 	}
+
+	public static int rndHeroAvatar(Context context) {
+		String name = "hero_avatar" + rndInt(0, 18);
+		return context.getResources().getIdentifier(name, "drawable", "com.package");
+	}
 	/* Рандомы */
 
 	/* Математика */
@@ -76,7 +82,7 @@ public class Utils {
 	}
 
 
-	public static DoublePoint rayIntersection(Ray ray, Segment segment) {
+	public static Point rayIntersection(Ray ray, Segment segment) {
 
 		double matrix[][] = new double[2][2];
 
@@ -105,12 +111,12 @@ public class Utils {
 		double T2 = D2/D;
 
 		if ((T2 >= 0) && ((T1 >= 0) && (T1 <= 1))) {
-			return new DoublePoint(segment.start.x + T1*(segment.end.x - segment.start.x), segment.start.y + T1*(segment.end.y - segment.start.y));
+			return new Point((int) (segment.start.x + T1*(segment.end.x - segment.start.x)), (int) (segment.start.y + T1*(segment.end.y - segment.start.y)));
 		}
 		return null;
 	}
 
-	public static double distanceBetweenTwoPoint(DoublePoint start, DoublePoint end) {
+	public static double distanceBetweenTwoPoint(Point start, Point end) {
 		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
 	}
 
