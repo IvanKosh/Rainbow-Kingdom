@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
@@ -57,28 +58,32 @@ public class QuestAdapter extends ArrayAdapter<Quest> {
 
 	public static class ViewHolder {
 		public TextView text;
+		public ImageView image;
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		View mView = convertView;
+		View view = convertView;
 		final ViewHolder holder;
 
 		try {
 			if (convertView == null) {
-				mView = mInflater.inflate(R.layout.item_quest, parent, false);
+				view = mInflater.inflate(R.layout.item_quest, parent, false);
 				holder = new ViewHolder();
 
-				holder.text = (TextView) mView.findViewById(R.id.text);
-				holder.text.setText(mQuestArrayList.get(position).getId().toString());
-				mView.setTag(holder);
+				holder.image = (ImageView)view.findViewById(R.id.image);
+				holder.image.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
+
+				holder.text = (TextView) view.findViewById(R.id.text);
+				holder.text.setText(mQuestArrayList.get(position).getText());
+				view.setTag(holder);
 			} else {
-				holder = (ViewHolder) mView.getTag();
+				holder = (ViewHolder) view.getTag();
 			}
 
 		} catch (Exception e) {
 			Log.e(TAG, "Error 1. " + e.toString());
 		}
 
-		return mView;
+		return view;
 	}
 }

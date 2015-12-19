@@ -1,5 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
+import android.content.Context;
+
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
@@ -19,6 +21,8 @@ public class Quest {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Quest.class.getSimpleName();
 	private static final String JSON_ID = "id";
+	public static final int MAX_QUEST_REQUESTING = 3;
+	public static final int QUEST_RATION = MAX_QUEST_REQUESTING - 1;
 
 	private UUID mId;
 	private int mHeroAvatar;
@@ -27,18 +31,38 @@ public class Quest {
 	private int mExperince;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public UUID getId () {
+	public UUID getId() {
 		return mId;
 	}
+	public int getHeroAvatar() {
+		return mHeroAvatar;
+	}
+	public String getText() {
+		return mText;
+	}
+	public ArrayList<QuestRequest> getQuestRequestList() {
+		return mQuestRequestList;
+	}
+	public int getExperince() {
+		return mExperince;
+	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Quest() {
+	public Quest(Context context) {
 		mId = UUID.randomUUID();
-
+		mHeroAvatar = Utils.rndHeroAvatar(context);
+		mText = "Quest text";
 		mQuestRequestList = new ArrayList<>();
-		for (int i = Utils.rndInt(1, 3); i > 0; i--) {
+		for (int i = Utils.rndInt(1, MAX_QUEST_REQUESTING); i > 0; i--) {
 			mQuestRequestList.add(new QuestRequest());
 		}
+
+		mExperince = 0;
+		for (QuestRequest questRequest : mQuestRequestList) {
+			mExperince += questRequest.amount;
+		}
+		mExperince *= QUEST_RATION - mQuestRequestList.size();
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException{

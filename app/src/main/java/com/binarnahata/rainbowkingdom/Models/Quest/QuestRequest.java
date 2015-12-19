@@ -18,8 +18,8 @@ public class QuestRequest {
 	private static final String JSON_COLOR = "color";
 	private static final String JSON_AMOUNT = "amount";
 
-	private int color;
-	private int amount;
+	public int color;
+	public int amount;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

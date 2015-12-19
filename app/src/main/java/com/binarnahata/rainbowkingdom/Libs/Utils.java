@@ -53,7 +53,7 @@ public class Utils {
 
 	public static int rndHeroAvatar(Context context) {
 		String name = "hero_avatar" + rndInt(0, 18);
-		return context.getResources().getIdentifier(name, "drawable", "com.package");
+		return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
 	}
 	/* Рандомы */
 
