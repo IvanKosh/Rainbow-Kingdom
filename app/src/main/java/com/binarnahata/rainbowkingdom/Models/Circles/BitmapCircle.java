@@ -1,4 +1,4 @@
-package com.binarnahata.rainbowkingdom.Models;
+package com.binarnahata.rainbowkingdom.Models.Circles;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

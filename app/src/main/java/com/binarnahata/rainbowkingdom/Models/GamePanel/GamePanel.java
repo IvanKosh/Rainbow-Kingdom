@@ -1,4 +1,4 @@
-package com.binarnahata.rainbowkingdom.Models;
+package com.binarnahata.rainbowkingdom.Models.GamePanel;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

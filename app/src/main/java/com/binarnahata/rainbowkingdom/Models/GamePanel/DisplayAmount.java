@@ -1,8 +1,7 @@
-package com.binarnahata.rainbowkingdom.Models;
+package com.binarnahata.rainbowkingdom.Models.GamePanel;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
