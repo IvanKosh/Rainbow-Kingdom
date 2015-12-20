@@ -239,8 +239,12 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 
-		mBallPool.update();
-		mMark.update();
+		if (mBallPool != null) {
+			mBallPool.update();
+		}
+		if (mMark != null) {
+			mMark.update();
+		}
 	}
 
 	@Override
