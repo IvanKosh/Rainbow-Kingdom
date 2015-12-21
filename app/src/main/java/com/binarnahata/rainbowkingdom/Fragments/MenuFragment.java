@@ -17,6 +17,8 @@ import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 
@@ -35,9 +37,8 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	private ArrayList<Quest> mQuestListArray;
 
 	private RecyclerView mRecyclerView;
-	private RecyclerView.Adapter mAdapter;
+	private QuestAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -134,9 +135,10 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	}
 
 	private void initQuestAdapter() {
-		mAdapter = new QuestAdapter(mQuestListArray, new QuestAdapter.Callback() {
+		mAdapter = new QuestAdapter(getContext(), mQuestListArray, new QuestAdapter.Callback() {
 			@Override
 			public void onSelect() {
+				mAdapter.updateSettings();
 				mAdapter.notifyDataSetChanged();
 			}
 		});
