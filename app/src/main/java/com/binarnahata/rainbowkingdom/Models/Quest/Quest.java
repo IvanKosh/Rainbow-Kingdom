@@ -60,6 +60,41 @@ public class Quest {
 		return mJSONRequest;
 	}
 
+	public String getJSONRequestString() {
+		String result = new String();
+		try {
+			int r = mJSONRequest.getInt(APP_LOCAL_RED);
+			int g = mJSONRequest.getInt(APP_LOCAL_GREEN);
+			int b = mJSONRequest.getInt(APP_LOCAL_BLUE);
+			int c = mJSONRequest.getInt(APP_LOCAL_CYAN);
+			int m = mJSONRequest.getInt(APP_LOCAL_MAGENTA);
+			int y = mJSONRequest.getInt(APP_LOCAL_YELLOW);
+			if (r != 0) {
+				result += "Red: " + r + " ";
+			}
+			if (g != 0) {
+				result += "Green: " + g + " ";
+			}
+			if (b != 0) {
+				result += "Blue: " + b + " ";
+			}
+			if (c != 0) {
+				result += "Cyan: " + c + " ";
+			}
+			if (m != 0) {
+				result += "Magenta: " + m + " ";
+			}
+			if (y
+				!= 0) {
+				result += "Yellow: " + y + " ";
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Quest(Context context) {
