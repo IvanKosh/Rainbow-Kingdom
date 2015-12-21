@@ -34,6 +34,11 @@ public class QuestRequest {
 		amount = Utils.rndInt(5, 10);
 	}
 
+	public QuestRequest(int color) {
+		this.color = color;
+		amount = Utils.rndInt(5, 10);
+	}
+
 	public QuestRequest(JSONObject jsonObject) throws JSONException {
 		color = jsonObject.getInt(JSON_COLOR);
 		amount = jsonObject.getInt(JSON_AMOUNT);

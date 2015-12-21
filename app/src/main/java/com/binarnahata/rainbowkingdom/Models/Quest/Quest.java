@@ -1,7 +1,6 @@
 package com.binarnahata.rainbowkingdom.Models.Quest;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
@@ -9,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -21,12 +21,12 @@ import java.util.UUID;
 public class Quest {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Quest.class.getSimpleName();
+	public static final int MAX_QUEST_REQUESTING = 3;
+	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
 	private static final String JSON_ID = "id";
 	private static final String JSON_HERO_AVATAR = "hero_avatar";
 	private static final String JSON_TEXT = "text";
 	private static final String JSON_EXPERIENCE = "experience";
-	public static final int MAX_QUEST_REQUESTING = 3;
-	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
 	private Context mContext;
 
 	private UUID mId;
@@ -34,6 +34,7 @@ public class Quest {
 	private String mText;
 	private ArrayList<QuestRequest> mQuestRequestList;
 	private int mExperience;
+	private boolean mStatus;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public UUID getId() {
@@ -48,7 +49,6 @@ public class Quest {
 	public int getExperience() {
 		return mExperience;
 	}
-
 	public String getStringQuestRequestList() {
 		String result = new String();
 		for (QuestRequest questRequest : mQuestRequestList) {
@@ -56,6 +56,7 @@ public class Quest {
 		}
 		return result;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Quest(Context context) {
@@ -64,8 +65,11 @@ public class Quest {
 		mHeroAvatar = Utils.rndHeroAvatar();
 		mText = "Quest text";
 		mQuestRequestList = new ArrayList<>();
-		for (int i = Utils.rndInt(1, MAX_QUEST_REQUESTING); i > 0; i--) {
-			mQuestRequestList.add(new QuestRequest());
+
+		ArrayList<Integer> colorPool = Utils.getColorPool();
+		Collections.shuffle(colorPool);
+		for (int i = Utils.rndInt(1, QUEST_RATION); i > 0; i--) {
+			mQuestRequestList.add(new QuestRequest(colorPool.get(i)));
 		}
 
 		mExperience = 0;

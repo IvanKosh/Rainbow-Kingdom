@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class MenuFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MenuFragment.class.getSimpleName();
+	public static final int MAX_NUMBER_OF_QUESTS = 10;
 
 	private ArrayList<Quest> mQuestListArray;
 
@@ -126,8 +127,8 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	/* МЕТОДЫ */
 	private void initQuestList() {
 		mQuestListArray = QuestData.getInstance(getActivity()).getQuestArrayList();
-
-		while (mQuestListArray.size() < 10) {
+		
+		while (mQuestListArray.size() < MAX_NUMBER_OF_QUESTS) {
 			mQuestListArray.add(new Quest(getContext()));
 		}
 	}

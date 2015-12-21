@@ -1,9 +1,10 @@
 package com.binarnahata.rainbowkingdom.Libs;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -133,6 +134,12 @@ public class Utils {
 	/* Математика */
 
 	/* Работа с цветами */
+	public static ArrayList<Integer> getColorPool() {
+		return new ArrayList<Integer>(){{
+			add(Color.RED); add(Color.GREEN); add(Color.BLUE);
+			add(Color.CYAN); add(Color.MAGENTA); add(Color.YELLOW);
+		}};
+	}
 	/* Работа с цветами */
 
 	/* МЕТОДЫ */
