@@ -34,7 +34,6 @@ public class Quest {
 	private String mText;
 	private ArrayList<QuestRequest> mQuestRequestList;
 	private int mExperience;
-	private boolean mStatus;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public UUID getId() {
