@@ -14,6 +14,8 @@ import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 
+import org.json.JSONException;
+
 import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
@@ -48,7 +50,11 @@ public class RKMainActivity extends AppCompatActivity {
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, new MenuFragment())
 			.commit();
-		ResourcesFragment.initSettings(this);
+		try {
+			ResourcesFragment.initSettings(this);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 		doBindService();
 		mBackgroundMusic = new Intent();

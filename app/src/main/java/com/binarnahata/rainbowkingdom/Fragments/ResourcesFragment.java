@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -34,6 +35,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	public static final String APP_LOCAL_MAGENTA = "local_magenta";
 	public static final String APP_LOCAL_YELLOW = "local_yellow";
 	private static final String APP_LOCAL_RESOURCES = "local_resources";
+	private static final String APP_INIT_PREFERENCES2 = "init_preferences";
 
 	private SharedPreferences mSettings;
 	private SharedPreferences.Editor mEditor;
@@ -55,40 +57,30 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_resources, container, false);
 
-		if (mSettings.contains(APP_LOCAL_RED)) {
-			int check = mSettings.getInt(APP_LOCAL_RED, 0);
+		JSONObject jsonObject;
+		try {
+			if (mSettings.contains(APP_LOCAL_RESOURCES)) {
+					jsonObject = new JSONObject(mSettings.getString(APP_LOCAL_RESOURCES, getEmptyAmountJSON().toString()));
+			}
+			else {
+				jsonObject = getEmptyAmountJSON();
+			}
+
 			TextView local_red = (TextView) view.findViewById(R.id.local_red);
-				local_red.setText("Red: " + check);
+			local_red.setText("Red: " + jsonObject.getInt(APP_LOCAL_RED));
+			TextView local_green = (TextView) view.findViewById(R.id.local_green);
+			local_green.setText("Green: " + jsonObject.getInt(APP_LOCAL_GREEN));
+			TextView local_blue = (TextView) view.findViewById(R.id.local_blue);
+			local_blue.setText("Blue: " + jsonObject.getInt(APP_LOCAL_BLUE));
+			TextView local_cyan = (TextView) view.findViewById(R.id.local_cyan);
+			local_cyan.setText("Cyan: " + jsonObject.getInt(APP_LOCAL_CYAN));
+			TextView local_magenta = (TextView) view.findViewById(R.id.local_magenta);
+			local_magenta.setText("Magenta: " + jsonObject.getInt(APP_LOCAL_MAGENTA));
+			TextView local_yellow = (TextView) view.findViewById(R.id.local_yellow);
+			local_yellow.setText("Yellow: " + jsonObject.getInt(APP_LOCAL_YELLOW));
 		}
-
-		if (mSettings.contains(APP_LOCAL_GREEN)) {
-			int check = mSettings.getInt(APP_LOCAL_GREEN, 0);
-			TextView local_red = (TextView) view.findViewById(R.id.local_green);
-				local_red.setText("Green: " + check);
-		}
-
-		if (mSettings.contains(APP_LOCAL_BLUE)) {
-			int check = mSettings.getInt(APP_LOCAL_BLUE, 0);
-			TextView local_red = (TextView) view.findViewById(R.id.local_blue);
-				local_red.setText("Blue: " + check);
-		}
-
-		if (mSettings.contains(APP_LOCAL_CYAN)) {
-			int check = mSettings.getInt(APP_LOCAL_CYAN, 0);
-			TextView local_red = (TextView) view.findViewById(R.id.local_cyan);
-				local_red.setText("Cyan: " + check);
-		}
-
-		if (mSettings.contains(APP_LOCAL_MAGENTA)) {
-			int check = mSettings.getInt(APP_LOCAL_MAGENTA, 0);
-			TextView local_red = (TextView) view.findViewById(R.id.local_magenta);
-				local_red.setText("Magenta: " + check);
-		}
-
-		if (mSettings.contains(APP_LOCAL_YELLOW)) {
-			int check = mSettings.getInt(APP_LOCAL_YELLOW, 0);
-			TextView local_red = (TextView) view.findViewById(R.id.local_yellow);
-				local_red.setText("Yellow: " + check);
+		catch (JSONException e) {
+			e.printStackTrace();
 		}
 
 		TableLayout global = (TableLayout) view.findViewById(R.id.global_table);
@@ -103,69 +95,107 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 		mEditor = mSettings.edit();
 	}
 
-	public static void initSettings(Context context) {
+	public static void initSettings(Context context) throws JSONException {
 		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
 		SharedPreferences.Editor editor = settings.edit();
 
-		if (!settings.contains(APP_INIT_PREFERENCES)) {
-			if (!settings.getBoolean(APP_INIT_PREFERENCES, false)) {
-				Log.d(TAG, "preferences init");
+		if (!settings.contains(APP_INIT_PREFERENCES2)) {
+			if (!settings.getBoolean(APP_INIT_PREFERENCES2, false)) {
+				JSONObject jsonObject = getEmptyAmountJSON();
 				editor
-					.putInt(APP_LOCAL_RED, 0)
-					.putInt(APP_LOCAL_GREEN, 0)
-					.putInt(APP_LOCAL_BLUE, 0)
-					.putInt(APP_LOCAL_CYAN, 0)
-					.putInt(APP_LOCAL_MAGENTA, 0)
-					.putInt(APP_LOCAL_YELLOW, 0)
+					.putString(APP_LOCAL_RESOURCES, jsonObject.toString())
+					.putBoolean(APP_INIT_PREFERENCES2, true)
 					.apply();
+
 			}
 		}
-		else {
-			Log.e(TAG, "Нет данных");
+	}
+
+	public static void offsetAmounts(Context context, int red, int green, int blue, int cyan, int magenta, int yellow) throws JSONException {
+		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
+		SharedPreferences.Editor editor = settings.edit();
+
+		JSONObject jsonObject;
+		if (settings.contains(APP_LOCAL_RESOURCES)) {
+			jsonObject = new JSONObject(settings.getString(APP_LOCAL_RESOURCES, getEmptyAmountJSON().toString()));
 		}
-	}
+		else {
+			jsonObject = getEmptyAmountJSON();
+		}
 
-	public static void offsetAmounts(Context context, int red, int green, int blue, int cyan, int magenta, int yellow) {
-		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
-		SharedPreferences.Editor editor = settings.edit();
+		int r = jsonObject.getInt(APP_LOCAL_RED) + red;
+		int g = jsonObject.getInt(APP_LOCAL_GREEN) + green;
+		int b = jsonObject.getInt(APP_LOCAL_BLUE) + blue;
+		int c = jsonObject.getInt(APP_LOCAL_CYAN) + cyan;
+		int m = jsonObject.getInt(APP_LOCAL_MAGENTA) + magenta;
+		int y = jsonObject.getInt(APP_LOCAL_YELLOW) + yellow;
 
-		int r = settings.getInt(APP_LOCAL_RED, 0) + red;
-		int g = settings.getInt(APP_LOCAL_GREEN, 0) + green;
-		int b = settings.getInt(APP_LOCAL_BLUE, 0) + blue;
-		int c = settings.getInt(APP_LOCAL_CYAN, 0) + cyan;
-		int m = settings.getInt(APP_LOCAL_MAGENTA, 0) + magenta;
-		int y = settings.getInt(APP_LOCAL_YELLOW, 0) + yellow;
-		editor
-			.putInt(APP_LOCAL_RED, r)
-			.putInt(APP_LOCAL_GREEN, g)
-			.putInt(APP_LOCAL_BLUE, b)
-			.putInt(APP_LOCAL_CYAN, c)
-			.putInt(APP_LOCAL_MAGENTA, m)
-			.putInt(APP_LOCAL_YELLOW, y)
-			.apply();
-
-	}
-
-	public static JSONObject getAmount(Context context) {
-		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
-		SharedPreferences.Editor editor = settings.edit();
-
-		JSONObject jsonObject = new JSONObject();
-		return jsonObject;
-	}
-
-	public static void offsetAmount(Context context, JSONObject jsonObject) {
-		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
-		SharedPreferences.Editor editor = settings.edit();
+		jsonObject
+			.put(APP_LOCAL_RED, r)
+			.put(APP_LOCAL_GREEN, g)
+			.put(APP_LOCAL_BLUE, b)
+			.put(APP_LOCAL_CYAN, c)
+			.put(APP_LOCAL_MAGENTA, m)
+			.put(APP_LOCAL_YELLOW, y);
 
 		editor
 			.putString(APP_LOCAL_RESOURCES, jsonObject.toString())
 			.apply();
 	}
 
+	public static JSONObject getAmount(Context context) throws JSONException {
+		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
+
+		return new JSONObject(settings.getString(APP_LOCAL_RESOURCES, getEmptyAmountJSON().toString()));
+	}
+
+	public static void offsetAmount(Context context, JSONObject jsonObject) throws JSONException {
+		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
+		SharedPreferences.Editor editor = settings.edit();
+
+		JSONObject jsonResult;
+		if (settings.contains(APP_LOCAL_RESOURCES)) {
+			jsonResult = new JSONObject(settings.getString(APP_LOCAL_RESOURCES, getEmptyAmountJSON().toString()));
+		}
+		else {
+			jsonResult = getEmptyAmountJSON();
+		}
+
+		int r = jsonResult.getInt(APP_LOCAL_RED) + jsonObject.getInt(APP_LOCAL_RED);
+		int g = jsonResult.getInt(APP_LOCAL_GREEN) + jsonObject.getInt(APP_LOCAL_GREEN);
+		int b = jsonResult.getInt(APP_LOCAL_BLUE) + jsonObject.getInt(APP_LOCAL_BLUE);
+		int c = jsonResult.getInt(APP_LOCAL_CYAN) + jsonObject.getInt(APP_LOCAL_CYAN);
+		int m = jsonResult.getInt(APP_LOCAL_MAGENTA) + jsonObject.getInt(APP_LOCAL_MAGENTA);
+		int y = jsonResult.getInt(APP_LOCAL_YELLOW) + jsonObject.getInt(APP_LOCAL_YELLOW);
+
+		jsonResult
+			.put(APP_LOCAL_RED, r)
+			.put(APP_LOCAL_GREEN, g)
+			.put(APP_LOCAL_BLUE, b)
+			.put(APP_LOCAL_CYAN, c)
+			.put(APP_LOCAL_MAGENTA, m)
+			.put(APP_LOCAL_YELLOW, y);
+
+		editor
+			.putString(APP_LOCAL_RESOURCES, jsonResult.toString())
+			.apply();
+	}
+
 	@Override
 	public Fragment getNext() {
 		return new MenuFragment();
+	}
+
+	private static JSONObject getEmptyAmountJSON() throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject
+			.put(APP_LOCAL_RED, 0)
+			.put(APP_LOCAL_GREEN, 0)
+			.put(APP_LOCAL_BLUE, 0)
+			.put(APP_LOCAL_CYAN, 0)
+			.put(APP_LOCAL_MAGENTA, 0)
+			.put(APP_LOCAL_YELLOW, 0);
+		return jsonObject;
 	}
 	/* МЕТОДЫ */
 }

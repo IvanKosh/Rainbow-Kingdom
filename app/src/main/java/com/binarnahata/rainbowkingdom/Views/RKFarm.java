@@ -30,6 +30,8 @@ import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 /**
@@ -283,14 +285,18 @@ public class RKFarm extends BH_SurfaceView {
 			}
 
 			if (mCircles.size() == mMaximumNumberOfCircles) {
-				ResourcesFragment.offsetAmounts(getContext(),
-					mResourceDisplay.red.amount * mRating,
-					mResourceDisplay.green.amount * mRating,
-					mResourceDisplay.blue.amount * mRating,
-					mResourceDisplay.cyan.amount * mRating,
-					mResourceDisplay.magenta.amount * mRating,
-					mResourceDisplay.yellow.amount * mRating
-				);
+				try {
+					ResourcesFragment.offsetAmounts(getContext(),
+						mResourceDisplay.red.amount * mRating,
+						mResourceDisplay.green.amount * mRating,
+						mResourceDisplay.blue.amount * mRating,
+						mResourceDisplay.cyan.amount * mRating,
+						mResourceDisplay.magenta.amount * mRating,
+						mResourceDisplay.yellow.amount * mRating
+					);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
 			}
 		}
