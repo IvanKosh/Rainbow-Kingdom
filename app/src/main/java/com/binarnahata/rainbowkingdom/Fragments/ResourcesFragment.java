@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.R;
 
+import org.json.JSONObject;
+
 /**
  * RainbowKingdom
  * Created on 15.12.15, 12:51
@@ -31,6 +33,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	public static final String APP_LOCAL_CYAN = "local_cyan";
 	public static final String APP_LOCAL_MAGENTA = "local_magenta";
 	public static final String APP_LOCAL_YELLOW = "local_yellow";
+	private static final String APP_LOCAL_RESOURCES = "local_resources";
 
 	private SharedPreferences mSettings;
 	private SharedPreferences.Editor mEditor;
@@ -141,6 +144,23 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 			.putInt(APP_LOCAL_YELLOW, y)
 			.apply();
 
+	}
+
+	public static JSONObject getAmount(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
+		SharedPreferences.Editor editor = settings.edit();
+
+		JSONObject jsonObject = new JSONObject();
+		return jsonObject;
+	}
+
+	public static void offsetAmount(Context context, JSONObject jsonObject) {
+		SharedPreferences settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
+		SharedPreferences.Editor editor = settings.edit();
+
+		editor
+			.putString(APP_LOCAL_RESOURCES, jsonObject.toString())
+			.apply();
 	}
 
 	@Override
