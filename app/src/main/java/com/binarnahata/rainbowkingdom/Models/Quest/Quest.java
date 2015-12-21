@@ -155,7 +155,20 @@ public class Quest {
 	}
 
 	public boolean canComplete(JSONObject jsonObjectS) {
-		return false;
+		try {
+			if (jsonObjectS.getInt(APP_LOCAL_RED) < mJSONRequest.getInt(APP_LOCAL_RED) ||
+				jsonObjectS.getInt(APP_LOCAL_GREEN) < mJSONRequest.getInt(APP_LOCAL_GREEN) ||
+				jsonObjectS.getInt(APP_LOCAL_BLUE) < mJSONRequest.getInt(APP_LOCAL_BLUE) ||
+				jsonObjectS.getInt(APP_LOCAL_CYAN) < mJSONRequest.getInt(APP_LOCAL_CYAN) ||
+				jsonObjectS.getInt(APP_LOCAL_MAGENTA) < mJSONRequest.getInt(APP_LOCAL_MAGENTA) ||
+				jsonObjectS.getInt(APP_LOCAL_YELLOW) < mJSONRequest.getInt(APP_LOCAL_YELLOW)) {
+				return false;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	private ArrayList<String> getColorPool() {
