@@ -5,9 +5,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
+	<TextView
+		android:id="@+id/achievemnts_point"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:textSize="48dp"
+		android:text="0"/>
+
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/achievements"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent"
+		android:layout_below="@id/achievemnts_point"/>
 
 </RelativeLayout>
