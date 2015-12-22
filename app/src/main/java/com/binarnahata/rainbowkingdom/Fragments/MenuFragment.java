@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.binarnahata.rainbowkingdom.Adapters.QuestAdapter;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
@@ -39,6 +40,8 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	private RecyclerView mRecyclerView;
 	private QuestAdapter mAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
+	private ProgressBar mProgressBar;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -58,8 +61,6 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_menu, container, false);
-
-
 
 		mRecyclerView = (RecyclerView)view.findViewById(R.id.quests);
 		mRecyclerView.setHasFixedSize(true);
@@ -116,6 +117,19 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 				}
 			}
 		});
+
+		Button achievement = (Button) view.findViewById(R.id.achievements_button);
+		achievement.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity) getActivity()).runFragment(new AchivementsFragment());
+				}
+			}
+		});
+
+		mProgressBar = (ProgressBar) view.findViewById(R.id.experienceProgressBar);
+		mProgressBar.setProgress(50);
 
 		return view;
 	}
