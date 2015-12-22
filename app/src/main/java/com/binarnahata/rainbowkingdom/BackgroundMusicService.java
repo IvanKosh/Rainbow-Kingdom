@@ -23,7 +23,6 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	private final IBinder mBinder = new ServiceBinder();
 	MediaPlayer mPlayer;
 	private int length = 0;
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -78,7 +77,6 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 			mPlayer.pause();
 			length=mPlayer.getCurrentPosition();
 			Toast.makeText(this, "Music is Paused", Toast.LENGTH_LONG).show();
-
 		}
 	}
 
@@ -128,9 +126,6 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 			}finally {
 				mPlayer = null;
 			}
-
-
-
 		}
 
 		return false;

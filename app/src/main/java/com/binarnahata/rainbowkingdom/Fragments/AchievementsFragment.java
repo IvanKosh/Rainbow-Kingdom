@@ -15,9 +15,9 @@ import com.binarnahata.rainbowkingdom.R;
  * @author bat
  * @version 0.1
  */
-public class AchivementsFragment extends Fragment implements BackPressedInterface  {
+public class AchievementsFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = AchivementsFragment.class.getSimpleName();
+	private static final String TAG = AchievementsFragment.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

@@ -19,13 +19,13 @@ import org.json.JSONException;
 import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
-	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = RKMainActivity.class.getSimpleName();
+
 	private FragmentManager mFragmentManager;
 
 	private boolean mIsBound = false;
 	private BackgroundMusicService mBackgroundMusicService;
-
 	private ServiceConnection mServiceConnection = new ServiceConnection(){
 		public void onServiceConnected(ComponentName name, IBinder binder) {
 			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();

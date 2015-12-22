@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import com.binarnahata.rainbowkingdom.Models.Quest.QuestData;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -123,7 +120,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity) getActivity()).runFragment(new AchivementsFragment());
+					((RKMainActivity) getActivity()).runFragment(new AchievementsFragment());
 				}
 			}
 		});
