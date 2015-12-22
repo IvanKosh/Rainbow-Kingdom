@@ -53,6 +53,8 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 
 		mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
 		mEditor = mSettings.edit();
+
+		updateSettings();
 	}
 
 	@Override

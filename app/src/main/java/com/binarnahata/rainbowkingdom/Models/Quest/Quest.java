@@ -155,6 +155,10 @@ public class Quest {
 	}
 
 	public boolean canComplete(JSONObject jsonObjectS) {
+		if (jsonObjectS == null) {
+			return false;
+		}
+
 		try {
 			if (jsonObjectS.getInt(APP_LOCAL_RED) < mJSONRequest.getInt(APP_LOCAL_RED) ||
 				jsonObjectS.getInt(APP_LOCAL_GREEN) < mJSONRequest.getInt(APP_LOCAL_GREEN) ||
@@ -166,7 +170,6 @@ public class Quest {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return false;
 		}
 		return true;
 	}
