@@ -161,12 +161,12 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 			jsonResult = getEmptyAmountJSON();
 		}
 
-		int r = jsonResult.getInt(APP_LOCAL_RED) + jsonObject.getInt(APP_LOCAL_RED);
-		int g = jsonResult.getInt(APP_LOCAL_GREEN) + jsonObject.getInt(APP_LOCAL_GREEN);
-		int b = jsonResult.getInt(APP_LOCAL_BLUE) + jsonObject.getInt(APP_LOCAL_BLUE);
-		int c = jsonResult.getInt(APP_LOCAL_CYAN) + jsonObject.getInt(APP_LOCAL_CYAN);
-		int m = jsonResult.getInt(APP_LOCAL_MAGENTA) + jsonObject.getInt(APP_LOCAL_MAGENTA);
-		int y = jsonResult.getInt(APP_LOCAL_YELLOW) + jsonObject.getInt(APP_LOCAL_YELLOW);
+		int r = jsonResult.getInt(APP_LOCAL_RED) - jsonObject.getInt(APP_LOCAL_RED);
+		int g = jsonResult.getInt(APP_LOCAL_GREEN) - jsonObject.getInt(APP_LOCAL_GREEN);
+		int b = jsonResult.getInt(APP_LOCAL_BLUE) - jsonObject.getInt(APP_LOCAL_BLUE);
+		int c = jsonResult.getInt(APP_LOCAL_CYAN) - jsonObject.getInt(APP_LOCAL_CYAN);
+		int m = jsonResult.getInt(APP_LOCAL_MAGENTA) - jsonObject.getInt(APP_LOCAL_MAGENTA);
+		int y = jsonResult.getInt(APP_LOCAL_YELLOW) - jsonObject.getInt(APP_LOCAL_YELLOW);
 
 		jsonResult
 			.put(APP_LOCAL_RED, r)
