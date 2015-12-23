@@ -3,7 +3,6 @@ package com.binarnahata.rainbowkingdom.Models.Quest;
 import android.content.Context;
 
 import com.binarnahata.rainbowkingdom.Libs.DataSaver.JSONDataSaver;
-import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class QuestData {
 	private static final String TAG = QuestData.class.getSimpleName();
 	private static final String FILENAME = "data.json";
 
-	private JSONDataSaver mQuestDateJSON;
+	private JSONDataSaver mQuestDataSaver;
 
 	private static QuestData sQuestData;
 	private Context mContext;
@@ -45,10 +44,10 @@ public class QuestData {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private QuestData (Context context) {
 		mContext = context;
-		mQuestDateJSON = new JSONDataSaver(mContext, FILENAME);
+		mQuestDataSaver = new JSONDataSaver(mContext, FILENAME);
 
 		try {
-			mQuestArrayList = mQuestDateJSON.loadData(Quest.class);
+			mQuestArrayList = mQuestDataSaver.loadData(Quest.class);
 		} catch (Exception e) {
 		}
 	}
@@ -63,7 +62,7 @@ public class QuestData {
 	/* МЕТОДЫ */
 	public boolean saveData() {
 		try {
-			mQuestDateJSON.saveData(mQuestArrayList);
+			mQuestDataSaver.saveData(mQuestArrayList);
 			return true;
 		} catch (Exception e) {
 			return false;

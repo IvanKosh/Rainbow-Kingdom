@@ -2,8 +2,6 @@ package com.binarnahata.rainbowkingdom.Models.Resources;
 
 import android.content.Context;
 
-import com.binarnahata.rainbowkingdom.Models.Quest.QuestDataJSON;
-
 import org.json.JSONObject;
 
 /**
