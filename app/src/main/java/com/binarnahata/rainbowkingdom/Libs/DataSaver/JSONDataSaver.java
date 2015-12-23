@@ -1,14 +1,12 @@
-package com.binarnahata.rainbowkingdom.Models.Quest;
+package com.binarnahata.rainbowkingdom.Libs.DataSaver;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,34 +17,40 @@ import java.util.ArrayList;
 
 /**
  * RainbowKingdom
- * Created on 18.12.15, 16:55
+ * Created on 23.12.15, 9:52
  *
  * @author bat
- * @version 0.1
+ * @version 1.0
  */
-public class QuestDataJSON {
+public class JSONDataSaver implements DataSaver {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = QuestDataJSON.class.getSimpleName();
-
-	private Context mContext;
-	private String mFilename;
+	private static final String TAG = JSONDataSaver.class.getSimpleName();
+	private final Context mContext;
+	private final String mFilename;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public QuestDataJSON(Context context, String filename) {
+	public JSONDataSaver(Context context, String filename) {
 		mContext = context;
 		mFilename = filename;
 	}
+
+	private <T> T getInstance(Class<T> object) {
+		try {
+			return object.getDeclaredConstructor(JSONObject.class).newInstance(new JSONObject());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	/* МЕТОДЫ */
-
-	public void saveData(ArrayList<Quest> data)
-		throws JSONException, IOException {
+	@Override
+	public <T> void saveData(ArrayList<T> list) {
 		JSONArray dataJSONArray = new JSONArray();
-		for (Quest quest : data) {
-			dataJSONArray.put(quest.toJSON());
+		for (T object : list) {
+			dataJSONArray.put(object.toString());
 		}
 
 		Writer writer = null;
@@ -55,38 +59,46 @@ public class QuestDataJSON {
 				.openFileOutput(mFilename, Context.MODE_PRIVATE);
 			writer = new OutputStreamWriter(out);
 			writer.write(dataJSONArray.toString());
-		} finally {
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
 			if (writer != null) {
-				writer.close();
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
-	public ArrayList<Quest> loadData() throws JSONException, IOException {
-		ArrayList<Quest> questArrayList = new ArrayList<>();
-		BufferedReader reader = null;
+	@Override
+	public <T> ArrayList<T> loadData(Class<T> object) {
+		ArrayList<T> arrayList = new ArrayList<>();
+		BufferedReader reader;
 
+		InputStream in;
 		try {
-			InputStream in = mContext.openFileInput(mFilename);
+			in = mContext.openFileInput(mFilename);
 			reader = new BufferedReader(new InputStreamReader(in));
 			StringBuilder jsonString = new StringBuilder();
-			String line /*= null*/;
+			String line;
 			while((line = reader.readLine()) != null) {
 				jsonString.append(line);
 			}
 
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			for (int i = 0; i < array.length(); i++) {
-				//questArrayList.add(new Quest(array.getJSONObject(i)));
-			}
-		} catch (FileNotFoundException e) {
-			Log.e(TAG, "Error 5. " + e.toString());
-		} finally {
-			if (reader != null) {
-				reader.close();
+				arrayList.add(getInstance(object));
 			}
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		return questArrayList;
+		return arrayList;
 	}
+	/* МЕТОДЫ */
 }
