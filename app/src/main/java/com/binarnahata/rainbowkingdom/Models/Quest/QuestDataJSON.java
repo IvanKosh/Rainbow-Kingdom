@@ -24,9 +24,9 @@ import java.util.ArrayList;
  * @author bat
  * @version 0.1
  */
-public class QuestDateJSON {
+public class QuestDataJSON {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = QuestDateJSON.class.getSimpleName();
+	private static final String TAG = QuestDataJSON.class.getSimpleName();
 
 	private Context mContext;
 	private String mFilename;
@@ -34,7 +34,7 @@ public class QuestDateJSON {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public QuestDateJSON(Context context, String filename) {
+	public QuestDataJSON(Context context, String filename) {
 		mContext = context;
 		mFilename = filename;
 	}

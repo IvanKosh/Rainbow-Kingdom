@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
@@ -60,6 +61,14 @@ public class RKMainActivity extends AppCompatActivity {
 		mBackgroundMusic = new Intent();
 		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
 		startService(mBackgroundMusic);
+
+		MyTest t1 = MyTest.getInstance();
+		MyTest t2 = MyTest.getInstance();
+		Log.d(TAG, String.valueOf(t1.getInt()));
+		t1.mInt = 25;
+		Log.d(TAG, String.valueOf(t2.getInt()));
+		MyTest t3 = MyTest.getInstance();
+		Log.d(TAG, String.valueOf(t3.getInt()));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

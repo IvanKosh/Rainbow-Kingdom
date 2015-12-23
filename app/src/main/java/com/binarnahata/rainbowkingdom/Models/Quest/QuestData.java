@@ -17,7 +17,7 @@ public class QuestData {
 	private static final String TAG = QuestData.class.getSimpleName();
 	private static final String FILENAME = "data.json";
 
-	private QuestDateJSON mQuestDateJSON;
+	private QuestDataJSON mQuestDateJSON;
 
 	private static QuestData sQuestData;
 	private Context mContext;
@@ -42,7 +42,7 @@ public class QuestData {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private QuestData (Context context) {
 		mContext = context;
-		mQuestDateJSON = new QuestDateJSON(mContext, FILENAME);
+		mQuestDateJSON = new QuestDataJSON(mContext, FILENAME);
 
 		try {
 			mQuestArrayList = mQuestDateJSON.loadData();
