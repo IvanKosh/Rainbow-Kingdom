@@ -20,9 +20,9 @@ import java.util.ArrayList;
  * Created on 23.12.15, 9:52
  *
  * @author bat
- * @version 1.0
+ * @version 1.1
  */
-public class JSONDataSaver implements DataSaver {
+public class JSONDataSaver {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = JSONDataSaver.class.getSimpleName();
 	private final Context mContext;
@@ -46,7 +46,6 @@ public class JSONDataSaver implements DataSaver {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	@Override
 	public <T> void saveData(ArrayList<T> list) {
 		JSONArray dataJSONArray = new JSONArray();
 		for (T object : list) {
@@ -74,7 +73,6 @@ public class JSONDataSaver implements DataSaver {
 		}
 	}
 
-	@Override
 	public <T> ArrayList<T> loadData(Class<T> object) {
 		ArrayList<T> arrayList = new ArrayList<>();
 		BufferedReader reader;
