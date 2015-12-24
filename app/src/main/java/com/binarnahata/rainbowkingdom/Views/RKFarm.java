@@ -26,6 +26,7 @@ import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
@@ -285,18 +286,14 @@ public class RKFarm extends BH_SurfaceView {
 			}
 
 			if (mCircles.size() == mMaximumNumberOfCircles) {
-				try {
-					ResourcesFragment.offsetAmounts(getContext(),
-						mResourceDisplay.red.amount * mRating,
-						mResourceDisplay.green.amount * mRating,
-						mResourceDisplay.blue.amount * mRating,
-						mResourceDisplay.cyan.amount * mRating,
-						mResourceDisplay.magenta.amount * mRating,
-						mResourceDisplay.yellow.amount * mRating
-					);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+				Resources.getInstance(getContext()).offset(
+					mResourceDisplay.red.amount * mRating,
+					mResourceDisplay.green.amount * mRating,
+					mResourceDisplay.blue.amount * mRating,
+					mResourceDisplay.cyan.amount * mRating,
+					mResourceDisplay.magenta.amount * mRating,
+					mResourceDisplay.yellow.amount * mRating);
+
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
 			}
 		}

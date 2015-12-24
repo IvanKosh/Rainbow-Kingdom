@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 
 import org.json.JSONException;
@@ -36,6 +37,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	private static final String TAG = QuestAdapter.class.getSimpleName();
 	public static final String APP_PREFERENCES = "resources";
 	private final Context mContext;
+	private final Resources mResources;
 
 	private ArrayList<Quest> mQuestArrayList;
 	private Callback mCallback;
@@ -53,7 +55,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 
 		mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
 		mEditor = mSettings.edit();
-
+		mResources = Resources.getInstance(context);
 		updateSettings();
 	}
 
@@ -74,11 +76,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 				@Override
 				public void onClick(View v) {
 					mQuestArrayList.remove(position);
-					try {
-						ResourcesFragment.offsetAmount(mContext, mQuestArrayList.get(position).getJSONRequest());
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
+					Resources.getInstance(mContext).offset(mQuestArrayList.get(position).getJSONRequest());
 					mCallback.onSelect();
 				}
 			});
@@ -121,11 +119,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	}
 
 	public void updateSettings() {
-		try {
-			mJSONObject = ResourcesFragment.getAmount(mContext);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		mJSONObject = mResources.getResources();
 	}
 	/* МЕТОДЫ */
 }

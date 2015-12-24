@@ -14,6 +14,7 @@ import android.util.Log;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 
 import org.json.JSONException;
 
@@ -51,16 +52,13 @@ public class RKMainActivity extends AppCompatActivity {
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, new MenuFragment())
 			.commit();
-		try {
-			ResourcesFragment.initSettings(this);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
 
 		doBindService();
 		mBackgroundMusic = new Intent();
 		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
 		startService(mBackgroundMusic);
+
+		Resources.getInstance(this).initSettings();
 
 		MyTest t1 = MyTest.getInstance();
 		MyTest t2 = MyTest.getInstance();
@@ -106,6 +104,7 @@ public class RKMainActivity extends AppCompatActivity {
 		super.onDestroy();
 		doUnbindService();
 		stopService(mBackgroundMusic);
+		Resources.getInstance(this).saveSettings();
 	}
 
 	@Override
