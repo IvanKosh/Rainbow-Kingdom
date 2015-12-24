@@ -28,14 +28,6 @@ import org.json.JSONObject;
 public class ResourcesFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = ResourcesFragment.class.getSimpleName();
-	public static final String APP_PREFERENCES = "resources";
-	public static final String APP_LOCAL_RED = "Red";
-	public static final String APP_LOCAL_GREEN = "local_green";
-	public static final String APP_LOCAL_BLUE = "local_blue";
-	public static final String APP_LOCAL_CYAN = "local_cyan";
-	public static final String APP_LOCAL_MAGENTA = "local_magenta";
-	public static final String APP_LOCAL_YELLOW = "local_yellow";
-	private static final String APP_LOCAL_RESOURCES = "local_resources";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -83,22 +75,9 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-
 	@Override
 	public Fragment getNext() {
 		return new MenuFragment();
-	}
-
-	private static JSONObject getEmptyAmountJSON() throws JSONException {
-		JSONObject jsonObject = new JSONObject();
-		jsonObject
-			.put(APP_LOCAL_RED, 0)
-			.put(APP_LOCAL_GREEN, 0)
-			.put(APP_LOCAL_BLUE, 0)
-			.put(APP_LOCAL_CYAN, 0)
-			.put(APP_LOCAL_MAGENTA, 0)
-			.put(APP_LOCAL_YELLOW, 0);
-		return jsonObject;
 	}
 	/* МЕТОДЫ */
 }

@@ -22,16 +22,16 @@ import java.util.ArrayList;
  * @author bat
  * @version 1.1
  */
-public class JSONDataSaver {
+public class FileDataSaver {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = JSONDataSaver.class.getSimpleName();
+	private static final String TAG = FileDataSaver.class.getSimpleName();
 	private final Context mContext;
 	private final String mFilename;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public JSONDataSaver(Context context, String filename) {
+	public FileDataSaver(Context context, String filename) {
 		mContext = context;
 		mFilename = filename;
 	}

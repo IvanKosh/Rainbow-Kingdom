@@ -59,14 +59,6 @@ public class RKMainActivity extends AppCompatActivity {
 		startService(mBackgroundMusic);
 
 		Resources.getInstance(this).initSettings();
-
-		MyTest t1 = MyTest.getInstance();
-		MyTest t2 = MyTest.getInstance();
-		Log.d(TAG, String.valueOf(t1.getInt()));
-		t1.mInt = 25;
-		Log.d(TAG, String.valueOf(t2.getInt()));
-		MyTest t3 = MyTest.getInstance();
-		Log.d(TAG, String.valueOf(t3.getInt()));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

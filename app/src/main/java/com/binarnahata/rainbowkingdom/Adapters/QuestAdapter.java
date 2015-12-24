@@ -37,7 +37,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	private static final String TAG = QuestAdapter.class.getSimpleName();
 	public static final String APP_PREFERENCES = "resources";
 	private final Context mContext;
-	private final Resources mResources;
+	private Resources mResources;
 
 	private ArrayList<Quest> mQuestArrayList;
 	private Callback mCallback;
