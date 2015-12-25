@@ -151,6 +151,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			public void onSelect() {
 				mAdapter.updateSettings();
 				mAdapter.notifyDataSetChanged();
+				mQuestListArray.add(new Quest(getContext()));
 			}
 		});
 	}
