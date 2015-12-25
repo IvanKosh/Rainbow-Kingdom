@@ -36,9 +36,9 @@ public class FileDataSaver {
 		mFilename = filename;
 	}
 
-	private <T> T getInstance(Class<T> object) {
+	private <T> T getInstance(Class<T> object, JSONObject jsonObject) {
 		try {
-			return object.getDeclaredConstructor(JSONObject.class).newInstance(new JSONObject());
+			return object.getDeclaredConstructor(JSONObject.class).newInstance(jsonObject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +89,7 @@ public class FileDataSaver {
 
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			for (int i = 0; i < array.length(); i++) {
-				arrayList.add(getInstance(object));
+				arrayList.add(getInstance(object, array.getJSONObject(i)));
 			}
 		}
 		catch (Exception e) {

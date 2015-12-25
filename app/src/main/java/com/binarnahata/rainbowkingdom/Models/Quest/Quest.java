@@ -25,16 +25,11 @@ public class Quest {
 	private static final String TAG = Quest.class.getSimpleName();
 	public static final int MAX_QUEST_REQUESTING = 3;
 	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
-	public static final String APP_LOCAL_RED = "local_red";
-	public static final String APP_LOCAL_GREEN = "local_green";
-	public static final String APP_LOCAL_BLUE = "local_blue";
-	public static final String APP_LOCAL_CYAN = "local_cyan";
-	public static final String APP_LOCAL_MAGENTA = "local_magenta";
-	public static final String APP_LOCAL_YELLOW = "local_yellow";
 	private static final String JSON_ID = "id";
 	private static final String JSON_HERO_AVATAR = "hero_avatar";
 	private static final String JSON_TEXT = "text";
 	private static final String JSON_EXPERIENCE = "experience";
+	private static final String JSON_REQUEST = "request";
 	private Context mContext;
 
 	private UUID mId;
@@ -108,6 +103,14 @@ public class Quest {
 
 		mExperience = Utils.rndInt(4*QUEST_RATION, 12*QUEST_RATION);
 	}
+
+	public Quest(JSONObject jsonObject) throws JSONException{
+		mId = UUID.fromString(jsonObject.getString(JSON_ID));
+		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
+		mText = (String) jsonObject.get(JSON_TEXT);
+		mJSONRequest = new JSONObject(jsonObject.getString(JSON_REQUEST));
+		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public JSONObject toJSON() throws JSONException {
@@ -115,6 +118,7 @@ public class Quest {
 		json.put(JSON_ID, mId.toString());
 		json.put(JSON_HERO_AVATAR, mHeroAvatar);
 		json.put(JSON_TEXT, mText);
+		json.put(JSON_REQUEST, mJSONRequest.toString());
 		json.put(JSON_EXPERIENCE, mExperience);
 		return json;
 	}
