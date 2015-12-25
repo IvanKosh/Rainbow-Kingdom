@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * RainbowKingdom
@@ -82,6 +86,37 @@ public class Resources {
 			e.printStackTrace();
 		}
 		return jsonObject;
+	}
+
+	public static JSONObject getRandom(int colorNumber) {
+		ArrayList<String> colorPool = getColorPool();
+		Collections.shuffle(colorPool);
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject
+				.put(RED, 0)
+				.put(GREEN, 0)
+				.put(BLUE, 0)
+				.put(CYAN, 0)
+				.put(MAGENTA, 0)
+				.put(YELLOW, 0);
+			int r;
+			for (int i = 0; i < colorNumber; i++) {
+				r = Utils.rndInt(3, 10);
+				jsonObject
+					.put(colorPool.get(i), r);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
+
+	private static ArrayList<String> getColorPool() {
+		return new ArrayList<String>(){{
+			add(RED); add(GREEN); add(BLUE);
+			add(CYAN); add(MAGENTA); add(YELLOW);
+		}};
 	}
 
 	public void saveSettings() {

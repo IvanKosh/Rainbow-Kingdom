@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,12 +64,12 @@ public class Quest {
 	public String getJSONRequestString() {
 		String result = new String();
 		try {
-			int r = mJSONRequest.getInt(APP_LOCAL_RED);
-			int g = mJSONRequest.getInt(APP_LOCAL_GREEN);
-			int b = mJSONRequest.getInt(APP_LOCAL_BLUE);
-			int c = mJSONRequest.getInt(APP_LOCAL_CYAN);
-			int m = mJSONRequest.getInt(APP_LOCAL_MAGENTA);
-			int y = mJSONRequest.getInt(APP_LOCAL_YELLOW);
+			int r = mJSONRequest.getInt(Resources.RED);
+			int g = mJSONRequest.getInt(Resources.GREEN);
+			int b = mJSONRequest.getInt(Resources.BLUE);
+			int c = mJSONRequest.getInt(Resources.CYAN);
+			int m = mJSONRequest.getInt(Resources.MAGENTA);
+			int y = mJSONRequest.getInt(Resources.YELLOW);
 			if (r != 0) {
 				result += "Red: " + r + " ";
 			}
@@ -103,46 +104,10 @@ public class Quest {
 		mHeroAvatar = Utils.rndHeroAvatar();
 		mText = "Quest text";
 
-		/*ArrayList<Integer> colorPool = Utils.getColorPool();
-		Collections.shuffle(colorPool);
-		for (int i = Utils.rndInt(1, QUEST_RATION); i > 0; i--) {
-			mQuestRequestList.add(new QuestRequest(colorPool.get(i)));
-		}*/
+		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
 
-		ArrayList<String> colorPool = getColorPool();
-		Collections.shuffle(colorPool);
-		mJSONRequest = new JSONObject();
-		int amount = 0;
-		int r;
-		int number = Utils.rndInt(1, QUEST_RATION);
-		try {
-			mJSONRequest
-				.put(APP_LOCAL_RED, 0)
-				.put(APP_LOCAL_GREEN, 0)
-				.put(APP_LOCAL_BLUE, 0)
-				.put(APP_LOCAL_CYAN, 0)
-				.put(APP_LOCAL_MAGENTA, 0)
-				.put(APP_LOCAL_YELLOW, 0);
-			for (int i = number; i > 0; i--) {
-				r = Utils.rndInt(5, 10);
-				amount += r;
-				mJSONRequest
-					.put(colorPool.get(i), r);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		mExperience = amount;
-		mExperience *= QUEST_RATION - number;
+		mExperience = Utils.rndInt(4*QUEST_RATION, 12*QUEST_RATION);
 	}
-
-	/*public Quest(JSONObject jsonObject) throws JSONException{
-		mId = UUID.fromString(jsonObject.getString(JSON_ID));
-		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
-		mText = (String) jsonObject.get(JSON_TEXT);
-		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
-	}*/
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public JSONObject toJSON() throws JSONException {
@@ -160,25 +125,18 @@ public class Quest {
 		}
 
 		try {
-			if (jsonObjectS.getInt(APP_LOCAL_RED) < mJSONRequest.getInt(APP_LOCAL_RED) ||
-				jsonObjectS.getInt(APP_LOCAL_GREEN) < mJSONRequest.getInt(APP_LOCAL_GREEN) ||
-				jsonObjectS.getInt(APP_LOCAL_BLUE) < mJSONRequest.getInt(APP_LOCAL_BLUE) ||
-				jsonObjectS.getInt(APP_LOCAL_CYAN) < mJSONRequest.getInt(APP_LOCAL_CYAN) ||
-				jsonObjectS.getInt(APP_LOCAL_MAGENTA) < mJSONRequest.getInt(APP_LOCAL_MAGENTA) ||
-				jsonObjectS.getInt(APP_LOCAL_YELLOW) < mJSONRequest.getInt(APP_LOCAL_YELLOW)) {
+			if (jsonObjectS.getInt(Resources.RED) < mJSONRequest.getInt(Resources.RED) ||
+				jsonObjectS.getInt(Resources.GREEN) < mJSONRequest.getInt(Resources.GREEN) ||
+				jsonObjectS.getInt(Resources.BLUE) < mJSONRequest.getInt(Resources.BLUE) ||
+				jsonObjectS.getInt(Resources.CYAN) < mJSONRequest.getInt(Resources.CYAN) ||
+				jsonObjectS.getInt(Resources.MAGENTA) < mJSONRequest.getInt(Resources.MAGENTA) ||
+				jsonObjectS.getInt(Resources.YELLOW) < mJSONRequest.getInt(Resources.YELLOW)) {
 				return false;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return true;
-	}
-
-	private ArrayList<String> getColorPool() {
-		return new ArrayList<String>(){{
-			add(APP_LOCAL_RED); add(APP_LOCAL_GREEN); add(APP_LOCAL_BLUE);
-			add(APP_LOCAL_CYAN); add(APP_LOCAL_MAGENTA); add(APP_LOCAL_YELLOW);
-		}};
 	}
 	/* МЕТОДЫ */
 }
