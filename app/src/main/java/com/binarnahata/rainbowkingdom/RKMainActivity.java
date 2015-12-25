@@ -9,14 +9,11 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
-import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
-
-import org.json.JSONException;
 
 import java.util.List;
 
@@ -58,7 +55,8 @@ public class RKMainActivity extends AppCompatActivity {
 		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
 		startService(mBackgroundMusic);
 
-		Resources.getInstance(this).initSettings();
+		Resources.getInstance(this).initData();
+		Experience.getInstance(this).initData();
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -96,7 +94,8 @@ public class RKMainActivity extends AppCompatActivity {
 		super.onDestroy();
 		doUnbindService();
 		stopService(mBackgroundMusic);
-		Resources.getInstance(this).saveSettings();
+		Resources.getInstance(this).saveData();
+		Experience.getInstance(this).saveData();
 	}
 
 	@Override

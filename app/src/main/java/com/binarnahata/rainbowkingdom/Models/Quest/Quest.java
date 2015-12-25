@@ -104,7 +104,7 @@ public class Quest {
 		mExperience = Utils.rndInt(4*QUEST_RATION, 12*QUEST_RATION);
 	}
 
-	public Quest(JSONObject jsonObject) throws JSONException{
+	public Quest(JSONObject jsonObject) throws JSONException { // NEVER delete
 		mId = UUID.fromString(jsonObject.getString(JSON_ID));
 		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
 		mText = (String) jsonObject.get(JSON_TEXT);
