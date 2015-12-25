@@ -2,6 +2,7 @@ package com.binarnahata.rainbowkingdom.Models.Resources;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
@@ -62,9 +63,9 @@ public class Resources {
 	public void initSettings() {
 		if (!mSPDataSever.settings.contains(APP_INIT_PREFERENCES)) {
 			if (!mSPDataSever.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
-				JSONObject jsonObject = getEmpty();
+				mResources = getEmpty();
 				mSPDataSever.editor
-					.putString(APP_LOCAL_RESOURCES, jsonObject.toString())
+					.putString(APP_LOCAL_RESOURCES, mResources.toString())
 					.putBoolean(APP_INIT_PREFERENCES, true)
 					.apply();
 

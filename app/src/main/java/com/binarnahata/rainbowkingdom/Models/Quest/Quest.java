@@ -99,7 +99,8 @@ public class Quest {
 		mHeroAvatar = Utils.rndHeroAvatar();
 		mText = "Quest text";
 
-		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
+		//mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
+		mJSONRequest = Resources.getRandom(1);
 
 		mExperience = Utils.rndInt(4*QUEST_RATION, 12*QUEST_RATION);
 	}

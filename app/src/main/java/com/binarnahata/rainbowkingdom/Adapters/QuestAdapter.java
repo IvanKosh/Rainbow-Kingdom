@@ -75,8 +75,8 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 			holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					Resources.getInstance(mContext).approve(mQuestArrayList.get(position).getJSONRequest());
 					mQuestArrayList.remove(position);
-					Resources.getInstance(mContext).offset(mQuestArrayList.get(position).getJSONRequest());
 					mCallback.onSelect();
 				}
 			});
