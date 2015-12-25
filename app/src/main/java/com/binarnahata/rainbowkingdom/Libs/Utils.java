@@ -1,10 +1,11 @@
-package com.binarnahata.rainbowkingdom;
+package com.binarnahata.rainbowkingdom.Libs;
 
-import android.graphics.Color;
+import android.graphics.Point;
 
-import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
-import com.binarnahata.rainbowkingdom.Libs.Ray;
-import com.binarnahata.rainbowkingdom.Libs.Segment;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * RainbowKingdom
@@ -16,20 +17,20 @@ import com.binarnahata.rainbowkingdom.Libs.Segment;
 public class Utils {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Utils.class.getSimpleName();
+	private static final Random random = new Random();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Utils(){}
+	public Utils(){
+		random.setSeed(System.currentTimeMillis());
+	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* Рандомы */
 	public static int rndInt(int min, int max) {
-		return (int) (min + Math.random() * (max - min + 1));
-	}
-
-	public static float rndFlt(float min, float max) {
-		return (float) (min + (max - min) * Math.random());
+		int r = random.nextInt(max - min) + min;
+		return r;
 	}
 
 	public static int rndColor() {
@@ -51,6 +52,10 @@ public class Utils {
 		return Color.RED;
 		/*Random rnd = new Random();
 		return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));*/
+	}
+
+	public static String rndHeroAvatar() {
+		return "hero_avatar" + rndInt(0, 18);
 	}
 	/* Рандомы */
 
@@ -76,7 +81,7 @@ public class Utils {
 	}
 
 
-	public static DoublePoint rayIntersection(Ray ray, Segment segment) {
+	public static Point rayIntersection(Ray ray, Segment segment) {
 
 		double matrix[][] = new double[2][2];
 
@@ -105,12 +110,12 @@ public class Utils {
 		double T2 = D2/D;
 
 		if ((T2 >= 0) && ((T1 >= 0) && (T1 <= 1))) {
-			return new DoublePoint(segment.start.x + T1*(segment.end.x - segment.start.x), segment.start.y + T1*(segment.end.y - segment.start.y));
+			return new Point((int) (segment.start.x + T1*(segment.end.x - segment.start.x)), (int) (segment.start.y + T1*(segment.end.y - segment.start.y)));
 		}
 		return null;
 	}
 
-	public static double distanceBetweenTwoPoint(DoublePoint start, DoublePoint end) {
+	public static double distanceBetweenTwoPoint(Point start, Point end) {
 		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
 	}
 
@@ -129,6 +134,12 @@ public class Utils {
 	/* Математика */
 
 	/* Работа с цветами */
+	public static ArrayList<Integer> getColorPool() {
+		return new ArrayList<Integer>(){{
+			add(Color.RED); add(Color.GREEN); add(Color.BLUE);
+			add(Color.CYAN); add(Color.MAGENTA); add(Color.YELLOW);
+		}};
+	}
 	/* Работа с цветами */
 
 	/* МЕТОДЫ */

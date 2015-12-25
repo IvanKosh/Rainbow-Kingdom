@@ -1,4 +1,4 @@
-package com.binarnahata.rainbowkingdom;
+package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.support.v4.app.Fragment;
 

@@ -1,28 +1,19 @@
-package com.binarnahata.rainbowkingdom.Libs;
-
-import android.graphics.Point;
+package com.binarnahata.rainbowkingdom.Models.Achievement;
 
 /**
  * RainbowKingdom
- * Created on 13.12.15, 16:43
+ * Created on 22.12.15, 18:33
  *
  * @author bat
  * @version 0.1
  */
-public class Ray {
+public class Achievement {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Ray.class.getSimpleName();
-
-	public Point start;
-	public Point point;
+	private static final String TAG = Achievement.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Ray(Point start, Point point) {
-		this.start = start;
-		this.point = point;
-	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */

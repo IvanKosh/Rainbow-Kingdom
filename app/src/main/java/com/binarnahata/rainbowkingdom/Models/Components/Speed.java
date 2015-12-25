@@ -3,10 +3,9 @@ package com.binarnahata.rainbowkingdom.Models.Components;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
 import com.binarnahata.rainbowkingdom.Libs.Ray;
 import com.binarnahata.rainbowkingdom.Libs.Segment;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 /**
  * RainbowKingdom
@@ -42,7 +41,7 @@ public class Speed {
 	 * @param rectangle
 	 * @param target
 	 */
-	public static Speed getSpeedForShoot (Rect rectangle, DoublePoint target) {
+	public static Speed getSpeedForShoot (Rect rectangle, Point target) {
 		double t = rectangle.right / 2 + rectangle.left;
 		double h = rectangle.bottom + rectangle.top;
 
@@ -51,9 +50,9 @@ public class Speed {
 		Point RightTopPoint = new Point(rectangle.right, rectangle.top);
 		Point RightBottomPoint = new Point(rectangle.right, rectangle.bottom);
 
-		Ray ray = new Ray(new DoublePoint(t, h), target);
+		Ray ray = new Ray(new Point((int) t, (int) h), target);
 
-		DoublePoint intersection = Utils.rayIntersection(ray,
+		Point intersection = Utils.rayIntersection(ray,
 			new Segment(LeftBottomPoint, LeftTopPoint));
 
 		if (intersection == null) {
@@ -69,7 +68,7 @@ public class Speed {
 			return null;
 		}
 
-		double distance = Utils.distanceBetweenTwoPoint(new DoublePoint(t, h), intersection);
+		double distance = Utils.distanceBetweenTwoPoint(new Point((int) t, (int) h), intersection);
 
 		return new Speed(MAXIMUM_SPEED*(target.x-t)/distance, MAXIMUM_SPEED*(h-target.y)/distance);
 	}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/container"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<ImageView
+		android:id="@+id/image"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:layout_centerVertical="true"
+		android:src="@drawable/settings"/>
+
+	<TextView
+		android:id="@+id/text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:gravity="center"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/image"
+		android:text="quest"/>
+
+	<TextView
+		android:id="@+id/request"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:gravity="center"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/image"
+		android:layout_below="@id/text"
+		android:text="request"/>
+
+
+	<TextView
+		android:id="@+id/experience"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:gravity="center"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/image"
+		android:layout_below="@id/request"
+		android:text="exp"/>
+
+</RelativeLayout>

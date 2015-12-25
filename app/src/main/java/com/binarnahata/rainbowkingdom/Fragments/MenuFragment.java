@@ -2,16 +2,23 @@ package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
-import com.binarnahata.rainbowkingdom.BackPressedInterface;
+import com.binarnahata.rainbowkingdom.Adapters.QuestAdapter;
+import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
+import com.binarnahata.rainbowkingdom.Models.Quest.QuestData;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
+
+import java.util.ArrayList;
+
 
 /**
  * RainbowKingdom
@@ -23,6 +30,15 @@ import com.binarnahata.rainbowkingdom.Utils;
 public class MenuFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MenuFragment.class.getSimpleName();
+	public static final int MAX_NUMBER_OF_QUESTS = 10;
+
+	private ArrayList<Quest> mQuestListArray;
+
+	private RecyclerView mRecyclerView;
+	private QuestAdapter mAdapter;
+	private RecyclerView.LayoutManager mLayoutManager;
+	private ProgressBar mProgressBar;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -31,9 +47,23 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	}
 
 	@Override
+	public void onCreate(Bundle savedBundleInstance) {
+		super.onCreate(savedBundleInstance);
+
+		initQuestList();
+		initQuestAdapter();
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_menu, container, false);
+
+		mRecyclerView = (RecyclerView)view.findViewById(R.id.quests);
+		mRecyclerView.setHasFixedSize(true);
+		mLayoutManager = new LinearLayoutManager(getContext());
+		mRecyclerView.setLayoutManager(mLayoutManager);
+		mRecyclerView.setAdapter(mAdapter);
 
 		Button fast = (Button) view.findViewById(R.id.fast_button);
 		fast.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +110,23 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new ResourcesFragment());
+					((RKMainActivity) getActivity()).runFragment(new ResourcesFragment());
 				}
 			}
 		});
+
+		Button achievement = (Button) view.findViewById(R.id.achievements_button);
+		achievement.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity) getActivity()).runFragment(new AchievementsFragment());
+				}
+			}
+		});
+
+		mProgressBar = (ProgressBar) view.findViewById(R.id.experienceProgressBar);
+		mProgressBar.setProgress(50);
 
 		return view;
 	}
@@ -94,5 +137,29 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	private void initQuestList() {
+		mQuestListArray = QuestData.getInstance(getActivity()).getQuestArrayList();
+		
+		while (mQuestListArray.size() < MAX_NUMBER_OF_QUESTS) {
+			mQuestListArray.add(new Quest(getContext()));
+		}
+	}
+
+	private void initQuestAdapter() {
+		mAdapter = new QuestAdapter(getContext(), mQuestListArray, new QuestAdapter.Callback() {
+			@Override
+			public void onSelect() {
+				mAdapter.updateSettings();
+				mAdapter.notifyDataSetChanged();
+				mQuestListArray.add(new Quest(getContext()));
+			}
+		});
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		QuestData.getInstance(getActivity()).saveData(mQuestListArray);
+	}
 	/* МЕТОДЫ */
 }

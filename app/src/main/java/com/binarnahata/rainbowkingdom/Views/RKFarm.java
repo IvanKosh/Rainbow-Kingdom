@@ -10,7 +10,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,18 +18,20 @@ import android.view.SurfaceHolder;
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
-import com.binarnahata.rainbowkingdom.Libs.DoublePoint;
-import com.binarnahata.rainbowkingdom.Models.BallPool;
-import com.binarnahata.rainbowkingdom.Models.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
+import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
-import com.binarnahata.rainbowkingdom.Models.GamePanel;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
-import com.binarnahata.rainbowkingdom.Models.ResourceDisplay;
-import com.binarnahata.rainbowkingdom.Models.SimpleCircle;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
+import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
-import com.binarnahata.rainbowkingdom.Utils;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -123,17 +124,17 @@ public class RKFarm extends BH_SurfaceView {
 
 		BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.RED);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.GREEN);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.BLUE);
-		circle.setSpeed(new Speed(Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndFlt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
+		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
 		mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,
@@ -241,8 +242,12 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 
-		mBallPool.update();
-		mMark.update();
+		if (mBallPool != null) {
+			mBallPool.update();
+		}
+		if (mMark != null) {
+			mMark.update();
+		}
 	}
 
 	@Override
@@ -271,7 +276,7 @@ public class RKFarm extends BH_SurfaceView {
 			if (mShoot == null) {
 				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				if (mShoot != null) {
-					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new DoublePoint(event.getX(), event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
+					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())/*new Rectangle(0, 0, getWidth(), getHeight())*/, new Point((int) event.getX(), (int) event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 					if (mShoot.getSpeed() == null) {
 						mShoot.setSpeed(new Speed(0, 1.0));
 					}
@@ -281,14 +286,14 @@ public class RKFarm extends BH_SurfaceView {
 			}
 
 			if (mCircles.size() == mMaximumNumberOfCircles) {
-				ResourcesFragment.offsetAmounts(getContext(),
+				Resources.getInstance(getContext()).offset(
 					mResourceDisplay.red.amount * mRating,
 					mResourceDisplay.green.amount * mRating,
 					mResourceDisplay.blue.amount * mRating,
 					mResourceDisplay.cyan.amount * mRating,
 					mResourceDisplay.magenta.amount * mRating,
-					mResourceDisplay.yellow.amount * mRating
-				);
+					mResourceDisplay.yellow.amount * mRating);
+
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
 			}
 		}

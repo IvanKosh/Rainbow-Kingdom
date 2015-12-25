@@ -6,10 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.binarnahata.rainbowkingdom.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Views.RKFarm;
-
-import java.util.UUID;
 
 /**
  * RainbowKingdom

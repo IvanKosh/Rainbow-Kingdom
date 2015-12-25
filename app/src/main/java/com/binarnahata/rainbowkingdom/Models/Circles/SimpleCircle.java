@@ -1,10 +1,9 @@
-package com.binarnahata.rainbowkingdom.Models;
+package com.binarnahata.rainbowkingdom.Models.Circles;
 
 import android.graphics.Rect;
 
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Components.Speed;
-import com.binarnahata.rainbowkingdom.Utils;
 
 /**
  * RainbowKingdom

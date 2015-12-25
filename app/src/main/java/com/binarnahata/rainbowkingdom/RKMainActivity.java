@@ -9,32 +9,36 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.binarnahata.rainbowkingdom.Fragments.GameFragment;
+import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
+
+import org.json.JSONException;
 
 import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
-	private static final String TAG = RKMainActivity.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = RKMainActivity.class.getSimpleName();
+
 	private FragmentManager mFragmentManager;
 
 	private boolean mIsBound = false;
-	private BackgroundMusicService mServ;
-
-	private ServiceConnection Scon = new ServiceConnection(){
+	private BackgroundMusicService mBackgroundMusicService;
+	private ServiceConnection mServiceConnection = new ServiceConnection(){
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			mServ = ((BackgroundMusicService.ServiceBinder)binder).getService();
+			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();
 		}
 
 		public void onServiceDisconnected(ComponentName name) {
-			mServ = null;
+			mBackgroundMusicService = null;
 		}
 
 	};
-	private Intent mMusic;
+	private Intent mBackgroundMusic;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -48,47 +52,16 @@ public class RKMainActivity extends AppCompatActivity {
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, new MenuFragment())
 			.commit();
-		/*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);*/
 
-		/*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-					.setAction("Action", null).show();
-			}
-		});*/
-		ResourcesFragment.initSettings(this);
+		doBindService();
+		mBackgroundMusic = new Intent();
+		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
+		startService(mBackgroundMusic);
 
-
-		mMusic = new Intent();
-		mMusic.setClass(this, BackgroundMusicService.class);
-		startService(mMusic);
+		Resources.getInstance(this).initSettings();
 	}
-
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}*/
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	/*@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}*/
 	public void runFragment(Fragment newFragment) {
 		List<Fragment> fragmentList = mFragmentManager.getFragments();
 		if (fragmentList != null) {
@@ -105,7 +78,7 @@ public class RKMainActivity extends AppCompatActivity {
 
 	void doBindService(){
 		bindService(new Intent(this, BackgroundMusicService.class),
-			Scon, Context.BIND_AUTO_CREATE);
+			mServiceConnection, Context.BIND_AUTO_CREATE);
 		mIsBound = true;
 	}
 
@@ -113,7 +86,7 @@ public class RKMainActivity extends AppCompatActivity {
 	{
 		if(mIsBound)
 		{
-			unbindService(Scon);
+			unbindService(mServiceConnection);
 			mIsBound = false;
 		}
 	}
@@ -121,7 +94,9 @@ public class RKMainActivity extends AppCompatActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		stopService(mMusic);
+		doUnbindService();
+		stopService(mBackgroundMusic);
+		Resources.getInstance(this).saveSettings();
 	}
 
 	@Override
