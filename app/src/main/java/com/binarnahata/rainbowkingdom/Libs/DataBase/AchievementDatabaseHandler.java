@@ -111,7 +111,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		return achievementArrayList;
 	}
 
-	public void addAchievement(Achievement achievement) {
+	/*public void addAchievement(Achievement achievement) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -122,7 +122,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 
 		db.insert(TABLE_ACHIEVEMENT, null, values);
 		db.close();
-	}
+	}*/
 
 	private void initAchievements(SQLiteDatabase db, int resourceId) {
 		db.beginTransaction();
