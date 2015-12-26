@@ -8,8 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
+import com.binarnahata.rainbowkingdom.R;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * RainbowKingdom
@@ -30,6 +38,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_NUMBER = "number";
 	private static final String KEY_POINT = "point";
 	public static final String SQL_GET_ACHIEVEMENTS = "SELECT " + KEY_ICON + "," + KEY_TEXT + "," + KEY_NUMBER + "," + KEY_POINT + " FROM " + TABLE_ACHIEVEMENT;
+	private final Context mContext;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -37,9 +46,11 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public AchievementDatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		mContext = context;
 	}
 	public AchievementDatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
+		mContext = context;
 	}
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -47,7 +58,12 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_ICON + " TEXT,"
 			+ KEY_TEXT + " TEXT," + KEY_NUMBER + " INTEGER," + KEY_POINT + " INTEGER" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
+
+		if (true) {
+			initData(db, R.raw.achievement);
+		}
 	}
+
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
@@ -96,5 +112,78 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		db.insert(TABLE_ACHIEVEMENT, null, values);
 		db.close();
 	}
+
+	private void initData(SQLiteDatabase db, int resourceId) {
+		db.beginTransaction();
+
+		InputStream insertsStream = mContext.getResources().openRawResource(resourceId);
+		BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
+
+		// Iterate through lines (assuming each insert has its own line and theres no other stuff)
+		try {
+			while (insertReader.ready()) {
+				String insertStmt = insertReader.readLine();
+				db.execSQL(insertStmt);
+			}
+			insertReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		/*final ContentValues cv = new ContentValues();
+		for (final Iterator i = jo.keys(); i.hasNext(); ){
+			final String unit = (String)i.next();
+			final String description = jo.optString(unit);
+			final String fprint = getFingerprint(unit);
+			cv.put(ClassificationEntry._FACTOR_FPRINT, fprint);
+			cv.put(ClassificationEntry._DESCRIPTION, description);
+			db.insert(DB_CLASSIFICATION_TABLE, null, cv);
+		}*/
+		db.setTransactionSuccessful();
+		db.endTransaction();
+//		db.close();
+	}
+
+	/*private JSONObject loadInitialWeights(int resourceId){
+		try{
+
+			final JSONObject jo = loadJsonObjectFromRawResource(context, resourceId);
+
+			// remove all "comments", which are just key entries that start with "--"
+			for (final Iterator i = jo.keys(); i.hasNext(); ){
+				final String key = (String)i.next();
+				if (key.startsWith("--")){
+					i.remove();
+				}
+			}
+
+			return jo;
+
+		}catch (final Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public int insertFromFile(Context context, int resourceId) throws IOException {
+		// Reseting Counter
+		int result = 0;
+
+		// Open the resource
+		InputStream insertsStream = context.getResources().openRawResource(resourceId);
+		BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
+
+		// Iterate through lines (assuming each insert has its own line and theres no other stuff)
+		while (insertReader.ready()) {
+			String insertStmt = insertReader.readLine();
+			db.execSQL(insertStmt);
+			result++;
+		}
+		insertReader.close();
+
+		// returning number of inserted rows
+		return result;
+	}*/
+
 	/* МЕТОДЫ */
 }

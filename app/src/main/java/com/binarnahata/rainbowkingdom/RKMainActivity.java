@@ -19,6 +19,9 @@ import com.binarnahata.rainbowkingdom.Models.Achievement.AchievementData;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +105,7 @@ public class RKMainActivity extends AppCompatActivity {
 
 		Log.d(TAG, "step");
 
-		contacts = db.getLimitAchievement(20, 100);
+		contacts = db.getLimitAchievement(0, 100);
 
 		for (Achievement achievement : contacts) {
 			String log = "Icon: " + achievement.getIcon()
@@ -127,6 +130,18 @@ public class RKMainActivity extends AppCompatActivity {
 					Log.d(TAG, log);
 			}
 		}
+
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put("icon", String.valueOf("asef"));
+			jo.put("text", String.valueOf("asef"));
+			jo.put("number", 0);
+			jo.put("point", 5);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		Log.d(TAG, jo.toString());
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
