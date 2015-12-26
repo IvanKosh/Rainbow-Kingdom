@@ -10,14 +10,16 @@ import android.util.Log;
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
 import com.binarnahata.rainbowkingdom.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * RainbowKingdom
@@ -37,7 +39,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_TEXT = "text";
 	private static final String KEY_NUMBER = "number";
 	private static final String KEY_POINT = "point";
-	public static final String SQL_GET_ACHIEVEMENTS = "SELECT " + KEY_ICON + "," + KEY_TEXT + "," + KEY_NUMBER + "," + KEY_POINT + " FROM " + TABLE_ACHIEVEMENT;
+	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
 	private final Context mContext;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -59,9 +61,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			+ KEY_TEXT + " TEXT," + KEY_NUMBER + " INTEGER," + KEY_POINT + " INTEGER" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 
-		if (true) {
-			initData(db, R.raw.achievement);
-		}
+		initAchievements(db, R.raw.achievements);
 	}
 
 	@Override
@@ -74,8 +74,18 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void updateAchievement(Achievement achievement) {
+	public int updateAchievement(Achievement achievement) {
+		SQLiteDatabase db = this.getWritableDatabase();
 
+		ContentValues values = new ContentValues();
+		values.put(KEY_ICON, achievement.getIcon());
+		values.put(KEY_TEXT, achievement.getText());
+		values.put(KEY_NUMBER, achievement.getNumber());
+		values.put(KEY_POINT, achievement.getPoint());
+
+		// updating row
+		return db.update(TABLE_ACHIEVEMENT, values, KEY_ID + " = ?",
+			new String[]{String.valueOf(achievement.getId())});
 	}
 
 	public ArrayList<Achievement> getLimitAchievement(int skip, int count) {
@@ -87,10 +97,11 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				Achievement achievement = new Achievement();
-				achievement.setIcon(cursor.getString(0));
-				achievement.setText(cursor.getString(1));
-				achievement.setNumber(cursor.getInt(2));
-				achievement.setPoint(cursor.getInt(3));
+				achievement.setId(cursor.getInt(0));
+				achievement.setIcon(cursor.getString(1));
+				achievement.setText(cursor.getString(2));
+				achievement.setNumber(cursor.getInt(3));
+				achievement.setPoint(cursor.getInt(4));
 
 				achievementArrayList.add(achievement);
 			} while (cursor.moveToNext());
@@ -113,77 +124,43 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	private void initData(SQLiteDatabase db, int resourceId) {
+	private void initAchievements(SQLiteDatabase db, int resourceId) {
 		db.beginTransaction();
 
 		InputStream insertsStream = mContext.getResources().openRawResource(resourceId);
 		BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
 
-		// Iterate through lines (assuming each insert has its own line and theres no other stuff)
+		String line;
+		StringBuilder jsonString = new StringBuilder();
 		try {
-			while (insertReader.ready()) {
-				String insertStmt = insertReader.readLine();
-				db.execSQL(insertStmt);
+			while((line = insertReader.readLine()) != null) {
+				jsonString.append(line);
 			}
-			insertReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		/*final ContentValues cv = new ContentValues();
-		for (final Iterator i = jo.keys(); i.hasNext(); ){
-			final String unit = (String)i.next();
-			final String description = jo.optString(unit);
-			final String fprint = getFingerprint(unit);
-			cv.put(ClassificationEntry._FACTOR_FPRINT, fprint);
-			cv.put(ClassificationEntry._DESCRIPTION, description);
-			db.insert(DB_CLASSIFICATION_TABLE, null, cv);
-		}*/
+		JSONArray array = null;
+		JSONObject oj;
+		try {
+			final ContentValues contentValues = new ContentValues();
+			array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+			for (int i = 0; i < array.length(); i++) {
+				Log.d(TAG, String.valueOf(array.getJSONObject(i)));
+				oj = array.getJSONObject(i);
+				contentValues.put(KEY_ICON, oj.getString(KEY_ICON));
+				contentValues.put(KEY_TEXT, oj.getString(KEY_TEXT));
+				contentValues.put(KEY_NUMBER, oj.getInt(KEY_NUMBER));
+				contentValues.put(KEY_POINT, oj.getInt(KEY_POINT));
+				db.insert(TABLE_ACHIEVEMENT, null, contentValues);
+			}
+		}
+		catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 		db.setTransactionSuccessful();
 		db.endTransaction();
-//		db.close();
 	}
-
-	/*private JSONObject loadInitialWeights(int resourceId){
-		try{
-
-			final JSONObject jo = loadJsonObjectFromRawResource(context, resourceId);
-
-			// remove all "comments", which are just key entries that start with "--"
-			for (final Iterator i = jo.keys(); i.hasNext(); ){
-				final String key = (String)i.next();
-				if (key.startsWith("--")){
-					i.remove();
-				}
-			}
-
-			return jo;
-
-		}catch (final Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public int insertFromFile(Context context, int resourceId) throws IOException {
-		// Reseting Counter
-		int result = 0;
-
-		// Open the resource
-		InputStream insertsStream = context.getResources().openRawResource(resourceId);
-		BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
-
-		// Iterate through lines (assuming each insert has its own line and theres no other stuff)
-		while (insertReader.ready()) {
-			String insertStmt = insertReader.readLine();
-			db.execSQL(insertStmt);
-			result++;
-		}
-		insertReader.close();
-
-		// returning number of inserted rows
-		return result;
-	}*/
-
 	/* МЕТОДЫ */
 }

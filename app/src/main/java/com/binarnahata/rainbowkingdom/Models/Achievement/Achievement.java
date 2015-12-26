@@ -11,18 +11,18 @@ public class Achievement {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Achievement.class.getSimpleName();
 
-	private int _id;
+	private int mId;
 	private String mIcon;
 	private String mText;
 	private int mNumber;
 	private int mPoint;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public int get_id() {
-		return _id;
+	public int getId() {
+		return mId;
 	}
-	public void set_id(int _id) {
-		this._id = _id;
+	public void setId(int id) {
+		this.mId = id;
 	}
 	public String getIcon() {
 		return mIcon;
@@ -58,8 +58,8 @@ public class Achievement {
 		mNumber = number;
 		mPoint = point;
 	}
-	public Achievement(int _id, String icon, String text, int number, int point) {
-		this._id = _id;
+	public Achievement(int id, String icon, String text, int number, int point) {
+		mId = id;
 		mIcon = icon;
 		mText = text;
 		mNumber = number;
