@@ -17,7 +17,7 @@ import java.util.UUID;
 public class QuestData {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = QuestData.class.getSimpleName();
-	private static final String FILENAME = "data.json";
+	private static final String FILENAME = "quests.json";
 
 	private FileDataSaver mQuestDataSaver;
 
@@ -48,7 +48,9 @@ public class QuestData {
 
 		try {
 			mQuestArrayList = mQuestDataSaver.loadData(Quest.class);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -65,6 +67,7 @@ public class QuestData {
 			mQuestDataSaver.saveData(mQuestArrayList);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
