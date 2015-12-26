@@ -1,9 +1,11 @@
 package com.binarnahata.rainbowkingdom.Libs.DataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
 
@@ -61,14 +63,11 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	public ArrayList<Achievement> getLimitAchievement(int skip, int count) {
-		ArrayList<Achievement> achievementArrayList = new ArrayList<>();
-		// Select All Query
-		String selectQuery = SQL_GET_ACHIEVEMENTS + "LIMIT " + skip + ", " + count;
-
-		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQuery = SQL_GET_ACHIEVEMENTS + " LIMIT " + count + " OFFSET " + skip;
+		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 
-		// looping through all rows and adding to list
+		ArrayList<Achievement> achievementArrayList = new ArrayList<>();
 		if (cursor.moveToFirst()) {
 			do {
 				Achievement achievement = new Achievement();
@@ -76,13 +75,26 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 				achievement.setText(cursor.getString(1));
 				achievement.setNumber(cursor.getInt(2));
 				achievement.setPoint(cursor.getInt(3));
-				// Adding contact to list
+
 				achievementArrayList.add(achievement);
 			} while (cursor.moveToNext());
 		}
 
-		// return contact list
+		db.close();
 		return achievementArrayList;
+	}
+
+	public void addAchievement(Achievement achievement) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_ICON, achievement.getIcon());
+		values.put(KEY_TEXT, achievement.getText());
+		values.put(KEY_NUMBER, achievement.getNumber());
+		values.put(KEY_POINT, achievement.getPoint());
+
+		db.insert(TABLE_ACHIEVEMENT, null, values);
+		db.close();
 	}
 	/* МЕТОДЫ */
 }

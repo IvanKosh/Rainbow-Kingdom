@@ -9,12 +9,17 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
+import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
+import com.binarnahata.rainbowkingdom.Models.Achievement.AchievementData;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
@@ -57,6 +62,71 @@ public class RKMainActivity extends AppCompatActivity {
 
 		Resources.getInstance(this).initData();
 		Experience.getInstance(this).initData();
+
+		AchievementDatabaseHandler db = new AchievementDatabaseHandler(this);
+		/**
+		 * CRUD Operations
+		 * */
+		// Inserting Contacts
+		Log.d("Insert: ", "Inserting ..");
+		db.addAchievement(new Achievement("Ravi", "9100000000", 0, 5));
+		db.addAchievement(new Achievement("Srinivas", "9199999999", 0, 10));
+		db.addAchievement(new Achievement("Tommy", "9522222222", 0, 5));
+		db.addAchievement(new Achievement("Karthik", "9533333333", 0, 15));
+
+		// Reading all contacts
+		Log.d("Reading: ", "Reading all contacts..");
+		ArrayList<Achievement> contacts = db.getLimitAchievement(0, 2);
+
+		for (Achievement achievement : contacts) {
+			String log = "Icon: " + achievement.getIcon()
+				+ ", Text: " + achievement.getText()
+				+ ", Number: " + achievement.getNumber()
+				+ ", Point: " + achievement.getPoint();
+			// Writing Contacts to log
+			Log.d(TAG, log);
+		}
+
+		Log.d(TAG, "step");
+
+		contacts = db.getLimitAchievement(2, 2);
+
+		for (Achievement achievement : contacts) {
+			String log = "Icon: " + achievement.getIcon()
+				+ ", Text: " + achievement.getText()
+				+ ", Number: " + achievement.getNumber()
+				+ ", Point: " + achievement.getPoint();
+			// Writing Contacts to log
+			Log.d(TAG, log);
+		}
+
+		Log.d(TAG, "step");
+
+		contacts = db.getLimitAchievement(20, 100);
+
+		for (Achievement achievement : contacts) {
+			String log = "Icon: " + achievement.getIcon()
+				+ ", Text: " + achievement.getText()
+				+ ", Number: " + achievement.getNumber()
+				+ ", Point: " + achievement.getPoint();
+			// Writing Contacts to log
+			Log.d(TAG, log);
+		}
+
+		Log.d(TAG, "step");
+
+		contacts = db.getLimitAchievement(70, 20);
+
+		if (contacts != null) {
+			for (Achievement achievement : contacts) {
+				String log = "Icon: " + achievement.getIcon()
+						+ ", Text: " + achievement.getText()
+						+ ", Number: " + achievement.getNumber()
+						+ ", Point: " + achievement.getPoint();
+					// Writing Contacts to log
+					Log.d(TAG, log);
+			}
+		}
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
