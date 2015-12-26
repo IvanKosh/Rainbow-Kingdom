@@ -1,7 +1,5 @@
 package com.binarnahata.rainbowkingdom.Fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +10,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 

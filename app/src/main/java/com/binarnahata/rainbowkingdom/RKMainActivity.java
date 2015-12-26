@@ -9,20 +9,12 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
-import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
-import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
-import com.binarnahata.rainbowkingdom.Models.Achievement.AchievementData;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RKMainActivity extends AppCompatActivity {
