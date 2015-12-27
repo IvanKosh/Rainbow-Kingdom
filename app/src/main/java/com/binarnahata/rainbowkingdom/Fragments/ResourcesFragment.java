@@ -35,6 +35,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	public ResourcesFragment() {
 	}
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 

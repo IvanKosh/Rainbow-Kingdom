@@ -14,8 +14,10 @@ public class Achievement {
 	private int mId;
 	private String mIcon;
 	private String mText;
-	private int mNumber;
 	private int mPoint;
+	private int mProgress;
+	private int mNecessary;
+	private String mTag;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public int getId() {
@@ -36,33 +38,43 @@ public class Achievement {
 	public void setText(String text) {
 		mText = text;
 	}
-	public int getNumber() {
-		return mNumber;
-	}
-	public void setNumber(int number) {
-		mNumber = number;
-	}
 	public int getPoint() {
 		return mPoint;
 	}
 	public void setPoint(int point) {
 		mPoint = point;
 	}
+	public int getProgress() {
+		return mProgress;
+	}
+	public void setProgress(int progress) {
+		mProgress = progress;
+	}
+	public int getNecessary() {
+		return mNecessary;
+	}
+	public void setNecessary(int limit) {
+		mNecessary = limit;
+	}
+	public String getTag() {
+		return mTag;
+	}
+	public void setTag(String tag) {
+		mTag = tag;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Achievement() {
 	}
-	public Achievement(String icon, String text, int number, int point) {
+	public Achievement(String icon, String text, int point) {
 		mIcon = icon;
 		mText = text;
-		mNumber = number;
 		mPoint = point;
 	}
-	public Achievement(int id, String icon, String text, int number, int point) {
+	public Achievement(int id, String icon, String text, int point) {
 		mId = id;
 		mIcon = icon;
 		mText = text;
-		mNumber = number;
 		mPoint = point;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

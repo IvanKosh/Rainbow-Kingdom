@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.R;
 
 /**
@@ -18,10 +19,22 @@ import com.binarnahata.rainbowkingdom.R;
 public class AchievementsFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = AchievementsFragment.class.getSimpleName();
+	private AchievementDatabaseHandler mDB;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		mDB = new AchievementDatabaseHandler(getContext());
+		mDB.updateAchievementProgress(2, 3);
+		mDB.updateAchievementProgress(2, 3);
+		mDB.updateAchievementProgress(2, 3);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {

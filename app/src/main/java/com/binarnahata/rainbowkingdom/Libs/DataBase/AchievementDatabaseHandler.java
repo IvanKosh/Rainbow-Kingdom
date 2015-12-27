@@ -37,8 +37,10 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ID = "id";
 	private static final String KEY_ICON = "icon";
 	private static final String KEY_TEXT = "text";
-	private static final String KEY_NUMBER = "number";
 	private static final String KEY_POINT = "point";
+	private static final String KEY_PROGRESS = "progress";
+	private static final String KEY_NECESSARY = "necessary";
+	private static final String KEY_TAG = "tag";
 	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
 	private final Context mContext;
 
@@ -58,7 +60,9 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_ACHIEVEMENT + "("
 			+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_ICON + " TEXT,"
-			+ KEY_TEXT + " TEXT," + KEY_NUMBER + " INTEGER," + KEY_POINT + " INTEGER" + ")";
+			+ KEY_TEXT + " TEXT," + KEY_POINT + " INTEGER,"
+			+ KEY_PROGRESS + " INTEGER," + KEY_NECESSARY + " INTEGER,"
+			+ KEY_TAG + " TEXT" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 
 		initAchievements(db, R.raw.achievements);
@@ -74,18 +78,26 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public int updateAchievement(Achievement achievement) {
+	/*public int updateAchievement(Achievement achievement) { // TODO: нет смысла в полном обновлении, достаточно только поля прогресс
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_ICON, achievement.getIcon());
 		values.put(KEY_TEXT, achievement.getText());
-		values.put(KEY_NUMBER, achievement.getNumber());
 		values.put(KEY_POINT, achievement.getPoint());
+		values.put(KEY_PROGRESS, achievement.getProgress());
+		values.put(KEY_LIMIT, achievement.getLimit());
+		values.put(KEY_TAG, achievement.getTag());
 
 		// updating row
 		return db.update(TABLE_ACHIEVEMENT, values, KEY_ID + " = ?",
 			new String[]{String.valueOf(achievement.getId())});
+	}*/
+
+	public void updateAchievementProgress(int id, int progress) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		db.execSQL("UPDATE " + TABLE_ACHIEVEMENT + " SET " + KEY_PROGRESS + " = " + KEY_PROGRESS + " + " + progress + " WHERE " + KEY_ID + " = " + id);
 	}
 
 	public ArrayList<Achievement> getLimitAchievement(int skip, int count) {
@@ -100,8 +112,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 				achievement.setId(cursor.getInt(0));
 				achievement.setIcon(cursor.getString(1));
 				achievement.setText(cursor.getString(2));
-				achievement.setNumber(cursor.getInt(3));
-				achievement.setPoint(cursor.getInt(4));
+				achievement.setPoint(cursor.getInt(3));
 
 				achievementArrayList.add(achievement);
 			} while (cursor.moveToNext());
@@ -146,12 +157,13 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			final ContentValues contentValues = new ContentValues();
 			array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			for (int i = 0; i < array.length(); i++) {
-				Log.d(TAG, String.valueOf(array.getJSONObject(i)));
 				oj = array.getJSONObject(i);
 				contentValues.put(KEY_ICON, oj.getString(KEY_ICON));
 				contentValues.put(KEY_TEXT, oj.getString(KEY_TEXT));
-				contentValues.put(KEY_NUMBER, oj.getInt(KEY_NUMBER));
 				contentValues.put(KEY_POINT, oj.getInt(KEY_POINT));
+				contentValues.put(KEY_PROGRESS, oj.getInt(KEY_PROGRESS));
+				contentValues.put(KEY_NECESSARY, oj.getInt(KEY_NECESSARY));
+				contentValues.put(KEY_TAG, oj.getString(KEY_TAG));
 				db.insert(TABLE_ACHIEVEMENT, null, contentValues);
 			}
 		}
