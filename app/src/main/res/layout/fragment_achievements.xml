@@ -6,7 +6,7 @@
 	android:layout_height="match_parent">
 
 	<TextView
-		android:id="@+id/achievemnts_point"
+		android:id="@+id/achievements_point"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
@@ -17,6 +17,6 @@
 		android:id="@+id/achievements"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@id/achievemnts_point"/>
+		android:layout_below="@id/achievements_point"/>
 
 </RelativeLayout>

@@ -43,7 +43,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, final int position) {
-
+		holder.mText.setText(mAchievementsArrayList.get(position).getText());
+		holder.mNumber.setText(String.valueOf(mAchievementsArrayList.get(position).getNumber()));
+		holder.mPoint.setText(String.valueOf(mAchievementsArrayList.get(position).getPoint()));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

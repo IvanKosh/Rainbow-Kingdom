@@ -62,6 +62,9 @@ public class Achievement {
 	public void setTag(String tag) {
 		mTag = tag;
 	}
+	public int getNumber() {
+		return mProgress / mNecessary;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Achievement() {

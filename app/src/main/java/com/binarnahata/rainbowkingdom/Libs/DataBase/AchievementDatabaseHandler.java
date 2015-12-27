@@ -56,12 +56,16 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		super(context, name, factory, version);
 		mContext = context;
 	}
+
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_ACHIEVEMENT + "("
-			+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_ICON + " TEXT,"
-			+ KEY_TEXT + " TEXT," + KEY_POINT + " INTEGER,"
-			+ KEY_PROGRESS + " INTEGER," + KEY_NECESSARY + " INTEGER,"
+			+ KEY_ID + " INTEGER PRIMARY KEY,"
+			+ KEY_ICON + " TEXT,"
+			+ KEY_TEXT + " TEXT,"
+			+ KEY_POINT + " INTEGER,"
+			+ KEY_PROGRESS + " INTEGER,"
+			+ KEY_NECESSARY + " INTEGER,"
 			+ KEY_TAG + " TEXT" + ")";
 		db.execSQL(CREATE_CONTACTS_TABLE);
 
@@ -78,22 +82,6 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	/*public int updateAchievement(Achievement achievement) { // TODO: нет смысла в полном обновлении, достаточно только поля прогресс
-		SQLiteDatabase db = this.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(KEY_ICON, achievement.getIcon());
-		values.put(KEY_TEXT, achievement.getText());
-		values.put(KEY_POINT, achievement.getPoint());
-		values.put(KEY_PROGRESS, achievement.getProgress());
-		values.put(KEY_LIMIT, achievement.getLimit());
-		values.put(KEY_TAG, achievement.getTag());
-
-		// updating row
-		return db.update(TABLE_ACHIEVEMENT, values, KEY_ID + " = ?",
-			new String[]{String.valueOf(achievement.getId())});
-	}*/
-
 	public void updateAchievementProgress(int id, int progress) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -113,6 +101,9 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 				achievement.setIcon(cursor.getString(1));
 				achievement.setText(cursor.getString(2));
 				achievement.setPoint(cursor.getInt(3));
+				achievement.setProgress(cursor.getInt(4));
+				achievement.setNecessary(cursor.getInt(5));
+				achievement.setTag(cursor.getString(6));
 
 				achievementArrayList.add(achievement);
 			} while (cursor.moveToNext());
@@ -121,19 +112,6 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return achievementArrayList;
 	}
-
-	/*public void addAchievement(Achievement achievement) {
-		SQLiteDatabase db = this.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(KEY_ICON, achievement.getIcon());
-		values.put(KEY_TEXT, achievement.getText());
-		values.put(KEY_NUMBER, achievement.getNumber());
-		values.put(KEY_POINT, achievement.getPoint());
-
-		db.insert(TABLE_ACHIEVEMENT, null, values);
-		db.close();
-	}*/
 
 	private void initAchievements(SQLiteDatabase db, int resourceId) {
 		db.beginTransaction();
