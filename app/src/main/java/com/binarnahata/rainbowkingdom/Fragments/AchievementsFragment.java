@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.Adapters.AchievementAdapter;
 import com.binarnahata.rainbowkingdom.Controllers.loadAchievements;
@@ -35,6 +35,9 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 
 	private int count = 10;
 	private int skip = -10;
+	private TextView mSumTextView;
+	private int mSum = 0;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -58,6 +61,8 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		mRecyclerView.setAdapter(mAdapter);
 
+		mSumTextView = (TextView) view.findViewById(R.id.achievements_point);
+		mSumTextView.setText(String.valueOf(mSum));
 		return view;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -74,7 +79,13 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 
 	private void initAchievementAdapter() {
 		mAchievementListArray = new ArrayList<>();
-		mAdapter = new AchievementAdapter(mAchievementListArray);
+		mAdapter = new AchievementAdapter(mAchievementListArray, new AchievementAdapter.Callbacks() {
+			@Override
+			public void offsetSum(int deltaSum) {
+				mSum += deltaSum;
+				mSumTextView.setText(String.valueOf(mSum));
+			}
+		});
 	}
 	/* МЕТОДЫ */
 }
