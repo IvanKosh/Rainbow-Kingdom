@@ -22,9 +22,14 @@ import java.util.ArrayList;
 public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.ViewHolder> {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = AchievementAdapter.class.getSimpleName();
-	private final ArrayList<Achievement> mAchievementsArrayList;
+	private ArrayList<Achievement> mAchievementsArrayList;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+
+	public void setAchievementsArrayList(ArrayList<Achievement> achievementsArrayList) {
+		mAchievementsArrayList = achievementsArrayList;
+	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public AchievementAdapter(ArrayList<Achievement> achievementArrayList) {
@@ -47,6 +52,11 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 		holder.mNumber.setText(String.valueOf(mAchievementsArrayList.get(position).getNumber()));
 		holder.mPoint.setText(String.valueOf(mAchievementsArrayList.get(position).getPoint()));
 	}
+
+	public void addAchievementsArrayList(ArrayList<Achievement>[] values) {
+		mAchievementsArrayList.addAll(values[0]);
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public static class ViewHolder extends RecyclerView.ViewHolder {

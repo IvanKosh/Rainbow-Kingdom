@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.binarnahata.rainbowkingdom.Adapters.AchievementAdapter;
-import com.binarnahata.rainbowkingdom.Adapters.QuestAdapter;
+import com.binarnahata.rainbowkingdom.Controllers.loadAchievements;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
-import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
-import com.binarnahata.rainbowkingdom.Models.Quest.QuestData;
 import com.binarnahata.rainbowkingdom.R;
 
 import java.util.ArrayList;
@@ -34,6 +33,8 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 	private RecyclerView mRecyclerView;
 	private LinearLayoutManager mLayoutManager;
 
+	private int count = 10;
+	private int skip = -10;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -42,9 +43,8 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		mDB = new AchievementDatabaseHandler(getContext());
-		initAchievementList();
 		initAchievementAdapter();
+		initAchievementList();
 	}
 
 	@Override
@@ -68,10 +68,12 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 	}
 
 	private void initAchievementList() {
-		mAchievementListArray = mDB.getLimitAchievement(0, 10);
+		loadAchievements loadAchievements = new loadAchievements(getContext(), mAdapter);
+		loadAchievements.execute();
 	}
 
 	private void initAchievementAdapter() {
+		mAchievementListArray = new ArrayList<>();
 		mAdapter = new AchievementAdapter(mAchievementListArray);
 	}
 	/* МЕТОДЫ */
