@@ -60,7 +60,7 @@ public class Resources {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void initSettings() {
+	public void initData() {
 		if (!mSPDataSever.settings.contains(APP_INIT_PREFERENCES)) {
 			if (!mSPDataSever.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
 				mResources = getEmpty();
@@ -120,7 +120,7 @@ public class Resources {
 		}};
 	}
 
-	public void saveSettings() {
+	public void saveData() {
 		mSPDataSever.editor
 			.putString(APP_LOCAL_RESOURCES, mResources.toString())
 			.apply();

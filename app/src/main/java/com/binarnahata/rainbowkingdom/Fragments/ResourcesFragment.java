@@ -1,7 +1,5 @@
 package com.binarnahata.rainbowkingdom.Fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 
@@ -28,6 +26,8 @@ import org.json.JSONObject;
 public class ResourcesFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = ResourcesFragment.class.getSimpleName();
+	private AchievementDatabaseHandler mDB;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -35,6 +35,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	public ResourcesFragment() {
 	}
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}

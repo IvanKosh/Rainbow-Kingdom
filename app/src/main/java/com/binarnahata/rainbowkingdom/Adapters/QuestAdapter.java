@@ -2,25 +2,20 @@ package com.binarnahata.rainbowkingdom.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
+import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -37,6 +32,8 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	private static final String TAG = QuestAdapter.class.getSimpleName();
 	public static final String APP_PREFERENCES = "resources";
 	private final Context mContext;
+	private final Experience mExperience;
+	private final AchievementDatabaseHandler mDB;
 	private Resources mResources;
 
 	private ArrayList<Quest> mQuestArrayList;
@@ -56,7 +53,10 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		mSettings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_APPEND);
 		mEditor = mSettings.edit();
 		mResources = Resources.getInstance(context);
+		mExperience = Experience.getInstance(context);
 		updateSettings();
+
+		mDB = AchievementDatabaseHandler.getInstance(context);
 	}
 
 	@Override
@@ -76,7 +76,9 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 				@Override
 				public void onClick(View v) {
 					Resources.getInstance(mContext).approve(mQuestArrayList.get(position).getJSONRequest());
+					mExperience.offsetPoint(mQuestArrayList.get(position).getExperience());
 					mQuestArrayList.remove(position);
+					mDB.offsetAchievementProgress("quest", 1);
 					mCallback.onSelect();
 				}
 			});
