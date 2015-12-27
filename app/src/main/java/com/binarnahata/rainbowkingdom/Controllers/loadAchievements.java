@@ -31,7 +31,7 @@ public class loadAchievements extends AsyncTask<Void, ArrayList<Achievement>, Vo
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public loadAchievements(Context context, AchievementAdapter adapter) {
-		mDB = new AchievementDatabaseHandler(context);
+		mDB = AchievementDatabaseHandler.getInstance(context);//new AchievementDatabaseHandler(context);
 		mSkip = 0;
 		mCount = 10;
 		mAdapter = adapter;

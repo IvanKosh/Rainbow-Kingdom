@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -39,6 +40,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	public static final String APP_PREFERENCES = "resources";
 	private final Context mContext;
 	private final Experience mExperience;
+	private final AchievementDatabaseHandler mDB;
 	private Resources mResources;
 
 	private ArrayList<Quest> mQuestArrayList;
@@ -60,6 +62,8 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		mResources = Resources.getInstance(context);
 		mExperience = Experience.getInstance(context);
 		updateSettings();
+
+		mDB = AchievementDatabaseHandler.getInstance(context);
 	}
 
 	@Override
@@ -81,6 +85,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 					Resources.getInstance(mContext).approve(mQuestArrayList.get(position).getJSONRequest());
 					mExperience.offsetPoint(mQuestArrayList.get(position).getExperience());
 					mQuestArrayList.remove(position);
+					mDB.updateAchievementProgress("quest", 1);
 					mCallback.onSelect();
 				}
 			});

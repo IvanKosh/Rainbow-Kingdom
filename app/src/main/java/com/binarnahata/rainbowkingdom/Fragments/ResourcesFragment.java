@@ -38,8 +38,6 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		mDB = new AchievementDatabaseHandler(getContext());
 	}
 
 	@Override

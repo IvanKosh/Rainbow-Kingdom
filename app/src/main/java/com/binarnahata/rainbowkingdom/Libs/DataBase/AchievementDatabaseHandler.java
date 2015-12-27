@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
 import com.binarnahata.rainbowkingdom.R;
@@ -42,6 +41,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_NECESSARY = "necessary";
 	private static final String KEY_TAG = "tag";
 	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
+	private static AchievementDatabaseHandler sADH;
 	private final Context mContext;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -55,6 +55,14 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	public AchievementDatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
 		mContext = context;
+	}
+
+	public static AchievementDatabaseHandler getInstance(Context context) {
+
+		if (sADH == null) {
+			sADH = new AchievementDatabaseHandler(context);
+		}
+		return sADH;
 	}
 
 	@Override
@@ -82,10 +90,10 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void updateAchievementProgress(int id, int progress) {
+	public void updateAchievementProgress(String tag, int progress) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
-		db.execSQL("UPDATE " + TABLE_ACHIEVEMENT + " SET " + KEY_PROGRESS + " = " + KEY_PROGRESS + " + " + progress + " WHERE " + KEY_ID + " = " + id);
+		db.execSQL("UPDATE " + TABLE_ACHIEVEMENT + " SET " + KEY_PROGRESS + " = " + KEY_PROGRESS + " + " + progress + " WHERE " + KEY_TAG + " = \"" + tag + "\"");
 	}
 
 	public ArrayList<Achievement> getLimitAchievement(int skip, int count) {
