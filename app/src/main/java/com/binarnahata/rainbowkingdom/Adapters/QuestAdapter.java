@@ -2,27 +2,20 @@ package com.binarnahata.rainbowkingdom.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -85,7 +78,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 					Resources.getInstance(mContext).approve(mQuestArrayList.get(position).getJSONRequest());
 					mExperience.offsetPoint(mQuestArrayList.get(position).getExperience());
 					mQuestArrayList.remove(position);
-					mDB.updateAchievementProgress("quest", 1);
+					mDB.offsetAchievementProgress("quest", 1);
 					mCallback.onSelect();
 				}
 			});

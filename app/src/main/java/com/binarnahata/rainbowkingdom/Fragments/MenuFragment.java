@@ -76,7 +76,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(6, 3));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(1));
 				}
 			}
 		});
@@ -86,7 +86,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(10, 2));
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(2));
 				}
 			}
 		});
@@ -96,7 +96,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(20, 1));
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(3));
 				}
 			}
 		});
@@ -106,7 +106,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(Utils.rndCircles(), 2));
+					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(0));
 				}
 			}
 		});

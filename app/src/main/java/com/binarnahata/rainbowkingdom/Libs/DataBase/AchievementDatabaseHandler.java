@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
 import com.binarnahata.rainbowkingdom.R;
@@ -90,7 +91,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void updateAchievementProgress(String tag, int progress) {
+	public void offsetAchievementProgress(String tag, int progress) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		db.execSQL("UPDATE " + TABLE_ACHIEVEMENT + " SET " + KEY_PROGRESS + " = " + KEY_PROGRESS + " + " + progress + " WHERE " + KEY_TAG + " = \"" + tag + "\"");

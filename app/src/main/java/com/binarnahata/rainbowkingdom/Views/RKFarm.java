@@ -17,7 +17,8 @@ import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
-import com.binarnahata.rainbowkingdom.Fragments.ResourcesFragment;
+import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
+import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
 import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
@@ -32,6 +33,7 @@ import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,8 @@ public class RKFarm extends BH_SurfaceView {
 	public static final int START_NUMBER_OF_BALLS_ON_THE_FIELD = 3;
 	private final Paint mPaint;
 	private final Context mContext;
+	private final GameMode mGameMode;
+	private final AchievementDatabaseHandler mDB;
 	private int[] mSoundIndexes;
 	private SoundPool mSoundPool;
 	private GameLoop mGameLoopThread;
@@ -63,22 +67,19 @@ public class RKFarm extends BH_SurfaceView {
 	private BallPool mBallPool;
 	private ResourceDisplay mResourceDisplay;
 	private Mark mMark;
-	private int mMaximumNumberOfCircles;
-	private int mRating;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	@TargetApi(21)
-	public RKFarm(Context context, int number, int rating) {
+	public RKFarm(Context context, GameMode gameMode) {
 		super(context);
 		mContext = context;
 		mGameLoopThread = new GameLoop(getHolder(), this);
 		mCircles = new ArrayList<>();
 		mPaint = new Paint();
-		mMaximumNumberOfCircles = number;
-		mRating = rating;
+		mGameMode = gameMode;
 
 		if (android.os.Build.VERSION.SDK_INT < 21) {
 			setSoundPool17();
@@ -92,6 +93,8 @@ public class RKFarm extends BH_SurfaceView {
 		mSoundIndexes = new int[10];
 		mSoundIndexes[0] = mSoundPool.load(context, R.raw.water_drop, 1);
 		mSoundIndexes[1] = mSoundPool.load(context, R.raw.pool_ball, 1);
+
+		mDB = AchievementDatabaseHandler.getInstance(context);
 	}
 
 	@TargetApi(17)
@@ -118,7 +121,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
-		mRectField = new Rect(mRadius, mRadius, getWidth()-mRating, getHeight()-mDiameter*2);
+		mRectField = new Rect(mRadius, mRadius, getWidth()-mGameMode.rating, getHeight()-mDiameter*2);
 
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
@@ -141,7 +144,7 @@ public class RKFarm extends BH_SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
-			mMaximumNumberOfCircles - START_NUMBER_OF_BALLS_ON_THE_FIELD);
+			mGameMode.number - START_NUMBER_OF_BALLS_ON_THE_FIELD);
 
 		mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
@@ -285,14 +288,86 @@ public class RKFarm extends BH_SurfaceView {
 				}
 			}
 
-			if (mCircles.size() == mMaximumNumberOfCircles) {
-				Resources.getInstance(getContext()).offset(
-					mResourceDisplay.red.amount * mRating,
-					mResourceDisplay.green.amount * mRating,
-					mResourceDisplay.blue.amount * mRating,
-					mResourceDisplay.cyan.amount * mRating,
-					mResourceDisplay.magenta.amount * mRating,
-					mResourceDisplay.yellow.amount * mRating);
+			if (mCircles.size() == mGameMode.number) {
+				Resources resources = Resources.getInstance(getContext());
+				resources.offset(
+					mResourceDisplay.red.amount * mGameMode.rating,
+					mResourceDisplay.green.amount * mGameMode.rating,
+					mResourceDisplay.blue.amount * mGameMode.rating,
+					mResourceDisplay.cyan.amount * mGameMode.rating,
+					mResourceDisplay.magenta.amount * mGameMode.rating,
+					mResourceDisplay.yellow.amount * mGameMode.rating);
+				// тип игры 1
+				mDB.offsetAchievementProgress(mGameMode.type, 1);
+
+				int r = mResourceDisplay.red.amount * mGameMode.rating;
+				int g = mResourceDisplay.green.amount * mGameMode.rating;
+				int b = mResourceDisplay.blue.amount * mGameMode.rating;
+				int c = mResourceDisplay.cyan.amount * mGameMode.rating;
+				int m = mResourceDisplay.magenta.amount * mGameMode.rating;
+				int y = mResourceDisplay.yellow.amount * mGameMode.rating;
+
+				// количество булек каждого цвета 6 по 0.5
+				mDB.offsetAchievementProgress(resources.RED, r);
+				mDB.offsetAchievementProgress(resources.GREEN, g);
+				mDB.offsetAchievementProgress(resources.BLUE, b);
+				mDB.offsetAchievementProgress(resources.CYAN, c);
+				mDB.offsetAchievementProgress(resources.MAGENTA, m);
+				mDB.offsetAchievementProgress(resources.YELLOW, y);
+				// просто больше 10ти булек за игру 1
+				if ((r + g + b + c + m + y) > 100) {
+					mDB.offsetAchievementProgress("number100", 1);
+				}
+
+				// одна ачивка согласно наличия булек определенных цветов 1
+				r = 0;
+				g = 0;
+				b = 0;
+				c = 0;
+				m = 0;
+				y = 0;
+				for (BitmapCircle circle : mCircles) {
+					switch(circle.getColor()) {
+						case Color.RED:
+							r++;
+							break;
+						case Color.GREEN:
+							g++;
+							break;
+						case Color.BLUE:
+							b++;
+							break;
+						case Color.CYAN:
+							c++;
+							break;
+						case Color.MAGENTA:
+							m++;
+							break;
+						case Color.YELLOW:
+							y++;
+							break;
+					}
+				}
+				String tag = "color_";
+				if (r > 0) {
+					tag += "r";
+				}
+				if (g > 0) {
+					tag += "g";
+				}
+				if (b > 0) {
+					tag += "b";
+				}
+				if (c > 0) {
+					tag += "c";
+				}
+				if (m > 0) {
+					tag += "m";
+				}
+				if (y > 0) {
+					tag += "y";
+				}
+				mDB.offsetAchievementProgress(tag, 1);
 
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
 			}
