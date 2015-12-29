@@ -1,13 +1,17 @@
 package com.binarnahata.rainbowkingdom;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.binarnahata.rainbowkingdom.Models.Volume;
 
 /**
  * RainbowKingdom
@@ -21,6 +25,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	private static final String TAG = BackgroundMusicService.class.getSimpleName();
 
 	private final IBinder mBinder = new ServiceBinder();
+	//private final Context mContext;
 	MediaPlayer mPlayer;
 	private int length = 0;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -40,23 +45,22 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		return mBinder;
 	}
 
-	public void onCreate(){
+	@Override
+	public void onCreate() {
 		super.onCreate();
 
 		mPlayer = MediaPlayer.create(this, R.raw.la_ere_gymnopedie);
 		mPlayer.setOnErrorListener(this);
 
-		if(mPlayer != null){
-
+		if (mPlayer != null) {
 			mPlayer.setLooping(true);
-			mPlayer.setVolume(100, 100);
+			setVolume(0);
 		}
 
-		mPlayer.setOnErrorListener(new OnErrorListener(){
+		mPlayer.setOnErrorListener(new OnErrorListener() {
 
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-
 				onError(mPlayer, what, extra);
 				return true;
 			}
@@ -64,50 +68,50 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		});
 	}
 
-	public int onStartCommand (Intent intent , int flags, int startId)
-	{
+	public int onStartCommand (Intent intent , int flags, int startId) {
 		mPlayer.start();
 		return START_STICKY;
 	}
 
-	public void pauseMusic()
-	{
-		if(mPlayer.isPlaying())
-		{
+	public void pauseMusic() {
+		if (mPlayer.isPlaying()) {
 			mPlayer.pause();
 			length=mPlayer.getCurrentPosition();
 			Toast.makeText(this, "Music is Paused", Toast.LENGTH_LONG).show();
 		}
 	}
 
-	public void resumeMusic()
-	{
-		if(mPlayer.isPlaying()==false)
-		{
+	public void resumeMusic() {
+		if (mPlayer.isPlaying() == false) {
 			mPlayer.seekTo(length);
 			Toast.makeText(this, "Music is started", Toast.LENGTH_LONG).show();
 			mPlayer.start();
 		}
 	}
 
-	public void stopMusic()
-	{
+	public void stopMusic() {
 		mPlayer.stop();
 		Toast.makeText(this, "Music is stoped", Toast.LENGTH_LONG).show();
 		mPlayer.release();
 		mPlayer = null;
 	}
 
+	public void setVolume(float volume) {
+		if (mPlayer != null) {
+			mPlayer.setLooping(true);
+			mPlayer.setVolume(volume, volume);
+		}
+	}
+
 	@Override
-	public void onDestroy ()
-	{
+	public void onDestroy() {
 		super.onDestroy();
-		if(mPlayer != null)
-		{
-			try{
+		if (mPlayer != null) {
+			try {
 				mPlayer.stop();
 				mPlayer.release();
-			}finally {
+			}
+			finally {
 				mPlayer = null;
 			}
 		}

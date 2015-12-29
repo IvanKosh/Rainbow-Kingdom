@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -70,6 +71,16 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 		mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		mRecyclerView.setAdapter(mAdapter);
+
+		ImageView settings = (ImageView) view.findViewById(R.id.settings_button);
+		settings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity) getActivity()).runFragment(new SettingsFragment());
+				}
+			}
+		});
 
 		Button fast = (Button) view.findViewById(R.id.fast_button);
 		fast.setOnClickListener(new View.OnClickListener() {
