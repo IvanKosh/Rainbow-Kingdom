@@ -17,31 +17,31 @@ public class Volume {
 	private static final String APP_MUSIC = "music";
 	private static final String APP_EFFECTS = "effects";
 
-	private static SharePreferenceDataSever mSPDataSever;
+	private static SharePreferenceDataSever sSPDataSever;
 	private static Volume sVolume;
 
-	private int mMusicVolume;
-	private int mEffectsVolume;
+	private float mMusicVolume;
+	private float mEffectsVolume;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public int getMusicVolume() {
+	public float getMusicVolume() {
 		return mMusicVolume;
 	}
-	public void setMusicVolume(int musicVolume) {
+	public void setMusicVolume(float musicVolume) {
 		mMusicVolume = musicVolume;
 	}
-	public int getEffectsVolume() {
+	public float getEffectsVolume() {
 		return mEffectsVolume;
 	}
-	public void setEffectsVolume(int effectsVolume) {
+	public void setEffectsVolume(float effectsVolume) {
 		mEffectsVolume = effectsVolume;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Volume(Context context) {
-		mSPDataSever = SharePreferenceDataSever.getInstance(context);
-		mMusicVolume = mSPDataSever.settings.getInt(APP_MUSIC, 100);
-		mEffectsVolume = mSPDataSever.settings.getInt(APP_EFFECTS, 100);
+		sSPDataSever = SharePreferenceDataSever.getInstance(context);
+		mMusicVolume = sSPDataSever.settings.getFloat(APP_MUSIC, 1f);
+		mEffectsVolume = sSPDataSever.settings.getFloat(APP_EFFECTS, 1f);
 	}
 
 	public static Volume getInstance (Context context) {
@@ -52,5 +52,11 @@ public class Volume {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	public void saveData() {
+		sSPDataSever.editor
+			.putFloat(APP_MUSIC, mMusicVolume)
+			.putFloat(APP_EFFECTS, mEffectsVolume)
+			.apply();
+	}
 	/* МЕТОДЫ */
 }

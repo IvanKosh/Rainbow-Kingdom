@@ -9,15 +9,18 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
+import com.binarnahata.rainbowkingdom.Models.Volume;
 
 import java.util.List;
 
-public class RKMainActivity extends AppCompatActivity {
+public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKMainActivity.class.getSimpleName();
 
@@ -28,6 +31,8 @@ public class RKMainActivity extends AppCompatActivity {
 	private ServiceConnection mServiceConnection = new ServiceConnection(){
 		public void onServiceConnected(ComponentName name, IBinder binder) {
 			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();
+
+			mBackgroundMusicService.setVolume(mVolume.getMusicVolume());
 		}
 
 		public void onServiceDisconnected(ComponentName name) {
@@ -36,6 +41,7 @@ public class RKMainActivity extends AppCompatActivity {
 
 	};
 	private Intent mBackgroundMusic;
+	private Volume mVolume;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -50,10 +56,12 @@ public class RKMainActivity extends AppCompatActivity {
 			.add(R.id.fragment, new MenuFragment())
 			.commit();
 
-		doBindService();
+		mVolume = Volume.getInstance(this);
+
 		mBackgroundMusic = new Intent();
 		mBackgroundMusic.setClass(this, BackgroundMusicService.class);
 		startService(mBackgroundMusic);
+		doBindService();
 
 		Resources.getInstance(this).initData();
 		Experience.getInstance(this).initData();
@@ -108,6 +116,27 @@ public class RKMainActivity extends AppCompatActivity {
 		else {
 			runFragment(next);
 		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (mBackgroundMusicService != null) {
+			mBackgroundMusicService.pauseMusic();
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (mBackgroundMusicService != null) {
+			mBackgroundMusicService.resumeMusic();
+		}
+	}
+
+	@Override
+	public void setVolume(float volume) {
+		mBackgroundMusicService.setVolume(volume);
 	}
 	/* МЕТОДЫ */
 }

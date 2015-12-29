@@ -8,6 +8,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.binarnahata.rainbowkingdom.Models.Volume;
@@ -45,19 +46,18 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	}
 
 	@Override
-	public void onCreate(){
+	public void onCreate() {
 		super.onCreate();
 
 		mPlayer = MediaPlayer.create(this, R.raw.la_ere_gymnopedie);
 		mPlayer.setOnErrorListener(this);
 
-		if(mPlayer != null){
+		if (mPlayer != null) {
 			mPlayer.setLooping(true);
-			int volume = 100;//Volume.getInstance(mContext).getMusicVolume();
-			mPlayer.setVolume(volume, volume);
+			setVolume(0);
 		}
 
-		mPlayer.setOnErrorListener(new OnErrorListener(){
+		mPlayer.setOnErrorListener(new OnErrorListener() {
 
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
@@ -68,50 +68,50 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		});
 	}
 
-	public int onStartCommand (Intent intent , int flags, int startId)
-	{
+	public int onStartCommand (Intent intent , int flags, int startId) {
 		mPlayer.start();
 		return START_STICKY;
 	}
 
-	public void pauseMusic()
-	{
-		if(mPlayer.isPlaying())
-		{
+	public void pauseMusic() {
+		if (mPlayer.isPlaying()) {
 			mPlayer.pause();
 			length=mPlayer.getCurrentPosition();
 			Toast.makeText(this, "Music is Paused", Toast.LENGTH_LONG).show();
 		}
 	}
 
-	public void resumeMusic()
-	{
-		if(mPlayer.isPlaying()==false)
-		{
+	public void resumeMusic() {
+		if (mPlayer.isPlaying() == false) {
 			mPlayer.seekTo(length);
 			Toast.makeText(this, "Music is started", Toast.LENGTH_LONG).show();
 			mPlayer.start();
 		}
 	}
 
-	public void stopMusic()
-	{
+	public void stopMusic() {
 		mPlayer.stop();
 		Toast.makeText(this, "Music is stoped", Toast.LENGTH_LONG).show();
 		mPlayer.release();
 		mPlayer = null;
 	}
 
+	public void setVolume(float volume) {
+		if (mPlayer != null) {
+			mPlayer.setLooping(true);
+			mPlayer.setVolume(volume, volume);
+		}
+	}
+
 	@Override
-	public void onDestroy ()
-	{
+	public void onDestroy() {
 		super.onDestroy();
-		if(mPlayer != null)
-		{
-			try{
+		if (mPlayer != null) {
+			try {
 				mPlayer.stop();
 				mPlayer.release();
-			}finally {
+			}
+			finally {
 				mPlayer = null;
 			}
 		}
