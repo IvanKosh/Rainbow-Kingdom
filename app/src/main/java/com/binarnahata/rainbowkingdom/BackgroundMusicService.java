@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
@@ -8,6 +9,8 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
+
+import com.binarnahata.rainbowkingdom.Models.Volume;
 
 /**
  * RainbowKingdom
@@ -21,6 +24,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	private static final String TAG = BackgroundMusicService.class.getSimpleName();
 
 	private final IBinder mBinder = new ServiceBinder();
+	//private final Context mContext;
 	MediaPlayer mPlayer;
 	private int length = 0;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -40,6 +44,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		return mBinder;
 	}
 
+	@Override
 	public void onCreate(){
 		super.onCreate();
 
@@ -47,16 +52,15 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		mPlayer.setOnErrorListener(this);
 
 		if(mPlayer != null){
-
 			mPlayer.setLooping(true);
-			mPlayer.setVolume(100, 100);
+			int volume = 100;//Volume.getInstance(mContext).getMusicVolume();
+			mPlayer.setVolume(volume, volume);
 		}
 
 		mPlayer.setOnErrorListener(new OnErrorListener(){
 
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
-
 				onError(mPlayer, what, extra);
 				return true;
 			}
