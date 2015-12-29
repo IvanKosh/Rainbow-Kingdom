@@ -28,6 +28,7 @@ import com.binarnahata.rainbowkingdom.Models.Mark;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
+import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
@@ -67,6 +68,7 @@ public class RKFarm extends BH_SurfaceView {
 	private BallPool mBallPool;
 	private ResourceDisplay mResourceDisplay;
 	private Mark mMark;
+	private Volume mVolume;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -150,6 +152,8 @@ public class RKFarm extends BH_SurfaceView {
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
 
 		mMark = new Mark(mPaint);
+
+		mVolume = Volume.getInstance(getContext());
 	}
 
 	@Override
@@ -202,7 +206,9 @@ public class RKFarm extends BH_SurfaceView {
 				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
 					BitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
-						mSoundPool.play(mSoundIndexes[0], 1, 1, 1, 0, 1.0f);
+						mSoundPool.play(mSoundIndexes[0],
+							mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
+							1, 0, 1.0f);
 						mCircles.add(tempCircle);
 						mCircles.remove(circle);
 
@@ -236,7 +242,9 @@ public class RKFarm extends BH_SurfaceView {
 					}
 				}
 				if (mShoot.checkCollisionsAndSetNewOptions(circle)) {
-					mSoundPool.play(mSoundIndexes[1], 1, 1, 1, 0, 1.0f);
+					mSoundPool.play(mSoundIndexes[1],
+						mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
+						1, 0, 1.0f);
 					mCircles.add(mShoot);
 					mMark.die();
 					mShoot = null;

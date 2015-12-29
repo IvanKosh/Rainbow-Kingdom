@@ -40,7 +40,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 		View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
 		SeekBar music = (SeekBar) view.findViewById(R.id.settings_music_seek_bar);
-		music.setProgress((int) (mVolume.getMusicVolume()*100));
+		music.setProgress((int) (mVolume.getMusicVolume() * 100));
 		music.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -56,6 +56,25 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				mVolume.setMusicVolume(seekBar.getProgress() / 100f);
+			}
+		});
+
+		SeekBar effect = (SeekBar) view.findViewById(R.id.settings_effects_seek_bar);
+		effect.setProgress((int) (mVolume.getEffectsVolume()*100));
+		effect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				mVolume.setEffectsVolume(seekBar.getProgress() / 100f);
 			}
 		});
 
