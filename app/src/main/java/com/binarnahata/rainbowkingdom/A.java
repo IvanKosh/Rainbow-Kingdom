@@ -1,29 +1,21 @@
-package com.binarnahata.rainbowkingdom.Libs;
-
-import android.graphics.Point;
+package com.binarnahata.rainbowkingdom;
 
 /**
  * RainbowKingdom
- * Created on 13.12.15, 16:25
+ * Created on 30.12.15, 17:17
  *
  * @author bat
  * @version 0.1
  */
-public class Segment {
+public class A {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Segment.class.getSimpleName();
+	private static final String TAG = A.class.getSimpleName();
 
-	public Point start;
-	public Point end;
+	protected int x;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-
-	public Segment(Point start, Point end) {
-		this.start = start;
-		this.end = end;
-	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */

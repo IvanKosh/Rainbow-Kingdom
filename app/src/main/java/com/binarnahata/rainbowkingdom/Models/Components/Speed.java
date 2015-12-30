@@ -3,8 +3,8 @@ package com.binarnahata.rainbowkingdom.Models.Components;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import com.binarnahata.rainbowkingdom.Libs.Ray;
-import com.binarnahata.rainbowkingdom.Libs.Segment;
+import com.binarnahata.rainbowkingdom.Libs.Math.Ray;
+import com.binarnahata.rainbowkingdom.Libs.Math.Segment;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 /**
@@ -70,7 +70,8 @@ public class Speed {
 
 		double distance = Utils.distanceBetweenTwoPoint(new Point((int) t, (int) h), intersection);
 
-		return new Speed(MAXIMUM_SPEED*(target.x-t)/distance, MAXIMUM_SPEED*(h-target.y)/distance);
+		//return new Speed(MAXIMUM_SPEED*(target.x-t)/distance, MAXIMUM_SPEED*(h-target.y)/distance);
+		return new Speed(t + MAXIMUM_SPEED*(target.x-t), h + MAXIMUM_SPEED*(target.y-h));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -101,6 +102,15 @@ public class Speed {
 	@Override
 	public String toString () {
 		return String.valueOf(mVectorX) + " " + String.valueOf(mVectorY);
+	}
+
+	public void controlSpeed() {
+		if (mVectorX > MAXIMUM_SPEED) {
+			mVectorX -= MAXIMUM_SPEED;
+		}
+		if (mVectorY > MAXIMUM_SPEED) {
+			mVectorY -= MAXIMUM_SPEED;
+		}
 	}
 	/* МЕТОДЫ */
 }

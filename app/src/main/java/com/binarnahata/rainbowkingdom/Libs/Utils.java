@@ -2,6 +2,8 @@ package com.binarnahata.rainbowkingdom.Libs;
 
 import android.graphics.Point;
 
+import com.binarnahata.rainbowkingdom.Libs.Math.Ray;
+import com.binarnahata.rainbowkingdom.Libs.Math.Segment;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 import java.util.ArrayList;

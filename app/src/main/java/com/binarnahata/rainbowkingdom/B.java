@@ -1,28 +1,21 @@
-package com.binarnahata.rainbowkingdom.Libs;
-
-import android.graphics.Point;
+package com.binarnahata.rainbowkingdom;
 
 /**
  * RainbowKingdom
- * Created on 13.12.15, 16:43
+ * Created on 30.12.15, 17:17
  *
  * @author bat
  * @version 0.1
  */
-public class Ray {
+public class B extends A {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Ray.class.getSimpleName();
+	private static final String TAG = B.class.getSimpleName();
 
-	public Point start;
-	public Point point;
+	protected int y;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Ray(Point start, Point point) {
-		this.start = start;
-		this.point = point;
-	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */

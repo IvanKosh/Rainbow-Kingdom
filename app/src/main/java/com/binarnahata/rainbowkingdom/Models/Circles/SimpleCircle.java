@@ -41,6 +41,7 @@ public class SimpleCircle {
 	}
 
 	public void setSpeed(Speed speed) {
+		speed.controlSpeed();
 		mSpeed = speed;
 	}
 	public void setRadius(int radius) {

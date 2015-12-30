@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="centerCrop"
+		android:src="@drawable/rk_fon"/>
+
 	<TextView
+		android:id="@+id/music_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:layout_alignParentTop="true"
 		android:gravity="center"
 		android:text="Music"/>
 
@@ -17,13 +25,16 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:layout_below="@id/music_text"
 		android:progressDrawable="@drawable/progress"
 		android:thumb="@drawable/red_scrubber_control" />
 
 	<TextView
+		android:id="@+id/effect_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:layout_below="@id/settings_music_seek_bar"
 		android:gravity="center"
 		android:text="Effects"/>
 
@@ -32,7 +43,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:layout_below="@id/effect_text"
 		android:progressDrawable="@drawable/progress"
 		android:thumb="@drawable/red_scrubber_control" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -69,6 +69,7 @@ public class RKFarm extends BH_SurfaceView {
 	private ResourceDisplay mResourceDisplay;
 	private Mark mMark;
 	private Volume mVolume;
+	private Bitmap mFon;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -97,6 +98,7 @@ public class RKFarm extends BH_SurfaceView {
 		mSoundIndexes[1] = mSoundPool.load(context, R.raw.pool_ball, 1);
 
 		mDB = AchievementDatabaseHandler.getInstance(context);
+		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.rk_fon);
 	}
 
 	@TargetApi(17)
@@ -200,6 +202,7 @@ public class RKFarm extends BH_SurfaceView {
 		// движение и коллизия выстрела
 		if (mShoot != null) {
 			mShoot.moveOneStep();
+			//mShoot.moveStaticStep();
 			mShoot.checkBounds(mRectField);
 
 			for (SimpleCircle circle : mCircles) {
@@ -266,6 +269,10 @@ public class RKFarm extends BH_SurfaceView {
 		mCanvas = canvas;
 
 		mCanvas.drawColor(Color.WHITE);
+
+		mCanvas.drawBitmap(mFon, null,
+			new Rect(0, 0, getWidth(), getHeight()),
+			null);
 
 		mMark.draw(canvas);
 
