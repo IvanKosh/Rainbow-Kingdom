@@ -32,8 +32,8 @@ public class BitmapCircle extends DrawableCircle {
 	public void draw(Canvas canvas, Paint paint) {
 		super.draw(canvas, paint);
 		canvas.drawBitmap(mBitmap, null,
-			new Rect((int) (mPosition.x - mRadius), (int) (mPosition.y - mRadius),
-				(int) (mPosition.x + mRadius), (int) (mPosition.y + mRadius)),
+			new Rect((int) (getX() - mRadius), (int) (getY() - mRadius),
+				(int) (getX() + mRadius), (int) (getY() + mRadius)),
 			null);
 	}
 	/* МЕТОДЫ */

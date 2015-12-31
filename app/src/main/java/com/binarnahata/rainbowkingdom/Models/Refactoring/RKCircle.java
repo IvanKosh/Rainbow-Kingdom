@@ -14,7 +14,7 @@ import com.binarnahata.rainbowkingdom.Models.Components.Speed;
  * @author bat
  * @version 0.1
  */
-public class RKCircle extends BitmapCircle {
+public class RKCircle extends MovableCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKCircle.class.getSimpleName();
 	private static final int MAXIMUM_SPEED = 5;
@@ -34,12 +34,12 @@ public class RKCircle extends BitmapCircle {
 		return false;
 	}
 
-	public RKCircle merge(ColorCircle circle) {
+	public RKCircle merge(MovableCircle circle) {
 		RKCircle resultCircle = new RKCircle(
-			new Vector3((mPosition.x + circle.getX()) / 2,
-				(mPosition.y + circle.getY()) / 2),
-			mRadius,
-			Color.mergeColor(mColor, circle.getColor()),
+			new Vector3((getX() + circle.getX()) / 2,
+				(getY() + circle.getY()) / 2),
+			getRadius(),
+			Color.mergeColor(getColor(), circle.getColor()),
 			mBitmap);
 		resultCircle.setSpeed(Vector3.add(mSpeed, circle.getSpeed()));
 		return resultCircle;
