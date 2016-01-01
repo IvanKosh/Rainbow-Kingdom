@@ -35,6 +35,10 @@ public class Utils {
 		return r;
 	}
 
+	public static double rndDouble() {
+		return random.nextDouble();
+	}
+
 	public static int rndColor() {
 		int r = rndInt(0, 5);
 		switch (r) {

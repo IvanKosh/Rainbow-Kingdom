@@ -1,6 +1,8 @@
 package com.binarnahata.rainbowkingdom.Libs.Math;
 
 
+import com.binarnahata.rainbowkingdom.Libs.Utils;
+
 /**
  * RainbowKingdom
  * Created on 30.12.15, 17:41
@@ -254,6 +256,12 @@ public class Vector3 {
 	public static double angleBetween(Vector3 v1, Vector3 v2) {
 		double dot = v1.dot(v2);;
 		return Math.acos(dot / (v1.length() * v2.length()));
+	}
+
+	public static Vector3 getRandomNormal() {
+		Vector3 result = new Vector3(Utils.rndDouble(), Utils.rndDouble());
+		result.normalize();
+		return result;
 	}
 	/* МЕТОДЫ */
 }

@@ -20,6 +20,7 @@ public class MovableCircle extends BitmapCircle {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setSpeed(Vector3 speed) {
 		mSpeed = speed;
+		mSpeed.normalize();
 	}
 	public void setSpeed(Vector3 direction_n, double speed) {
 		mSpeed = Vector3.mul(direction_n, speed);

@@ -2,10 +2,10 @@ package com.binarnahata.rainbowkingdom.Models.Refactoring;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
-import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 
 /**
  * RainbowKingdom
@@ -28,7 +28,7 @@ public class RKCircle extends MovableCircle {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public boolean checkCollision(SimpleCircle circle) {
-		if (Vector3.add(mPosition, circle.mPosition).length() < mDiameter) {
+		if (Vector3.sub(mPosition, circle.mPosition).length() < mDiameter) {
 			return true;
 		}
 		return false;
@@ -76,6 +76,11 @@ public class RKCircle extends MovableCircle {
 	}
 	public void toUp() {
 		mSpeed.y = -Math.abs(mSpeed.y);
+	}
+
+	@Override
+	public void move() {
+		mPosition.add(Vector3.mul(mSpeed, MAXIMUM_SPEED));
 	}
 	/* МЕТОДЫ */
 }
