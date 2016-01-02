@@ -3,6 +3,8 @@ package com.binarnahata.rainbowkingdom.Libs.Math;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
+import java.util.Vector;
+
 /**
  * RainbowKingdom
  * Created on 30.12.15, 17:41
@@ -123,6 +125,9 @@ public class Vector3 {
 	 */
 	public double dot(Vector3 v) {
 		return x*v.x + y*v.y + z*v.z;
+	}
+	public static double dot(Vector3 v1, Vector3 v2) {
+		return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 	}
 
 	/**

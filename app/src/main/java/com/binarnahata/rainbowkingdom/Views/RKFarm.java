@@ -202,41 +202,29 @@ public class RKFarm extends BH_SurfaceView {
 			for (int i = mNewCircles.indexOf(circle1) + 1; i < mNewCircles.size(); i++) {
 				circle2 = mNewCircles.get(i);
 
-				double dx = circle1.getX() - circle2.getX();
-				double dy = circle1.getY() - circle2.getY();
-				double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+				Vector3 delta = new Vector3(circle1.getX() - circle2.getX(), circle1.getY() - circle2.getY());
+				double distanceBetweenCircles = delta.length();//Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
 				if (distanceBetweenCircles <= mDiameter) {
-					double p1 = dx * dy / Math.pow(distanceBetweenCircles, 2);
-					double p2 = Math.pow(dx / distanceBetweenCircles, 2);
-					double p3 = Math.pow(dy / distanceBetweenCircles, 2);
+					double p1 = delta.x * delta.y / Math.pow(distanceBetweenCircles, 2);
+					double p2 = Math.pow(delta.x / distanceBetweenCircles, 2);
+					double p3 = Math.pow(delta.y / distanceBetweenCircles, 2);
 
-					double d1 = circle1.getSpeed().y * p1
-						+ circle1.getSpeed().x * p2
-						- circle2.getSpeed().y * p1
-						- circle2.getSpeed().x * p2;
-					double d2 = circle1.getSpeed().x * p1
-						+ circle1.getSpeed().y * p3
-						- circle2.getSpeed().x * p1
-						- circle2.getSpeed().y * p3;
-
+					Vector3 d = Vector3.sub(circle1.getSpeed(), circle2.getSpeed());
+					Vector3 speedBalance = new Vector3(
+						Vector3.dot(d, new Vector3(p2, p1)),
+						Vector3.dot(d, new Vector3(p1, p3))
+					);
 					// изменение направления движения
-					circle1.setSpeed(Vector3.sub(circle1.getSpeed(), new Vector3(d1, d2)));//mSpeed = new Speed(mSpeed.getVectorX() - d1, mSpeed.getVectorY() - d2);
-					//circle1.setSpeed(new Vector3(circle1.getSpeed()).normalize());
-					circle2.setSpeed(Vector3.add(circle2.getSpeed(), new Vector3(d1, d2)));//new Speed(circle1.getSpeed().getVectorX() + d1, circle1.getSpeed().getVectorY() + d2));
-					//circlePair.getSpeed().normalize();
+					circle1.getSpeed().sub(speedBalance);
+					circle2.getSpeed().add(speedBalance);
 
 					// при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-					p3 = (mDiameter - distanceBetweenCircles) / 2; //при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
-					p1 = p3 * (dx / distanceBetweenCircles);
-					p2 = p3 * (dy / distanceBetweenCircles);
-					circle1.setPosition(Vector3.add(circle1.getPosition(), new Vector3(p1, p2)));
-					/*mX = (float) (mX + p1);
-					mY = (float) (mY + p2);*/
-					circle2.setPosition(Vector3.sub(circle2.getPosition(), new Vector3(p1, p2)));
-					/*circle1.setX((float) (circle1.getX() - p1));
-					circle1.setY((float) (circle1.getY() - p2));*/
-					// TODO: оптимизировать весь этот ад
+					p3 = (mDiameter - distanceBetweenCircles) / 2;
+					delta.div(distanceBetweenCircles);
+					delta.mul(p3);
+					circle1.getPosition().add(delta);
+					circle2.getPosition().sub(delta);
 				}
 			}
 		}
