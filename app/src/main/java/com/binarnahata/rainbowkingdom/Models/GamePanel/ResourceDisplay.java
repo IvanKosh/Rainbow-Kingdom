@@ -41,12 +41,12 @@ public class ResourceDisplay {
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public ResourceDisplay(Bitmap bitmap, int radius, Rect field) {
+	public ResourceDisplay(Bitmap bitmap, double radius, Rect field) {
 		mField = field;
 
-		mCircle = new BitmapCircle(new Vector3(radius << 1, mField.centerY()), radius*.9, Color.getRandom(), bitmap);
+		mCircle = new BitmapCircle(new Vector3(radius * 2, mField.centerY()), radius, Color.getRandom(), bitmap);
 
-		mAmountX = radius << 2;
+		mAmountX = (int) (radius * 4);
 
 		red = new DisplayAmount();
 		green = new DisplayAmount();

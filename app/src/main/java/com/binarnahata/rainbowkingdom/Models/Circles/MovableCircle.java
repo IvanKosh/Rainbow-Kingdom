@@ -25,6 +25,9 @@ public class MovableCircle extends BitmapCircle {
 	public Vector3 getSpeed() {
 		return mSpeed;
 	}
+	/*public void setSpeed(double speed, Vector3 speed_n) {
+		if (speed > )
+	}*/
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public MovableCircle(Vector3 position, double radius, int color, Bitmap bitmap) {
