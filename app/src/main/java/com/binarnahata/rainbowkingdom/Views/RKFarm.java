@@ -19,7 +19,10 @@ import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
-import com.binarnahata.rainbowkingdom.Models.Refactoring.RKCircle;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
+import com.binarnahata.rainbowkingdom.Models.Mark;
+import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
@@ -48,7 +51,7 @@ public class RKFarm extends BH_SurfaceView {
 	private ArrayList<RKCircle> mNewCircles;
 	//private OldBitmapCircle mShoot;
 	private Canvas mCanvas;
-	//private GamePanel mGamePanel;
+	private GamePanel mGamePanel;
 
 	private int mRadius;
 	private int mDiameter;
@@ -56,9 +59,10 @@ public class RKFarm extends BH_SurfaceView {
 	private Bitmap mBall;
 	//private BallPool mBallPool;
 	//private ResourceDisplay mResourceDisplay;
-	//private Mark mMark;
 	private Volume mVolume;
-	private Bitmap mFon;
+	private Mark mMark;
+	private TopPanel mTopPanel;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -87,7 +91,6 @@ public class RKFarm extends BH_SurfaceView {
 		mSoundIndexes[1] = mSoundPool.load(context, R.raw.pool_ball, 1);
 
 		mDB = AchievementDatabaseHandler.getInstance(context);
-		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.rk_fon);
 	}
 
 	@TargetApi(17)
@@ -114,9 +117,11 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
-		mRectField = new Rect(mRadius, mRadius, getWidth()-mRadius, getHeight()-mDiameter*2);
+		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, getHeight()-mDiameter*2);
 
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+
+		mTopPanel = new TopPanel(mPaint, new Rect(0, 0, getWidth(), mDiameter), mBall);
 
 		/*OldBitmapCircle circle = new OldBitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.RED);
@@ -135,16 +140,16 @@ public class RKFarm extends BH_SurfaceView {
 
 		initCircles();
 
-		/*mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,
+		mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,
 			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
 			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
-			mGameMode.number - START_NUMBER_OF_BALLS_ON_THE_FIELD);*/
+			mGameMode.number - START_NUMBER_OF_BALLS_ON_THE_FIELD);
 
 		/*mBallPool = new BallPool(mBall, mDiameter, new Point(getWidth()/2, getHeight()-mDiameter));
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
-
-		mMark = new Mark(mPaint);*/
+*/
+		mMark = new Mark(mPaint);
 
 		mVolume = Volume.getInstance(getContext());
 	}
@@ -229,19 +234,7 @@ public class RKFarm extends BH_SurfaceView {
 			}
 		}
 
-
-		/*for (SimpleCircle circle : mCircles) {
-			circle.moveOneStep();
-			circle.checkBounds(mRectField);
-		}
-
-		// разрешение коллизии между шарами
-		for (SimpleCircle circle : mCircles) {
-			for (int i = mCircles.indexOf(circle) + 1; i < mCircles.size(); i++) {
-				circle.checkCollisionsAndSetNewOptions(mCircles.get(i));
-			}
-		}
-
+/*
 		// движение и коллизия выстрела
 		if (mShoot != null) {
 			mShoot.moveOneStep();
@@ -301,10 +294,9 @@ public class RKFarm extends BH_SurfaceView {
 
 		if (mBallPool != null) {
 			mBallPool.update();
-		}
-		if (mMark != null) {
-			mMark.update();
 		}*/
+
+		mMark.update();
 	}
 
 	@Override
@@ -313,17 +305,24 @@ public class RKFarm extends BH_SurfaceView {
 
 		mCanvas.drawColor(Color.WHITE);
 
-		mCanvas.drawBitmap(mFon, null,
+
+		/*mCanvas.drawBitmap(mFon, null,
 			new Rect(0, 0, getWidth(), getHeight()),
-			null);
+			null);*/
+		if (mTopPanel != null) {
+			mTopPanel.draw(canvas);
+		}
 
 		for (RKCircle rkCircle : mNewCircles) {
 			rkCircle.draw(mCanvas, mPaint);
 		}
 
-		/*mMark.draw(canvas);
+		if (mMark != null) {
+			mMark.draw(canvas);
+		}
 
-		for (OldBitmapCircle circle : mCircles) {
+		mGamePanel.draw(canvas);
+		/*for (OldBitmapCircle circle : mCircles) {
 			circle.draw(mCanvas, mPaint);
 		}
 		if (mShoot != null) {
@@ -331,13 +330,14 @@ public class RKFarm extends BH_SurfaceView {
 		}
 
 		mBallPool.draw(canvas, mPaint);
-		mGamePanel.draw(canvas);
+
 		mResourceDisplay.draw(canvas, mPaint);*/
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
+			mMark.setCoordinate((int)event.getX(), (int) event.getY());
 			/*if (mShoot == null) {
 				mShoot = mBallPool.getCircle(); //new OldBitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				if (mShoot != null) {

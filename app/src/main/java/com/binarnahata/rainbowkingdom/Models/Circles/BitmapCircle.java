@@ -1,10 +1,9 @@
-package com.binarnahata.rainbowkingdom.Models.Refactoring;
+package com.binarnahata.rainbowkingdom.Models.Circles;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 
@@ -19,7 +18,7 @@ public class BitmapCircle extends DrawableCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = BitmapCircle.class.getSimpleName();
 
-	protected Bitmap mBitmap;
+	protected final Bitmap mBitmap;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public Bitmap getBitmap() {

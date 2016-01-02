@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.binarnahata.rainbowkingdom.Models.Circles.OldBitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 /**
