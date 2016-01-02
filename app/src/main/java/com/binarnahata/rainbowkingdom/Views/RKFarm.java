@@ -257,7 +257,7 @@ public class RKFarm extends BH_SurfaceView {
 									mResourceDisplay.setRed();
 									break;
 								case Color.GREEN:
-									mResourceDisplay.setGreed();
+									mResourceDisplay.setGreen();
 									break;
 								case Color.BLUE:
 									mResourceDisplay.setBlue();

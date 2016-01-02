@@ -22,6 +22,9 @@ public class DrawableCircle extends SimpleCircle {
 	public int getColor() {
 		return mColor;
 	}
+	public void setColor(int color) {
+		mColor = color;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public DrawableCircle(Vector3 position, double radius, int color) {
