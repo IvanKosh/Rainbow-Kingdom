@@ -254,7 +254,7 @@ public class Vector3 {
 	 * @return the angle between the vectors
 	 */
 	public static double angleBetween(Vector3 v1, Vector3 v2) {
-		double dot = v1.dot(v2);;
+		double dot = v1.dot(v2);
 		return Math.acos(dot / (v1.length() * v2.length()));
 	}
 
@@ -262,6 +262,10 @@ public class Vector3 {
 		Vector3 result = new Vector3(Utils.rndDouble(), Utils.rndDouble());
 		result.normalize();
 		return result;
+	}
+
+	public String toString() {
+		return "x: " + x + ", y: " + y + ", z: " + z;
 	}
 	/* МЕТОДЫ */
 }

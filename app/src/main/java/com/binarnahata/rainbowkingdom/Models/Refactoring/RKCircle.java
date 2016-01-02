@@ -27,13 +27,6 @@ public class RKCircle extends MovableCircle {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public boolean checkCollision(SimpleCircle circle) {
-		if (Vector3.sub(mPosition, circle.mPosition).length() < mDiameter) {
-			return true;
-		}
-		return false;
-	}
-
 	public RKCircle merge(MovableCircle circle) {
 		RKCircle resultCircle = new RKCircle(
 			new Vector3((getX() + circle.getX()) / 2,
@@ -41,7 +34,7 @@ public class RKCircle extends MovableCircle {
 			getRadius(),
 			Color.mergeColor(getColor(), circle.getColor()),
 			mBitmap);
-		resultCircle.setSpeed(Vector3.add(mSpeed, circle.getSpeed()));
+		resultCircle.setSpeed(Vector3.add(getSpeed(), circle.getSpeed()));
 		return resultCircle;
 	}
 
@@ -66,21 +59,21 @@ public class RKCircle extends MovableCircle {
 	}
 
 	public void toRight() {
-		mSpeed.x = Math.abs(mSpeed.x);
+		mRoute.x = Math.abs(mRoute.x);
 	}
 	public void toLeft() {
-		mSpeed.x = -Math.abs(mSpeed.x);
+		mRoute.x = -Math.abs(mRoute.x);
 	}
 	public void toDown() {
-		mSpeed.y = Math.abs(mSpeed.y);
+		mRoute.y = Math.abs(mRoute.y);
 	}
 	public void toUp() {
-		mSpeed.y = -Math.abs(mSpeed.y);
+		mRoute.y = -Math.abs(mRoute.y);
 	}
 
 	@Override
 	public void move() {
-		mPosition.add(Vector3.mul(mSpeed, MAXIMUM_SPEED));
+		mPosition.add(Vector3.mul(mRoute, MAXIMUM_SPEED));
 	}
 	/* МЕТОДЫ */
 }
