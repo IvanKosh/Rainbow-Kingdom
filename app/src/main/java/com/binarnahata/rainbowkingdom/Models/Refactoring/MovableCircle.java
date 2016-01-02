@@ -1,6 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.Refactoring;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
@@ -16,21 +17,14 @@ public class MovableCircle extends BitmapCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MovableCircle.class.getSimpleName();
 
-	protected double mSpeed;
-	protected Vector3 mRoute;
+	protected Vector3 mSpeed;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setSpeed(Vector3 speed) {
-		mRoute = speed;
-		mSpeed = speed.length();
-		if (mSpeed > 0) {
-			mRoute.div(mSpeed);
-		}
-		Log.d(TAG, mRoute.toString() + " " + mSpeed);
-		Log.d(TAG, Vector3.mul(mRoute, mSpeed).toString());
+		mSpeed = speed;
 	}
 	public Vector3 getSpeed() {
-		return Vector3.mul(mRoute, mSpeed);
+		return mSpeed;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -40,7 +34,40 @@ public class MovableCircle extends BitmapCircle {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void move() {
-		mPosition.add(Vector3.mul(mRoute, mSpeed));
+		mPosition.add(mSpeed);
+	}
+
+	public void checkBounds(Rect bounds) {
+		if (getX() < bounds.left) {
+			// нужно увеличивать X
+			toRight();
+		}
+		if (bounds.right < getX()) {
+			// нужно уменьшать X
+			toLeft();
+		}
+
+		if (getY() < bounds.top) {
+			// нужно увеличивать Y
+			toDown();
+		}
+		if (bounds.bottom < getY()) {
+			// нужно уменьшать Y
+			toUp();
+		}
+	}
+
+	public void toRight() {
+		mSpeed.x = Math.abs(mSpeed.x);
+	}
+	public void toLeft() {
+		mSpeed.x = -Math.abs(mSpeed.x);
+	}
+	public void toDown() {
+		mSpeed.y = Math.abs(mSpeed.y);
+	}
+	public void toUp() {
+		mSpeed.y = -Math.abs(mSpeed.y);
 	}
 	/* МЕТОДЫ */
 }

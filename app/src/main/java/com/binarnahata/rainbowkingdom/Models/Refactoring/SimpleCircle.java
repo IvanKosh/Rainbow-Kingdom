@@ -15,7 +15,6 @@ public class SimpleCircle {
 
 	protected Vector3 mPosition;
 	protected double mRadius;
-	protected double mDiameter;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public double getRadius() {
@@ -32,7 +31,6 @@ public class SimpleCircle {
 	public SimpleCircle(Vector3 position, double radius) {
 		mPosition = position;
 		mRadius = radius;
-		mDiameter = radius * 2;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

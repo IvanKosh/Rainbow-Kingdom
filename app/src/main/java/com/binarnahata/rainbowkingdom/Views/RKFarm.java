@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -16,27 +15,14 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
-import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
-import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
-import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
-import com.binarnahata.rainbowkingdom.Models.Components.Speed;
-import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
-import com.binarnahata.rainbowkingdom.Models.Mark;
-import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
-import com.binarnahata.rainbowkingdom.Models.Circles.SimpleCircle;
 import com.binarnahata.rainbowkingdom.Models.Refactoring.RKCircle;
-import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
-import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -58,9 +44,9 @@ public class RKFarm extends BH_SurfaceView {
 	private int[] mSoundIndexes;
 	private SoundPool mSoundPool;
 	private GameLoop mGameLoopThread;
-	//private ArrayList<BitmapCircle> mCircles;
+	//private ArrayList<OldBitmapCircle> mCircles;
 	private ArrayList<RKCircle> mNewCircles;
-	//private BitmapCircle mShoot;
+	//private OldBitmapCircle mShoot;
 	private Canvas mCanvas;
 	//private GamePanel mGamePanel;
 
@@ -132,17 +118,17 @@ public class RKFarm extends BH_SurfaceView {
 
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
-		/*BitmapCircle circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+		/*OldBitmapCircle circle = new OldBitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.RED);
 		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+		circle = new OldBitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.GREEN);
 		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);
 
-		circle = new BitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
+		circle = new OldBitmapCircle(mBall, Utils.rndInt(mRectField.left, mRectField.right),
 			Utils.rndInt(mRectField.top, mRectField.bottom), mRadius, Color.BLUE);
 		circle.setSpeed(new Speed(Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED), Utils.rndInt(-Speed.MAXIMUM_SPEED, Speed.MAXIMUM_SPEED)));
 		mCircles.add(circle);*/
@@ -276,7 +262,7 @@ public class RKFarm extends BH_SurfaceView {
 
 			for (SimpleCircle circle : mCircles) {
 				if (Color.canMerge(circle.getColor(), mShoot.getColor())) {
-					BitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
+					OldBitmapCircle tempCircle = mShoot.checkCollisionsAndMerge(circle);
 					if (tempCircle != null) {
 						mSoundPool.play(mSoundIndexes[0],
 							mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
@@ -349,7 +335,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		/*mMark.draw(canvas);
 
-		for (BitmapCircle circle : mCircles) {
+		for (OldBitmapCircle circle : mCircles) {
 			circle.draw(mCanvas, mPaint);
 		}
 		if (mShoot != null) {
@@ -365,7 +351,7 @@ public class RKFarm extends BH_SurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			/*if (mShoot == null) {
-				mShoot = mBallPool.getCircle(); //new BitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
+				mShoot = mBallPool.getCircle(); //new OldBitmapCircle(mBall, getWidth() / 2, getHeight(), mRadius, Utils.rndColor());
 				if (mShoot != null) {
 					mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight())*//*new Rectangle(0, 0, getWidth(), getHeight())*//*, new Point((int) event.getX(), (int) event.getY())));  //calculationSpeedForNewCircle(event.getX(), event.getY(), getWidth(), getHeight()));
 					if (mShoot.getSpeed() == null) {
@@ -414,7 +400,7 @@ public class RKFarm extends BH_SurfaceView {
 				c = 0;
 				m = 0;
 				y = 0;
-				for (BitmapCircle circle : mCircles) {
+				for (OldBitmapCircle circle : mCircles) {
 					switch(circle.getColor()) {
 						case Color.RED:
 							r++;

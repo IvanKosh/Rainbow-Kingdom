@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.Circles.OldBitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 /**
@@ -21,7 +21,7 @@ public class ResourceDisplay {
 	private final int mAmountX;
 	private final int mCenterY;
 
-	private BitmapCircle mCircle;
+	private OldBitmapCircle mCircle;
 	private Rect mField;
 
 	public DisplayAmount red;
@@ -41,7 +41,7 @@ public class ResourceDisplay {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public ResourceDisplay(Bitmap bitmap, int radius, Rect field) {
 		mField = field;
-		mCircle = new BitmapCircle(bitmap, radius << 1, mField.centerY(), radius, Color.RED);
+		mCircle = new OldBitmapCircle(bitmap, radius << 1, mField.centerY(), radius, Color.RED);
 
 		mAmountX = radius << 2;
 

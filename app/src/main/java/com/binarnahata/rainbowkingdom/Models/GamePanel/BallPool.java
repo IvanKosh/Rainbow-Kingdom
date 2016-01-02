@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.Circles.OldBitmapCircle;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 /**
@@ -25,17 +25,17 @@ public class BallPool {
 	private boolean needMoveState;
 	private Point mTo;
 
-	private BitmapCircle mFirstBall;
-	private BitmapCircle mSecondBall;
+	private OldBitmapCircle mFirstBall;
+	private OldBitmapCircle mSecondBall;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public BitmapCircle getCircle() {
+	public OldBitmapCircle getCircle() {
 		if (needMoveState) {
 			return null;
 		}
-		BitmapCircle circle	= mFirstBall;
+		OldBitmapCircle circle	= mFirstBall;
 		mFirstBall = mSecondBall;
-		mSecondBall = new BitmapCircle(mBitmap, mTo.x, mTo.y + 2*mDiameter,
+		mSecondBall = new OldBitmapCircle(mBitmap, mTo.x, mTo.y + 2*mDiameter,
 			mRadius, Utils.rndColor());
 		needMoveState = true;
 		return circle;
@@ -51,8 +51,8 @@ public class BallPool {
 
 
 		// генерация пула шаров
-		mFirstBall = new BitmapCircle(mBitmap, mTo.x, mTo.y, mRadius, Utils.rndColor());
-		mSecondBall = new BitmapCircle(mBitmap, mTo.x, mTo.y + mDiameter,
+		mFirstBall = new OldBitmapCircle(mBitmap, mTo.x, mTo.y, mRadius, Utils.rndColor());
+		mSecondBall = new OldBitmapCircle(mBitmap, mTo.x, mTo.y + mDiameter,
 			mRadius, Utils.rndColor());
 	}
 

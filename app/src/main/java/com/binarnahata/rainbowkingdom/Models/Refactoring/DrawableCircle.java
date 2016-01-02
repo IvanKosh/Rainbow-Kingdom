@@ -33,7 +33,7 @@ public class DrawableCircle extends SimpleCircle {
 	public void draw(Canvas canvas, Paint paint) {
 		paint.setColor(mColor);
 		canvas.drawCircle((float) getX(), (float) getY(),
-			(float) mRadius, paint);
+			(float) getRadius(), paint);
 	}
 	/* МЕТОДЫ */
 }

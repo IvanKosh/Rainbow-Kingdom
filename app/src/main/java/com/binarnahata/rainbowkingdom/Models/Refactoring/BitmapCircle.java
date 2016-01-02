@@ -22,6 +22,9 @@ public class BitmapCircle extends DrawableCircle {
 	protected Bitmap mBitmap;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public Bitmap getBitmap() {
+		return mBitmap;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BitmapCircle(Vector3 position, double radius, int color, Bitmap bitmap) {
@@ -33,8 +36,8 @@ public class BitmapCircle extends DrawableCircle {
 	public void draw(Canvas canvas, Paint paint) {
 		super.draw(canvas, paint);
 		canvas.drawBitmap(mBitmap, null,
-			new Rect((int) (getX() - mRadius), (int) (getY() - mRadius),
-				(int) (getX() + mRadius), (int) (getY() + mRadius)),
+			new Rect((int) (getX() - getRadius()), (int) (getY() - getRadius()),
+				(int) (getX() + getRadius()), (int) (getY() + getRadius())),
 			null);
 	}
 	/* МЕТОДЫ */

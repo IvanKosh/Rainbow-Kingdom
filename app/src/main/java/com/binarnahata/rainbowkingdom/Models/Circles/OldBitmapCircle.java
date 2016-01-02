@@ -15,16 +15,16 @@ import com.binarnahata.rainbowkingdom.Models.Components.Speed;
  * @author bat
  * @version 0.1
  */
-public class BitmapCircle extends SimpleCircle {
+public class OldBitmapCircle extends SimpleCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = BitmapCircle.class.getSimpleName();
+	private static final String TAG = OldBitmapCircle.class.getSimpleName();
 
 	private Bitmap mBitmap;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public BitmapCircle(Bitmap bitmap, int x, int y, int radius, int color) {
+	public OldBitmapCircle(Bitmap bitmap, int x, int y, int radius, int color) {
 		super(x, y, radius, color);
 		mBitmap = bitmap;
 	}
@@ -50,12 +50,12 @@ public class BitmapCircle extends SimpleCircle {
 	}
 
 	@Override
-	public BitmapCircle checkCollisionsAndMerge(SimpleCircle circle) {
+	public OldBitmapCircle checkCollisionsAndMerge(SimpleCircle circle) {
 		double dx = mX-circle.getX();
 		double dy = mY-circle.getY();
 		double distanceBetweenCircles = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 		if (distanceBetweenCircles < mDiameter) { // если происходит столкновение
-			BitmapCircle resultCircle = new BitmapCircle(mBitmap,
+			OldBitmapCircle resultCircle = new OldBitmapCircle(mBitmap,
 				(int) ((mX + circle.getX()) / 2),
 				(int) ((mY + circle.getY()) / 2), mRadius,
 				Color.mergeColor(mColor, circle.getColor()));
