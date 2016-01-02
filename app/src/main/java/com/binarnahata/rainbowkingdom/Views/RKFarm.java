@@ -230,10 +230,10 @@ public class RKFarm extends BH_SurfaceView {
 					p3 = (mDiameter - distanceBetweenCircles) / 2; //при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
 					p1 = p3 * (dx / distanceBetweenCircles);
 					p2 = p3 * (dy / distanceBetweenCircles);
-					circle1.setSpeed(Vector3.add(circle1.getSpeed(), new Vector3(p1, p2)));
+					circle1.setPosition(Vector3.add(circle1.getPosition(), new Vector3(p1, p2)));
 					/*mX = (float) (mX + p1);
 					mY = (float) (mY + p2);*/
-					circle2.setSpeed(Vector3.sub(circle2.getSpeed(), new Vector3(p1, p2)));
+					circle2.setPosition(Vector3.sub(circle2.getPosition(), new Vector3(p1, p2)));
 					/*circle1.setX((float) (circle1.getX() - p1));
 					circle1.setY((float) (circle1.getY() - p2));*/
 					// TODO: оптимизировать весь этот ад

@@ -17,6 +17,12 @@ public class SimpleCircle {
 	protected double mRadius;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public Vector3 getPosition() {
+		return mPosition;
+	}
+	public void setPosition(Vector3 position) {
+		mPosition = position;
+	}
 	public double getRadius() {
 		return mRadius;
 	}
