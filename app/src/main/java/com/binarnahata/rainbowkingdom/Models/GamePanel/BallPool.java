@@ -11,6 +11,8 @@ import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
+import java.util.ArrayList;
+
 /**
  * RainbowKingdom
  * Created on 14.12.15, 16:47

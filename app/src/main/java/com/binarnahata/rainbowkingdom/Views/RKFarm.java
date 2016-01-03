@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -20,7 +19,6 @@ import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Models.Circles.DrawableCircle;
-import com.binarnahata.rainbowkingdom.Models.Components.Speed;
 import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
@@ -296,10 +294,6 @@ public class RKFarm extends BH_SurfaceView {
 			if (mShoot == null) {
 				mShoot = mBallPool.getCircle();
 				if (mShoot != null) {
-					/*mShoot.setSpeed(Speed.getSpeedForShoot(new Rect(0, 0, getWidth(), getHeight()) new Rectangle(0, 0, getWidth(), getHeight()), new Point((int) event.getX(), (int) event.getY())));
-					if (mShoot.getSpeed() == null) {
-						mShoot.setSpeed(new Vector3(0, -1));
-					}*/
 					Vector3 speed = Vector3.sub(mShoot.getPosition(), new Vector3(event.getX(), event.getY()));
 					speed.normalize();
 					mShoot.setSpeed(speed);
