@@ -297,7 +297,7 @@ public class RKFarm extends BH_SurfaceView {
 				if (mShoot != null) {
 					Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
 					speed.normalize();
-					mShoot.setSpeed(speed);
+					mShoot.setSpeed(speed, RKCircle.MAXIMUM_SPEED);
 					mMark.setCoordinate((int)event.getX(), (int) event.getY());
 					mGamePanel.decrementAvailableBalls();
 				}

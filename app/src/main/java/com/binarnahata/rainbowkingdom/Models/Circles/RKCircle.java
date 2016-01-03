@@ -15,7 +15,7 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class RKCircle extends MovableCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKCircle.class.getSimpleName();
-	private static final int MAXIMUM_SPEED = 5;
+	public static final int MAXIMUM_SPEED = 3;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -56,9 +56,10 @@ public class RKCircle extends MovableCircle {
 				Vector3.dot(d, new Vector3(p2, p1)),
 				Vector3.dot(d, new Vector3(p1, p3))
 			);
+
 			// изменение направления движения
-			circle1.getSpeed().sub(speedBalance);
-			circle2.getSpeed().add(speedBalance);
+			circle1.setSpeed(Vector3.sub(circle1.getSpeed(), speedBalance));
+			circle2.setSpeed(Vector3.add(circle2.getSpeed(), speedBalance));
 
 			// при соударении шары всегда "проникают" друг в друга, поэтому раздвигаем их
 			p3 = (circle1.getDiameter() - distanceBetweenCircles) / 2;
