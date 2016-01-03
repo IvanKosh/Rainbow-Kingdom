@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -234,7 +235,7 @@ public class RKFarm extends BH_SurfaceView {
 									break;
 							}
 						}
-
+						mCircles.remove(circle);
 						mMark.die();
 						mShoot = null;
 						break;
@@ -294,7 +295,7 @@ public class RKFarm extends BH_SurfaceView {
 			if (mShoot == null) {
 				mShoot = mBallPool.getCircle();
 				if (mShoot != null) {
-					Vector3 speed = Vector3.sub(mShoot.getPosition(), new Vector3(event.getX(), event.getY()));
+					Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
 					speed.normalize();
 					mShoot.setSpeed(speed);
 					mMark.setCoordinate((int)event.getX(), (int) event.getY());
