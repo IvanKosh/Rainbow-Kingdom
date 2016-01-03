@@ -25,34 +25,40 @@ public class TopPanel {
 	private final Paint mPaint;
 	private final Rect mRect;
 	private final ArrayList<BitmapCircle> mBitmapCircles = new ArrayList<>();
-	private final Bitmap mBitmap;
+	private final Bitmap mBitmapCircle;
+	private final Bitmap mBitmapLine;
+	private final Rect mLineRect;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public TopPanel(Paint paint, Rect rect, Bitmap bitmap) {
+	public TopPanel(Paint paint, Rect rect, Bitmap bitmapCircle, Bitmap bitmapLine) {
 		mPaint = paint;
 		mRect = rect;
-		mBitmap = bitmap;
+		mBitmapCircle = bitmapCircle;
+		mBitmapLine = bitmapLine;
 		double r = rect.height() / 2;
 		double step = rect.width() / (NUMBER_OF_HELP_BALL+1);
 		int[] colors = {Color.MAGENTA, Color.RED, Color.YELLOW,
 			Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA};
 		BitmapCircle circle;
 		for (int i = 0; i < NUMBER_OF_HELP_BALL; i++) {
-			circle = new BitmapCircle(new Vector3(step + i*step, r), r, colors[i], mBitmap);
+			circle = new BitmapCircle(new Vector3(step + i*step, r), r, colors[i], mBitmapCircle);
 			mBitmapCircles.add(circle);
 		}
+		int border = rect.height()/10;
+		mLineRect = new Rect(0, rect.bottom, rect.width(), rect.bottom+border);//new Rect(0, rect.height(), rect.width(), 10);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {
-		mPaint.setColor(Color.GRAY);
-		canvas.drawRect(mRect, mPaint);
+		/*mPaint.setColor(Color.GRAY);
+		canvas.drawRect(mRect, mPaint);*/
 		for (BitmapCircle circle : mBitmapCircles) {
 			circle.draw(canvas, mPaint);
 		}
+		canvas.drawBitmap(mBitmapLine, null, mLineRect, null);
 	}
 	/* МЕТОДЫ */
 }

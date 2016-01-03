@@ -23,6 +23,7 @@ import com.binarnahata.rainbowkingdom.Models.Circles.DrawableCircle;
 import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
+import com.binarnahata.rainbowkingdom.Models.GamePanel.BottomPanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
@@ -68,12 +69,13 @@ public class RKFarm extends BH_SurfaceView {
 	private Volume mVolume;
 	private Mark mMark;
 	private TopPanel mTopPanel;
+	private Bitmap mLineH;
+	private BottomPanel mBottomPanel;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	@TargetApi(21)
 	public RKFarm(Context context, GameMode gameMode) {
 		super(context);
 		mContext = context;
@@ -125,8 +127,14 @@ public class RKFarm extends BH_SurfaceView {
 		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, getHeight()-mDiameter*2);
 
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-
-		mTopPanel = new TopPanel(mPaint, new Rect(0, 0, getWidth(), mDiameter), mBall);
+		mLineH = BitmapFactory.decodeResource(getResources(), R.drawable.line_h);
+		mTopPanel = new TopPanel(mPaint, new Rect(0, 0, getWidth(), mDiameter), mBall, mLineH);
+		mBottomPanel = new BottomPanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),
+			mLineH,
+			BitmapFactory.decodeResource(getResources(), R.drawable.line_v),
+			BitmapFactory.decodeResource(getResources(), R.drawable.corner_bl),
+			BitmapFactory.decodeResource(getResources(), R.drawable.corner_br),
+			mGameMode.number - START_NUMBER_OF_BALLS_ON_THE_FIELD);
 
 		initCircles();
 
@@ -279,6 +287,7 @@ public class RKFarm extends BH_SurfaceView {
 		}
 
 		mGamePanel.draw(canvas);
+		mBottomPanel.draw(canvas);
 
 		if (mShoot != null) {
 			mShoot.draw(mCanvas, mPaint);
@@ -386,8 +395,9 @@ public class RKFarm extends BH_SurfaceView {
 
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
 			}
+			return true;
 		}
-		return true;
+		return super.onTouchEvent(event);
 	}
 	/* МЕТОДЫ */
 }
