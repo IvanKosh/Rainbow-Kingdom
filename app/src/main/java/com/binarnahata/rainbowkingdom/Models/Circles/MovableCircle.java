@@ -2,6 +2,7 @@ package com.binarnahata.rainbowkingdom.Models.Circles;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 
