@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
@@ -30,6 +31,7 @@ public class ResourceDisplay {
 	public DisplayAmount cyan;
 	public DisplayAmount magenta;
 	public DisplayAmount yellow;
+	public DisplayAmount black;
 
 	public DisplayAmount now;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -39,11 +41,12 @@ public class ResourceDisplay {
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public ResourceDisplay(Bitmap bitmap, int radius, Rect field) {
+	public ResourceDisplay(Bitmap bitmap, double radius, Rect field) {
 		mField = field;
-		mCircle = new BitmapCircle(bitmap, radius << 1, mField.centerY(), radius, Color.RED);
 
-		mAmountX = radius << 2;
+		mCircle = new BitmapCircle(new Vector3(radius * 2, mField.centerY()), radius, Color.getRandom(), bitmap);
+
+		mAmountX = (int) (radius * 4);
 
 		red = new DisplayAmount();
 		green = new DisplayAmount();
@@ -52,7 +55,35 @@ public class ResourceDisplay {
 		magenta = new DisplayAmount();
 		yellow = new DisplayAmount();
 
-		now = red;
+		switch(mCircle.getColor()) {
+			case Color.RED:
+				now = red;
+				mCircle.setColor(Color.RED);
+				break;
+			case Color.GREEN:
+				now = green;
+				mCircle.setColor(Color.GREEN);
+				break;
+			case Color.BLUE:
+				now = blue;
+				mCircle.setColor(Color.BLUE);
+				break;
+			case Color.CYAN:
+				now = cyan;
+				mCircle.setColor(Color.CYAN);
+				break;
+			case Color.MAGENTA:
+				now = magenta;
+				mCircle.setColor(Color.MAGENTA);
+				break;
+			case Color.YELLOW:
+				now = yellow;
+				mCircle.setColor(Color.YELLOW);
+				break;
+			default:
+				now = black;
+				mCircle.setColor(Color.BLACK);
+		}
 
 
 		Rect r = new Rect();
@@ -62,7 +93,7 @@ public class ResourceDisplay {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {
-		mCircle.drawScale(canvas, paint, 0.75f);
+		mCircle.draw(canvas, paint);
 		now.display(canvas, mAmountX, mCenterY);
 	}
 
@@ -72,7 +103,7 @@ public class ResourceDisplay {
 		now.amount++;
 	}
 
-	public void setGreed() {
+	public void setGreen() {
 		now = green;
 		mCircle.setColor(Color.GREEN);
 		now.amount++;

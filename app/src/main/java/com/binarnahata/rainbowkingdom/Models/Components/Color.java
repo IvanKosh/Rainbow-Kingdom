@@ -2,6 +2,8 @@ package com.binarnahata.rainbowkingdom.Models.Components;
 
 import android.support.annotation.ColorInt;
 
+import com.binarnahata.rainbowkingdom.Libs.Utils;
+
 /**
  * RainbowKingdom
  * Created on 11.12.15, 20:41
@@ -23,6 +25,7 @@ public class Color {
 	public static final int YELLOW      = 0xFFFFFF00;
 	public static final int CYAN        = 0xFF00FFFF;
 	public static final int MAGENTA     = 0xFFFF00FF;
+	public static final int GRAY 		= 0xFFCCCCCC;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -71,6 +74,24 @@ public class Color {
 			default:
 				return "BLACK";
 		}
+	}
+
+	public static int getRandom() {
+		switch (Utils.rndInt(0, 5)) {
+			case 0:
+				return RED;
+			case 1:
+				return GREEN;
+			case 2:
+				return BLUE;
+			case 3:
+				return YELLOW;
+			case 4:
+				return CYAN;
+			case 5:
+				return MAGENTA;
+		}
+		return BLACK;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

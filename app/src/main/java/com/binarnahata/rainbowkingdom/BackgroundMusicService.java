@@ -77,21 +77,18 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		if (mPlayer.isPlaying()) {
 			mPlayer.pause();
 			length=mPlayer.getCurrentPosition();
-			Toast.makeText(this, "Music is Paused", Toast.LENGTH_LONG).show();
 		}
 	}
 
 	public void resumeMusic() {
 		if (mPlayer.isPlaying() == false) {
 			mPlayer.seekTo(length);
-			Toast.makeText(this, "Music is started", Toast.LENGTH_LONG).show();
 			mPlayer.start();
 		}
 	}
 
 	public void stopMusic() {
 		mPlayer.stop();
-		Toast.makeText(this, "Music is stoped", Toast.LENGTH_LONG).show();
 		mPlayer.release();
 		mPlayer = null;
 	}

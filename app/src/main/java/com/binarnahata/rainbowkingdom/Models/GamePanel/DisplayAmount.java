@@ -25,7 +25,7 @@ public class DisplayAmount {
 	public DisplayAmount() {
 		amount = 0;
 		paint = new Paint();
-		paint.setColor(Color.WHITE);
+		paint.setColor(Color.BLACK);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

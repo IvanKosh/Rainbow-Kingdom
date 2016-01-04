@@ -4,9 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 
-import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
+import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
+
+import java.util.ArrayList;
 
 /**
  * RainbowKingdom
@@ -23,37 +29,39 @@ public class BallPool {
 	private final int mDiameter;
 
 	private boolean needMoveState;
-	private Point mTo;
+	private Vector3 mTo;
+	private Vector3 mStart;
+	private Vector3 mStep = new Vector3(0, -1);
 
-	private BitmapCircle mFirstBall;
-	private BitmapCircle mSecondBall;
+	private RKCircle mFirstBall;
+	private RKCircle mSecondBall;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public BitmapCircle getCircle() {
+	public RKCircle getCircle() {
 		if (needMoveState) {
 			return null;
 		}
-		BitmapCircle circle	= mFirstBall;
+		RKCircle circle	= mFirstBall;
 		mFirstBall = mSecondBall;
-		mSecondBall = new BitmapCircle(mBitmap, mTo.x, mTo.y + 2*mDiameter,
-			mRadius, Utils.rndColor());
+		mSecondBall = new RKCircle(Vector3.copy(mStart), mRadius, Color.getRandom(), mBitmap);
+		Log.d(TAG, mSecondBall.toString());
 		needMoveState = true;
 		return circle;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public BallPool(Bitmap bitmap, int diameter, Point to) {
+	public BallPool(Bitmap bitmap, int diameter, Vector3 to) {
 		needMoveState = false;
-		mTo = to;
+		mTo = Vector3.copy(to);
 		mBitmap = bitmap;
 		mDiameter = diameter;
 		mRadius = diameter >> 1;
-
+		mStart = new Vector3(to.x, to.y+diameter*2);
 
 		// генерация пула шаров
-		mFirstBall = new BitmapCircle(mBitmap, mTo.x, mTo.y, mRadius, Utils.rndColor());
-		mSecondBall = new BitmapCircle(mBitmap, mTo.x, mTo.y + mDiameter,
-			mRadius, Utils.rndColor());
+		mFirstBall = new RKCircle(Vector3.copy(to), mRadius, Color.getRandom(), mBitmap);
+		mSecondBall = new RKCircle(new Vector3(mTo.x, mTo.y+mDiameter),
+			mRadius, Color.getRandom(), mBitmap);
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -65,16 +73,9 @@ public class BallPool {
 
 	public void update() {
 		if (needMoveState) {
-			if (mTo.y < mFirstBall.getY()) {
-				mFirstBall.offset(0, -1);
-				if (mTo.y + mDiameter < mSecondBall.getY()) {
-					mSecondBall.offset(0, -1);
-				}
-				else {
-					needMoveState = false;
-				}
-			}
-			else {
+			mFirstBall.getPosition().add(mStep);
+			mSecondBall.getPosition().add(mStep);
+			if (mFirstBall.getY() < mTo.y) {
 				needMoveState = false;
 			}
 		}

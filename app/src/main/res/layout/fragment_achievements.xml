@@ -5,6 +5,12 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="centerCrop"
+		android:src="@drawable/rk_fon"/>
+
 	<TextView
 		android:id="@+id/achievements_point"
 		android:layout_width="match_parent"

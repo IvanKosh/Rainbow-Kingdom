@@ -7,7 +7,8 @@
 	<ImageView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:src="@android:drawable/btn_star_big_on"/>
+		android:scaleType="centerCrop"
+		android:src="@drawable/rk_fon"/>
 
 	<ImageView
 		android:id="@+id/settings_button"

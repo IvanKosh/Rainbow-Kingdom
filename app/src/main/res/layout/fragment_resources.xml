@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:gravity="center_horizontal">
 
-	<TableLayout
+	<ImageView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="match_parent"
+		android:scaleType="centerCrop"
+		android:src="@drawable/rk_fon"/>
+
+	<TableLayout
+		android:id="@+id/local_resources"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true">
 
 		<TableRow
 			android:gravity="center">
@@ -76,12 +84,15 @@
 	<ProgressBar
 		android:id="@+id/global_progress_bar"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"/>
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:layout_below="@id/local_resources"/>
 
 	<TableLayout
 		android:id="@+id/global_table"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_below="@id/global_progress_bar">
 
 		<TableRow
 			android:gravity="center">
@@ -146,4 +157,4 @@
 
 	</TableLayout>
 
-</LinearLayout>
+</RelativeLayout>
