@@ -16,6 +16,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_alignParentTop="true"
 		android:gravity="center"
 		android:text="Music"/>
@@ -24,7 +25,8 @@
 		android:id="@+id/settings_music_seek_bar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="@dimen/fab_margin"
+		android:paddingLeft="@dimen/activity_vertical_margin"
+		android:paddingRight="@dimen/activity_vertical_margin"
 		android:layout_below="@id/music_text"
 		android:progressDrawable="@drawable/progress"
 		android:thumb="@drawable/red_scrubber_control" />
@@ -34,6 +36,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="@dimen/fab_margin"
+		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_below="@id/settings_music_seek_bar"
 		android:gravity="center"
 		android:text="Effects"/>
@@ -42,7 +45,8 @@
 		android:id="@+id/settings_effects_seek_bar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="@dimen/fab_margin"
+		android:paddingLeft="@dimen/activity_vertical_margin"
+		android:paddingRight="@dimen/activity_vertical_margin"
 		android:layout_below="@id/effect_text"
 		android:progressDrawable="@drawable/progress"
 		android:thumb="@drawable/red_scrubber_control" />

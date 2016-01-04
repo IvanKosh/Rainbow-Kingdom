@@ -90,7 +90,6 @@ public class ResourceDisplay {
 				mCircle.setColor(Color.BLACK);
 		}
 
-
 		Rect r = new Rect();
 		mPaint.getTextBounds("0", 0, "0".length(), r);
 		mCenterY = (int) (field.height() / 2f + r.height() / 2f - r.bottom + field.top);
