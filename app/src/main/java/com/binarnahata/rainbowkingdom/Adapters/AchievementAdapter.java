@@ -1,5 +1,6 @@
 package com.binarnahata.rainbowkingdom.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +23,18 @@ import java.util.ArrayList;
 public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.ViewHolder> {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = AchievementAdapter.class.getSimpleName();
+	private final Context mContext;
 	private ArrayList<Achievement> mAchievementsArrayList;
 	private Callbacks mCallbacks;
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setAchievementsArrayList(ArrayList<Achievement> achievementsArrayList) {
 		mAchievementsArrayList = achievementsArrayList;
 	}
-
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public AchievementAdapter(ArrayList<Achievement> achievementArrayList, Callbacks callbacks) {
+	public AchievementAdapter(Context context, ArrayList<Achievement> achievementArrayList, Callbacks callbacks) {
+		mContext = context;
 		mAchievementsArrayList = achievementArrayList;
 		mCallbacks = callbacks;
 	}
@@ -51,8 +52,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 	@Override
 	public void onBindViewHolder(ViewHolder holder, final int position) {
 		holder.mText.setText(mAchievementsArrayList.get(position).getText());
-		holder.mNumber.setText(String.valueOf(mAchievementsArrayList.get(position).getNumber()));
-		holder.mPoint.setText(String.valueOf(mAchievementsArrayList.get(position).getPoint()));
+		holder.mNumber.setText(String.format(mContext.getResources().getString(R.string.number), mAchievementsArrayList.get(position).getNumber()));
+		holder.mPoint.setText(String.format(mContext.getResources().getString(R.string.point), mAchievementsArrayList.get(position).getPoint()));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

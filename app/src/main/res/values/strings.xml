@@ -9,4 +9,6 @@
 	<string name="yellow">Yellow: %1$d\u0020</string>
 	<string name="request">Request:\u0020</string>
 	<string name="reward">Reward: %1$d</string>
+	<string name="number">Number: %1$d</string>
+	<string name="point">Point: %1$d</string>
 </resources>
