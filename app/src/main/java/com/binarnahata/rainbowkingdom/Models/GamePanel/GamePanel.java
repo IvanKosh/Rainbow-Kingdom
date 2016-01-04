@@ -50,10 +50,9 @@ public class GamePanel {
 		mTextSize = dstRect.height() >> 1;
 
 		mPaint = new Paint();
-		mPaint.setColor(Color.WHITE);
+		mPaint.setColor(Color.BLACK);
 		mPaint.setTextAlign(Paint.Align.CENTER);
 		mPaint.setTextSize(mTextSize);
-
 
 		Rect centerRect = new Rect(dstRect.centerX() - mTextSize, dstRect.centerY() - mTextSize,
 			dstRect.centerX() + mTextSize, dstRect.centerY() + mTextSize);
