@@ -90,7 +90,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		holder.mImage.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
 		holder.mText.setText(mQuestArrayList.get(position).getText());
 		holder.mRequest.setText(mQuestArrayList.get(position).getJSONRequestString());
-		holder.mExperience.setText(String.valueOf(mQuestArrayList.get(position).getExperience()));
+		holder.mExperience.setText(String.valueOf(mQuestArrayList.get(position).getExperienceString()));
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

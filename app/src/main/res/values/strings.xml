@@ -1,4 +1,12 @@
 <resources>
 	<string name="app_name">RainbowKingdom</string>
 	<string name="action_settings">Settings</string>
+	<string name="red">Red: %1$d\u0020</string>
+	<string name="green">Green: %1$d\u0020</string>
+	<string name="blue">Blue: %1$d\u0020</string>
+	<string name="cyan">Cyan: %1$d\u0020</string>
+	<string name="magenta">Magenta: %1$d\u0020</string>
+	<string name="yellow">Yellow: %1$d\u0020</string>
+	<string name="request">Request:\u0020</string>
+	<string name="reward">Reward: %1$d</string>
 </resources>
