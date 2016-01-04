@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -24,7 +23,6 @@ import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BottomPanel;
-import com.binarnahata.rainbowkingdom.Models.GamePanel.GamePanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
@@ -58,7 +56,6 @@ public class RKFarm extends BH_SurfaceView {
 	private ArrayList<RKCircle> mCircles;
 	private RKCircle mShoot;
 	private Canvas mCanvas;
-	private GamePanel mGamePanel;
 
 	private int mRadius;
 	private int mDiameter;
@@ -140,14 +137,8 @@ public class RKFarm extends BH_SurfaceView {
 
 		initCircles();
 
-		mGamePanel = new GamePanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),//mRectField,
-			BitmapFactory.decodeResource(getResources(), R.drawable.game_panel_fon),
-			BitmapFactory.decodeResource(getResources(), R.drawable.for_left),
-			BitmapFactory.decodeResource(getResources(), R.drawable.for_right),
-			mGameMode.number - START_NUMBER_OF_BALLS_ON_THE_FIELD);
-
 		mBallPool = new BallPool(mBall, mDiameter, new Vector3(getWidth()/2, getHeight()-mDiameter));
-		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mGamePanel.mRectLeft);
+		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mBottomPanel.mRectLeft);
 
 		mMark = new Mark(mPaint);
 
@@ -224,7 +215,7 @@ public class RKFarm extends BH_SurfaceView {
 							mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
 							1, 0, 1.0f);
 						mCircles.add(tempCircle);
-						mGamePanel.incrementAvailableBalls();
+						mBottomPanel.incrementAvailableBalls();
 
 						if (tempCircle.getColor() == circle.getColor()) {
 							switch (tempCircle.getColor()) {
@@ -314,7 +305,7 @@ public class RKFarm extends BH_SurfaceView {
 					speed.normalize();
 					mShoot.setSpeed(speed, RKCircle.MAXIMUM_SPEED);
 					mMark.setCoordinate((int)event.getX(), (int) event.getY());
-					mGamePanel.decrementAvailableBalls();
+					mBottomPanel.decrementAvailableBalls();
 				}
 			}
 

@@ -32,6 +32,7 @@ public class BottomPanel {
 	private final Paint mPaint;
 	private final int mTextSize;
 	private final Rect mRectRight;
+	public final Rect mRectLeft;
 	private int mAvailableBalls;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -74,6 +75,8 @@ public class BottomPanel {
 
 		mRectRight = new Rect(mCornerR.right, mCornerR.bottom,
 			dstRect.right, dstRect.bottom);
+		mRectLeft = new Rect(dstRect.left, dstRect.top,
+			centerRect.left, centerRect.bottom);
 
 		mTextSize = dstRect.height() >> 1;
 		mPaint = new Paint();
