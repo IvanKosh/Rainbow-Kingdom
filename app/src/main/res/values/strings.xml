@@ -11,4 +11,15 @@
 	<string name="reward">Reward: %1$d</string>
 	<string name="number">Number: %1$d</string>
 	<string name="point">Point: %1$d</string>
+
+	<string name="quest_text0">Здравия желаю! Нашим войскам нужны краски для новой формы.</string>
+	<string name="quest_text1">Привет! Для главного блюда на праздновании нужны краски.</string>
+	<string name="quest_text2">Доброго дня. Что бы закончить ремонт в замке нам необходимо еще немного краски.</string>
+	<string name="quest_text3">Мой, король! Наши враги разрисовали все дорожные знаки, нам нужна краска, что бы спасти королевство.</string>
+	<string name="quest_text4">Здравствуйте. Не могли бы ли Вы одолжить мне немного краски для счастья.</string>
+	<string name="quest_text5">Йоу, батяня! Дай чутка краски на карманные расходы.</string>
+	<string name="quest_text6">Здравия Вам государь. У соседей праздник, нужно отправить послов с подарками.</string>
+	<string name="quest_text7">О, царь! Дай краски.</string>
+	<string name="quest_text8">Алоха. Я торговец с Гавайев, продадите ли Вы мне краску?</string>
+	<string name="quest_text9">У-о-ра!!! Дай кво краску! Или туи сражатся!!!</string>
 </resources>

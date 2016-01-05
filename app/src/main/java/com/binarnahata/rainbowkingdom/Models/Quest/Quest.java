@@ -3,15 +3,12 @@ package com.binarnahata.rainbowkingdom.Models.Quest;
 import android.content.Context;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
-import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -103,7 +100,7 @@ public class Quest {
 		mContext = context;
 		mId = UUID.randomUUID();
 		mHeroAvatar = Utils.rndHeroAvatar();
-		mText = "Quest text";
+		mText = rndQuestText(context);
 
 		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
 
@@ -119,6 +116,13 @@ public class Quest {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	private String rndQuestText(Context context) {
+		return context.getResources().getString(
+			mContext.getResources().getIdentifier(
+				"quest_text" + Utils.rndInt(0, 9), "string",
+				mContext.getPackageName()));
+	}
+
 	public JSONObject toJSON() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put(JSON_ID, mId.toString());

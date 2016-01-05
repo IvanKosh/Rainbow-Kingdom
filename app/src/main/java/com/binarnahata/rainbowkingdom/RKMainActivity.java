@@ -14,6 +14,7 @@ import android.util.Log;
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.Models.Volume;
@@ -51,6 +52,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Utils.setRandom();
 		mFragmentManager = getSupportFragmentManager();
 		mFragmentManager.beginTransaction()
 			.add(R.id.fragment, new MenuFragment())

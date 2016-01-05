@@ -1,6 +1,8 @@
 package com.binarnahata.rainbowkingdom.Libs;
 
+import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
@@ -20,11 +22,11 @@ public class Utils {
 	private static final Random random = new Random();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Utils(){
+	public static void setRandom() {
 		random.setSeed(System.currentTimeMillis());
 	}
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* Рандомы */
