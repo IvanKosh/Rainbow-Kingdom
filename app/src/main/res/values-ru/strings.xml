@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">RainbowKingdom</string>
+	<string name="blue">Синий: %1$d\u0020</string>
+	<string name="cyan">Голубой: %1$d\u0020</string>
+	<string name="green">Зеленый: %1$d\u0020</string>
+	<string name="magenta">Пурпурный: %1$d\u0020</string>
+	<string name="number">Количество: %1$d</string>
+	<string name="point">Очков: %1$d</string>
+	<string name="quest_text0"> Good morning! Our troops need to paint a new form.</string>
+	<string name="red">Красный: %1$d\u0020</string>
+	<string name="request">Необходимо:\u0020</string>
+	<string name="yellow">Желтый: %1$d\u0020</string>
+	<string name="reward">Награда: %1$d</string>
+	<string name="quest_text1">Hello! For the main dish at the celebration need of paint.</string>
+	<string name="quest_text2">Good day. To finish the repairs in the castle, we need a little paint.</string>
+	<string name="quest_text3">Мой, король! Наши враги разрисовали все дорожные знаки, нам нужна краска, что бы спасти королевство.</string>
+	<string name="quest_text4"> Hello. Would you lend me some paint for happiness.</string>
+	<string name="quest_text5"> Yo, Pops! Give sympathetic ink on spending.</string>
+	<string name="quest_text6">Good day to you sire. The neighbors holiday, you need to send envoys with gifts.</string>
+	<string name="quest_text7">O King! Let the paint.</string>
+	<string name="quest_text8">Aloha. I am a trader from Hawaii, if you sell me the paint?</string>
+	<string name="quest_text9">Y-o-ra !!! Give quo paint! Or tui fight !!!</string>
+</resources>
