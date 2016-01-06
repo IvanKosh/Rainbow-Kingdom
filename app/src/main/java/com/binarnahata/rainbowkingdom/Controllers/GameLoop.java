@@ -202,5 +202,9 @@ public class GameLoop extends Thread {
 			mGame.setAvgFps("FPS: " + df.format(averageFps));
 		}
 	}
+
+	public void pause() {
+		mRunning = false;
+	}
 	/* МЕТОДЫ */
 }

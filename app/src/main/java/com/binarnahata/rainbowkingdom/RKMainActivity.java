@@ -43,7 +43,6 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	};
 	private Intent mBackgroundMusic;
 	private Volume mVolume;
-
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

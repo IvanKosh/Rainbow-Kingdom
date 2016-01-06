@@ -2,9 +2,9 @@ package com.binarnahata.rainbowkingdom.Models.Circles;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
+import com.binarnahata.rainbowkingdom.Views.RKFarm;
 
 /**
  * RainbowKingdom
@@ -31,13 +31,6 @@ public class MovableCircle extends BitmapCircle {
 		mSpeed = speed;
 		limitedSpeed();
 	}
-
-	private void limitedSpeed() {
-		if (mSpeed > RKCircle.MAXIMUM_SPEED) {
-			mSpeed = RKCircle.MAXIMUM_SPEED;
-		}
-	}
-
 	public Vector3 getSpeed() {
 		return Vector3.mul(mRoute, mSpeed);
 	}
@@ -86,6 +79,12 @@ public class MovableCircle extends BitmapCircle {
 	}
 	public void toUp() {
 		mRoute.y = -Math.abs(mRoute.y);
+	}
+
+	public void limitedSpeed() {
+		if (mSpeed > RKFarm.sMaxSpeed) {
+			mSpeed = RKFarm.sMaxSpeed;
+		}
 	}
 	/* МЕТОДЫ */
 }
