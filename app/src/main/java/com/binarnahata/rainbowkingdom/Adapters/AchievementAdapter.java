@@ -51,6 +51,9 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, final int position) {
+		holder.mImage.setImageResource(mContext.getResources().getIdentifier(
+			mAchievementsArrayList.get(position).getTag(), "drawable",
+			mContext.getPackageName()));
 		holder.mText.setText(mAchievementsArrayList.get(position).getText());
 		holder.mNumber.setText(String.format(mContext.getResources().getString(R.string.number), mAchievementsArrayList.get(position).getNumber()));
 		holder.mPoint.setText(String.format(mContext.getResources().getString(R.string.point), mAchievementsArrayList.get(position).getPoint()));

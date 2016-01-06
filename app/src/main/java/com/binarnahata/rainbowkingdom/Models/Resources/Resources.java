@@ -25,12 +25,12 @@ public class Resources {
 	private static final String TAG = Resources.class.getSimpleName();
 	private static final String APP_INIT_PREFERENCES = "init_preferences";
 	private static final String APP_LOCAL_RESOURCES = "local_resources";
-	public static final String RED = "Red";
-	public static final String GREEN = "Green";
-	public static final String BLUE = "Blue";
-	public static final String CYAN = "Cyan";
-	public static final String MAGENTA = "Magenta";
-	public static final String YELLOW = "Yellow";
+	public static final String RED = "red";
+	public static final String GREEN = "green";
+	public static final String BLUE = "blue";
+	public static final String CYAN = "cyan";
+	public static final String MAGENTA = "magenta";
+	public static final String YELLOW = "yellow";
 
 	private static SharePreferenceDataSever mSPDataSever;
 	private static Resources sResources;
