@@ -3,14 +3,12 @@ package com.binarnahata.rainbowkingdom.Models.Quest;
 import android.content.Context;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
-import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
+import com.binarnahata.rainbowkingdom.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 
 /**
@@ -51,6 +49,9 @@ public class Quest {
 	public int getExperience() {
 		return mExperience;
 	}
+	public String getExperienceString() {
+		return String.format(mContext.getResources().getString(R.string.reward), mExperience);
+	}
 
 	public JSONObject getJSONRequest() {
 		return mJSONRequest;
@@ -58,6 +59,7 @@ public class Quest {
 
 	public String getJSONRequestString() {
 		String result = new String();
+		result += mContext.getResources().getString(R.string.request);
 		try {
 			int r = mJSONRequest.getInt(Resources.RED);
 			int g = mJSONRequest.getInt(Resources.GREEN);
@@ -65,24 +67,25 @@ public class Quest {
 			int c = mJSONRequest.getInt(Resources.CYAN);
 			int m = mJSONRequest.getInt(Resources.MAGENTA);
 			int y = mJSONRequest.getInt(Resources.YELLOW);
+
 			if (r != 0) {
-				result += "Red: " + r + " ";
+				result += String.format(mContext.getResources().getString(R.string.red), r);
 			}
 			if (g != 0) {
-				result += "Green: " + g + " ";
+				result += String.format(mContext.getResources().getString(R.string.green), g);
 			}
 			if (b != 0) {
-				result += "Blue: " + b + " ";
+				result += String.format(mContext.getResources().getString(R.string.blue), b);
 			}
 			if (c != 0) {
-				result += "Cyan: " + c + " ";
+				result += String.format(mContext.getResources().getString(R.string.cyan), c);
 			}
 			if (m != 0) {
-				result += "Magenta: " + m + " ";
+				result += String.format(mContext.getResources().getString(R.string.magenta), m);
 			}
 			if (y
 				!= 0) {
-				result += "Yellow: " + y + " ";
+				result += String.format(mContext.getResources().getString(R.string.yellow), y);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -97,7 +100,7 @@ public class Quest {
 		mContext = context;
 		mId = UUID.randomUUID();
 		mHeroAvatar = Utils.rndHeroAvatar();
-		mText = "Quest text";
+		mText = rndQuestText(context);
 
 		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
 
@@ -113,6 +116,13 @@ public class Quest {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	private String rndQuestText(Context context) {
+		return context.getResources().getString(
+			mContext.getResources().getIdentifier(
+				"quest_text" + Utils.rndInt(0, 9), "string",
+				mContext.getPackageName()));
+	}
+
 	public JSONObject toJSON() throws JSONException {
 		JSONObject json = new JSONObject();
 		json.put(JSON_ID, mId.toString());

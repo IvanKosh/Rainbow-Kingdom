@@ -70,6 +70,7 @@ public class RKFarm extends BH_SurfaceView {
 	private BottomPanel mBottomPanel;
 	private Rect mForRect;
 	private Bitmap mFon;
+	private Rect mForTouch;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -122,7 +123,8 @@ public class RKFarm extends BH_SurfaceView {
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
 		mDiameter = mRadius << 1;
-		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, getHeight()-mDiameter*2);
+		mForTouch = new Rect(0, 0, getWidth(), getHeight()-mDiameter*2);
+		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, mForTouch.bottom);
 
 		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.fon);
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
@@ -298,14 +300,16 @@ public class RKFarm extends BH_SurfaceView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (mShoot == null) {
-				mShoot = mBallPool.getCircle();
-				if (mShoot != null) {
-					Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
-					speed.normalize();
-					mShoot.setSpeed(speed, RKCircle.MAXIMUM_SPEED);
-					mMark.setCoordinate((int)event.getX(), (int) event.getY());
-					mBottomPanel.decrementAvailableBalls();
+			if (mForTouch.contains((int) event.getX(), (int) event.getY())) {
+				if (mShoot == null) {
+					mShoot = mBallPool.getCircle();
+					if (mShoot != null) {
+						Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
+						speed.normalize();
+						mShoot.setSpeed(speed, RKCircle.MAXIMUM_SPEED);
+						mMark.setCoordinate((int)event.getX(), (int) event.getY());
+						mBottomPanel.decrementAvailableBalls();
+					}
 				}
 			}
 

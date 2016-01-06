@@ -79,7 +79,7 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 
 	private void initAchievementAdapter() {
 		mAchievementListArray = new ArrayList<>();
-		mAdapter = new AchievementAdapter(mAchievementListArray, new AchievementAdapter.Callbacks() {
+		mAdapter = new AchievementAdapter(getContext(), mAchievementListArray, new AchievementAdapter.Callbacks() {
 			@Override
 			public void offsetSum(int deltaSum) {
 				mSum += deltaSum;

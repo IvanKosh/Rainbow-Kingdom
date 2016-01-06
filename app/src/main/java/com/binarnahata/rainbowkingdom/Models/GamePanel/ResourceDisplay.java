@@ -21,6 +21,7 @@ public class ResourceDisplay {
 	private static final String TAG = ResourceDisplay.class.getSimpleName();
 	private final int mAmountX;
 	private final int mCenterY;
+	private final Paint mPaint;
 
 	private BitmapCircle mCircle;
 	private Rect mField;
@@ -55,6 +56,10 @@ public class ResourceDisplay {
 		magenta = new DisplayAmount();
 		yellow = new DisplayAmount();
 
+		mPaint = new Paint();
+		mPaint.setColor(Color.BLACK);
+		mPaint.setTextSize((float) radius);
+
 		switch(mCircle.getColor()) {
 			case Color.RED:
 				now = red;
@@ -85,16 +90,15 @@ public class ResourceDisplay {
 				mCircle.setColor(Color.BLACK);
 		}
 
-
 		Rect r = new Rect();
-		now.paint.getTextBounds("0", 0, "0".length(), r);
+		mPaint.getTextBounds("0", 0, "0".length(), r);
 		mCenterY = (int) (field.height() / 2f + r.height() / 2f - r.bottom + field.top);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {
 		mCircle.draw(canvas, paint);
-		now.display(canvas, mAmountX, mCenterY);
+		now.display(canvas, mAmountX, mCenterY, mPaint);
 	}
 
 	public void setRed() {

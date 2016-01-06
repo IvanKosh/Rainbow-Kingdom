@@ -69,17 +69,6 @@ public class Achievement {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Achievement() {
 	}
-	public Achievement(String icon, String text, int point) {
-		mIcon = icon;
-		mText = text;
-		mPoint = point;
-	}
-	public Achievement(int id, String icon, String text, int point) {
-		mId = id;
-		mIcon = icon;
-		mText = text;
-		mPoint = point;
-	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* МЕТОДЫ */

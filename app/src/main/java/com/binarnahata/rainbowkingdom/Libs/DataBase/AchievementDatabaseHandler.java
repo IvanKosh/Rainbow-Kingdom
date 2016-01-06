@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * RainbowKingdom
@@ -37,6 +38,8 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ID = "id";
 	private static final String KEY_ICON = "icon";
 	private static final String KEY_TEXT = "text";
+	private static final String KEY_RU_TEXT = "text_ru";
+	private static final String KEY_EN_TEXT = "text_en";
 	private static final String KEY_POINT = "point";
 	private static final String KEY_PROGRESS = "progress";
 	private static final String KEY_NECESSARY = "necessary";
@@ -44,6 +47,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
 	private static AchievementDatabaseHandler sADH;
 	private final Context mContext;
+	private String mKeyLocalText;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -52,6 +56,11 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	public AchievementDatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		mContext = context;
+
+		mKeyLocalText = KEY_EN_TEXT;
+		if (Locale.getDefault().getLanguage().equals("ru")) {
+			mKeyLocalText = KEY_RU_TEXT;
+		}
 	}
 	public AchievementDatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -59,7 +68,6 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	public static AchievementDatabaseHandler getInstance(Context context) {
-
 		if (sADH == null) {
 			sADH = new AchievementDatabaseHandler(context);
 		}
@@ -70,7 +78,6 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_ACHIEVEMENT + "("
 			+ KEY_ID + " INTEGER PRIMARY KEY,"
-			+ KEY_ICON + " TEXT,"
 			+ KEY_TEXT + " TEXT,"
 			+ KEY_POINT + " INTEGER,"
 			+ KEY_PROGRESS + " INTEGER,"
@@ -107,12 +114,11 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			do {
 				Achievement achievement = new Achievement();
 				achievement.setId(cursor.getInt(0));
-				achievement.setIcon(cursor.getString(1));
-				achievement.setText(cursor.getString(2));
-				achievement.setPoint(cursor.getInt(3));
-				achievement.setProgress(cursor.getInt(4));
-				achievement.setNecessary(cursor.getInt(5));
-				achievement.setTag(cursor.getString(6));
+				achievement.setText(cursor.getString(1));
+				achievement.setPoint(cursor.getInt(2));
+				achievement.setProgress(cursor.getInt(3));
+				achievement.setNecessary(cursor.getInt(4));
+				achievement.setTag(cursor.getString(5));
 
 				achievementArrayList.add(achievement);
 			} while (cursor.moveToNext());
@@ -145,8 +151,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			for (int i = 0; i < array.length(); i++) {
 				oj = array.getJSONObject(i);
-				contentValues.put(KEY_ICON, oj.getString(KEY_ICON));
-				contentValues.put(KEY_TEXT, oj.getString(KEY_TEXT));
+				contentValues.put(KEY_TEXT, oj.getString(mKeyLocalText));
 				contentValues.put(KEY_POINT, oj.getInt(KEY_POINT));
 				contentValues.put(KEY_PROGRESS, oj.getInt(KEY_PROGRESS));
 				contentValues.put(KEY_NECESSARY, oj.getInt(KEY_NECESSARY));

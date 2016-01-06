@@ -15,7 +15,6 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class DisplayAmount {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = DisplayAmount.class.getSimpleName();
-	public final Paint paint;
 
 	public int amount;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -24,12 +23,10 @@ public class DisplayAmount {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public DisplayAmount() {
 		amount = 0;
-		paint = new Paint();
-		paint.setColor(Color.BLACK);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void display(Canvas canvas, int x, int y) {
+	public void display(Canvas canvas, int x, int y, Paint paint) {
 		canvas.drawText(String.valueOf(amount), x, y, paint);
 	}
 	/* МЕТОДЫ */

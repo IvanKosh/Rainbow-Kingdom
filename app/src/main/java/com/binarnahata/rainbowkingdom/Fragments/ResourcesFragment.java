@@ -56,12 +56,12 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 		jsonObject = Resources.getInstance(getContext()).getResources();
 
 		try {
-			local_red.setText("Red: " + jsonObject.getInt(Resources.RED));
-			local_green.setText("Green: " + jsonObject.getInt(Resources.GREEN));
-			local_blue.setText("Blue: " + jsonObject.getInt(Resources.BLUE));
-			local_cyan.setText("Cyan: " + jsonObject.getInt(Resources.CYAN));
-			local_magenta.setText("Magenta: " + jsonObject.getInt(Resources.MAGENTA));
-			local_yellow.setText("Yellow: " + jsonObject.getInt(Resources.YELLOW));
+			local_red.setText("red: " + jsonObject.getInt(Resources.RED));
+			local_green.setText("green: " + jsonObject.getInt(Resources.GREEN));
+			local_blue.setText("blue: " + jsonObject.getInt(Resources.BLUE));
+			local_cyan.setText("cyan: " + jsonObject.getInt(Resources.CYAN));
+			local_magenta.setText("magenta: " + jsonObject.getInt(Resources.MAGENTA));
+			local_yellow.setText("yellow: " + jsonObject.getInt(Resources.YELLOW));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
