@@ -12,12 +12,12 @@
 	<string name="number">Number: %1$d</string>
 	<string name="point">Point: %1$d</string>
 
-	<string name="quest_text0"> Good morning! Our troops need to paint a new form.</string>
+	<string name="quest_text0">Good morning! Our troops need to paint a new form.</string>
 	<string name="quest_text1">Hello! For the main dish at the celebration need of paint.</string>
 	<string name="quest_text2">Good day. To finish the repairs in the castle, we need a little paint.</string>
-	<string name="quest_text3">Мой, король! Наши враги разрисовали все дорожные знаки, нам нужна краска, что бы спасти королевство.</string>
-	<string name="quest_text4"> Hello. Would you lend me some paint for happiness.</string>
-	<string name="quest_text5"> Yo, Pops! Give sympathetic ink on spending.</string>
+	<string name="quest_text3">My king! Our enemies have painted all the signs we need a paint that would save the kingdom.</string>
+	<string name="quest_text4">Hello. Would you lend me some paint for happiness.</string>
+	<string name="quest_text5">Yo, Pops! Give sympathetic ink on spending.</string>
 	<string name="quest_text6">Good day to you sire. The neighbors holiday, you need to send envoys with gifts.</string>
 	<string name="quest_text7">O King! Let the paint.</string>
 	<string name="quest_text8">Aloha. I am a trader from Hawaii, if you sell me the paint?</string>
