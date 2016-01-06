@@ -15,7 +15,6 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class RKCircle extends MovableCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKCircle.class.getSimpleName();
-	public static final int MAXIMUM_SPEED = 3;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

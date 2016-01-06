@@ -71,7 +71,7 @@ public class RKFarm extends BH_SurfaceView {
 	private Rect mForRect;
 	private Bitmap mFon;
 	private Rect mForTouch;
-
+	public static int sMaxSpeed;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -122,6 +122,7 @@ public class RKFarm extends BH_SurfaceView {
 		mForRect = new Rect(0, 0, getWidth(), getHeight());
 
 		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
+		sMaxSpeed = mRadius >> 2;
 		mDiameter = mRadius << 1;
 		mForTouch = new Rect(0, 0, getWidth(), getHeight()-mDiameter*2);
 		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, mForTouch.bottom);
@@ -300,20 +301,8 @@ public class RKFarm extends BH_SurfaceView {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (mForTouch.contains((int) event.getX(), (int) event.getY())) {
-				if (mShoot == null) {
-					mShoot = mBallPool.getCircle();
-					if (mShoot != null) {
-						Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
-						speed.normalize();
-						mShoot.setSpeed(speed, RKCircle.MAXIMUM_SPEED);
-						mMark.setCoordinate((int)event.getX(), (int) event.getY());
-						mBottomPanel.decrementAvailableBalls();
-					}
-				}
-			}
-
-			if (mCircles.size() == mGameMode.number) {
+			if (mBottomPanel.getAvailableBalls() == 0) {
+				mGameLoopThread.pause();
 				Resources resources = Resources.getInstance(getContext());
 				resources.offset(
 					mResourceDisplay.red.amount * mGameMode.rating,
@@ -395,6 +384,19 @@ public class RKFarm extends BH_SurfaceView {
 				mDB.offsetAchievementProgress(tag, 1);
 
 				((RKMainActivity)mContext).runFragment(new MenuFragment());
+			}
+
+			if (mForTouch.contains((int) event.getX(), (int) event.getY())) {
+				if (mShoot == null) {
+					mShoot = mBallPool.getCircle();
+					if (mShoot != null) {
+						Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
+						speed.normalize();
+						mShoot.setSpeed(speed, sMaxSpeed);
+						mMark.setCoordinate((int)event.getX(), (int) event.getY());
+						mBottomPanel.decrementAvailableBalls();
+					}
+				}
 			}
 		}
 		return true;

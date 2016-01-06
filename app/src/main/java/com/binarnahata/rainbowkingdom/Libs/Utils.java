@@ -70,7 +70,7 @@ public class Utils {
 	}
 
 	public static int rndCircles() {
-		switch (rndInt(0, 2)) {
+		switch (rndInt(0, 3)) {
 			case 0:
 				return 6;
 			case 1:

@@ -34,6 +34,7 @@ public class BottomPanel {
 	private final Rect mRectRight;
 	public final Rect mRectLeft;
 	private int mAvailableBalls;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void incrementAvailableBalls() {
@@ -41,6 +42,9 @@ public class BottomPanel {
 	}
 	public void decrementAvailableBalls() {
 		mAvailableBalls--;
+	}
+	public int getAvailableBalls() {
+		return mAvailableBalls;
 	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
