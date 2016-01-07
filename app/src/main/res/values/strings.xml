@@ -22,4 +22,6 @@
 	<string name="quest_text7">O King! Let the paint.</string>
 	<string name="quest_text8">Aloha. I am a trader from Hawaii, if you sell me the paint?</string>
 	<string name="quest_text9">Y-o-ra !!! Give quo paint! Or tui fight !!!</string>
+	<string name="can_complete">You can complete...</string>
+	<string name="need_more">You need more...</string>
 </resources>

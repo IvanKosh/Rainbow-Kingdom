@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -50,6 +51,7 @@ public class RKFarm extends BH_SurfaceView {
 	private final Context mContext;
 	private final GameMode mGameMode;
 	private final AchievementDatabaseHandler mDB;
+	private GameState mGameState;
 	private int[] mSoundIndexes;
 	private SoundPool mSoundPool;
 	private GameLoop mGameLoopThread;
@@ -72,6 +74,28 @@ public class RKFarm extends BH_SurfaceView {
 	private Bitmap mFon;
 	private Rect mForTouch;
 	public static int sMaxSpeed;
+	private String mGameOverText;
+	private Point mGameOverPosition;
+	private String mTapText;
+	private Point mTapPosition;
+
+	private interface GameState {
+		void onTouch(MotionEvent event);
+	}
+
+	private class PlayState implements GameState {
+		@Override
+		public void onTouch(MotionEvent event) {
+			shoot(event);
+		}
+	}
+
+	private class OverState implements GameState {
+		@Override
+		public void onTouch(MotionEvent event) {
+			endGame(event);
+		}
+	}
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -96,8 +120,11 @@ public class RKFarm extends BH_SurfaceView {
 		mSoundIndexes = new int[10];
 		mSoundIndexes[0] = mSoundPool.load(context, R.raw.water_drop, 1);
 		mSoundIndexes[1] = mSoundPool.load(context, R.raw.pool_ball, 1);
+		mSoundIndexes[2] = mSoundPool.load(context, R.raw.glass_cling, 1);
 
 		mDB = AchievementDatabaseHandler.getInstance(context);
+
+		mGameState = new PlayState();
 	}
 
 	@TargetApi(17)
@@ -149,6 +176,18 @@ public class RKFarm extends BH_SurfaceView {
 
 		mGameLoopThread.setRunning(true);
 		mGameLoopThread.start();
+
+		Rect r = new Rect();
+		mGameOverText = "Game Over";
+		mPaint.setTextSize(mDiameter*2);
+		mPaint.getTextBounds(mGameOverText, 0, mGameOverText.length(), r);
+		mGameOverPosition = new Point((int) (getWidth() / 2f - r.width() / 2f - r.left),
+			(int) (getHeight() / 2f + r.height() / 2f - r.bottom - mDiameter));
+		mTapText = "Tap to back.";
+		mPaint.setTextSize(mDiameter);
+		mPaint.getTextBounds(mTapText, 0, mTapText.length(), r);
+		mTapPosition = new Point((int) (getWidth() / 2f - r.width() / 2f - r.left),
+			(int) (getHeight() / 2f + r.height() / 2f - r.bottom + mDiameter));
 	}
 
 	private void initCircles() {
@@ -256,6 +295,10 @@ public class RKFarm extends BH_SurfaceView {
 						mCircles.add(mShoot);
 						mMark.die();
 						mShoot = null;
+						if (mBottomPanel.getAvailableBalls() == 0) {
+							gameOver();
+							mGameState = new OverState();
+						}
 						break;
 					}
 				}
@@ -265,6 +308,94 @@ public class RKFarm extends BH_SurfaceView {
 		mBallPool.update();
 
 		mMark.update();
+	}
+
+	private void gameOver() {
+		Resources resources = Resources.getInstance(getContext());
+		resources.offset(
+			mResourceDisplay.red.amount * mGameMode.rating,
+			mResourceDisplay.green.amount * mGameMode.rating,
+			mResourceDisplay.blue.amount * mGameMode.rating,
+			mResourceDisplay.cyan.amount * mGameMode.rating,
+			mResourceDisplay.magenta.amount * mGameMode.rating,
+			mResourceDisplay.yellow.amount * mGameMode.rating);
+		// тип игры 1
+		mDB.offsetAchievementProgress(mGameMode.type, 1);
+
+		int r = mResourceDisplay.red.amount * mGameMode.rating;
+		int g = mResourceDisplay.green.amount * mGameMode.rating;
+		int b = mResourceDisplay.blue.amount * mGameMode.rating;
+		int c = mResourceDisplay.cyan.amount * mGameMode.rating;
+		int m = mResourceDisplay.magenta.amount * mGameMode.rating;
+		int y = mResourceDisplay.yellow.amount * mGameMode.rating;
+
+		// количество булек каждого цвета 6 по 0.5
+		mDB.offsetAchievementProgress(resources.RED, r);
+		mDB.offsetAchievementProgress(resources.GREEN, g);
+		mDB.offsetAchievementProgress(resources.BLUE, b);
+		mDB.offsetAchievementProgress(resources.CYAN, c);
+		mDB.offsetAchievementProgress(resources.MAGENTA, m);
+		mDB.offsetAchievementProgress(resources.YELLOW, y);
+		// просто больше 10ти булек за игру 1
+		if ((r + g + b + c + m + y) > 100) {
+			mDB.offsetAchievementProgress("number100", 1);
+		}
+
+		// одна ачивка согласно наличия булек определенных цветов 1
+		r = 0;
+		g = 0;
+		b = 0;
+		c = 0;
+		m = 0;
+		y = 0;
+		for (DrawableCircle circle : mCircles) {
+			switch(circle.getColor()) {
+				case Color.RED:
+					r++;
+					break;
+				case Color.GREEN:
+					g++;
+					break;
+				case Color.BLUE:
+					b++;
+					break;
+				case Color.CYAN:
+					c++;
+					break;
+				case Color.MAGENTA:
+					m++;
+					break;
+				case Color.YELLOW:
+					y++;
+					break;
+			}
+		}
+		String tag = "color_";
+		if (r > 0) {
+			tag += "r";
+		}
+		if (g > 0) {
+			tag += "g";
+		}
+		if (b > 0) {
+			tag += "b";
+		}
+		if (c > 0) {
+			tag += "c";
+		}
+		if (m > 0) {
+			tag += "m";
+		}
+		if (y > 0) {
+			tag += "y";
+		}
+		mDB.offsetAchievementProgress(tag, 1);
+	}
+
+	private void endGame(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			((RKMainActivity)mContext).runFragment(new MenuFragment());
+		}
 	}
 
 	@Override
@@ -296,96 +427,22 @@ public class RKFarm extends BH_SurfaceView {
 		mBottomPanel.draw(canvas);
 
 		mResourceDisplay.draw(canvas, mPaint);
+
+		if (mGameState instanceof OverState) {
+			drawGameOver();
+		}
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+	private void drawGameOver() {
+		mPaint.setColor(Color.WHITE);
+		mPaint.setTextSize(mDiameter * 2);
+		mCanvas.drawText(mGameOverText, mGameOverPosition.x, mGameOverPosition.y, mPaint);
+		mPaint.setTextSize(mDiameter);
+		mCanvas.drawText(mTapText, mTapPosition.x, mTapPosition.y, mPaint);
+	}
+
+	private void shoot(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (mBottomPanel.getAvailableBalls() == 0) {
-				mGameLoopThread.pause();
-				Resources resources = Resources.getInstance(getContext());
-				resources.offset(
-					mResourceDisplay.red.amount * mGameMode.rating,
-					mResourceDisplay.green.amount * mGameMode.rating,
-					mResourceDisplay.blue.amount * mGameMode.rating,
-					mResourceDisplay.cyan.amount * mGameMode.rating,
-					mResourceDisplay.magenta.amount * mGameMode.rating,
-					mResourceDisplay.yellow.amount * mGameMode.rating);
-				// тип игры 1
-				mDB.offsetAchievementProgress(mGameMode.type, 1);
-
-				int r = mResourceDisplay.red.amount * mGameMode.rating;
-				int g = mResourceDisplay.green.amount * mGameMode.rating;
-				int b = mResourceDisplay.blue.amount * mGameMode.rating;
-				int c = mResourceDisplay.cyan.amount * mGameMode.rating;
-				int m = mResourceDisplay.magenta.amount * mGameMode.rating;
-				int y = mResourceDisplay.yellow.amount * mGameMode.rating;
-
-				// количество булек каждого цвета 6 по 0.5
-				mDB.offsetAchievementProgress(resources.RED, r);
-				mDB.offsetAchievementProgress(resources.GREEN, g);
-				mDB.offsetAchievementProgress(resources.BLUE, b);
-				mDB.offsetAchievementProgress(resources.CYAN, c);
-				mDB.offsetAchievementProgress(resources.MAGENTA, m);
-				mDB.offsetAchievementProgress(resources.YELLOW, y);
-				// просто больше 10ти булек за игру 1
-				if ((r + g + b + c + m + y) > 100) {
-					mDB.offsetAchievementProgress("number100", 1);
-				}
-
-				// одна ачивка согласно наличия булек определенных цветов 1
-				r = 0;
-				g = 0;
-				b = 0;
-				c = 0;
-				m = 0;
-				y = 0;
-				for (DrawableCircle circle : mCircles) {
-					switch(circle.getColor()) {
-						case Color.RED:
-							r++;
-							break;
-						case Color.GREEN:
-							g++;
-							break;
-						case Color.BLUE:
-							b++;
-							break;
-						case Color.CYAN:
-							c++;
-							break;
-						case Color.MAGENTA:
-							m++;
-							break;
-						case Color.YELLOW:
-							y++;
-							break;
-					}
-				}
-				String tag = "color_";
-				if (r > 0) {
-					tag += "r";
-				}
-				if (g > 0) {
-					tag += "g";
-				}
-				if (b > 0) {
-					tag += "b";
-				}
-				if (c > 0) {
-					tag += "c";
-				}
-				if (m > 0) {
-					tag += "m";
-				}
-				if (y > 0) {
-					tag += "y";
-				}
-				mDB.offsetAchievementProgress(tag, 1);
-
-				((RKMainActivity)mContext).runFragment(new MenuFragment());
-			}
-
 			if (mForTouch.contains((int) event.getX(), (int) event.getY())) {
 				if (mShoot == null) {
 					mShoot = mBallPool.getCircle();
@@ -396,9 +453,28 @@ public class RKFarm extends BH_SurfaceView {
 						mMark.setCoordinate((int)event.getX(), (int) event.getY());
 						mBottomPanel.decrementAvailableBalls();
 					}
+					else {
+						// not reload yet
+						youCantShoot();
+					}
+				}
+				else {
+					// wait
+					youCantShoot();
 				}
 			}
 		}
+	}
+
+	private void youCantShoot() {
+		mSoundPool.play(mSoundIndexes[2],
+			mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
+			1, 0, 1.0f);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		mGameState.onTouch(event);
 		return true;
 	}
 	/* МЕТОДЫ */

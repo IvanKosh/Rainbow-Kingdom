@@ -4,7 +4,9 @@
 	android:id="@+id/container"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:layout_margin="4dp"
+	android:background="@drawable/bottom_gray_border">
 
 	<ImageView
 		android:id="@+id/image"
@@ -47,5 +49,15 @@
 		android:layout_toRightOf="@id/image"
 		android:layout_below="@id/request"
 		android:text="reward"/>
+
+	<TextView
+		android:id="@+id/quest_status"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:foregroundGravity="right"
+		android:layout_alignParentRight="true"
+		android:layout_below="@id/experience"
+		android:text="Need more..."/>
 
 </RelativeLayout>
