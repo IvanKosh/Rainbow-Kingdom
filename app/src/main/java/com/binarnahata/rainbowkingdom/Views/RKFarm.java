@@ -443,7 +443,9 @@ public class RKFarm extends BH_SurfaceView {
 
 	private void shoot(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (mForTouch.contains((int) event.getX(), (int) event.getY())) {
+			int x = (int) event.getX();
+			int y = (int) event.getY();
+			if (mForTouch.contains(x, y)) {
 				if (mShoot == null) {
 					mShoot = mBallPool.getCircle();
 					if (mShoot != null) {
@@ -455,18 +457,18 @@ public class RKFarm extends BH_SurfaceView {
 					}
 					else {
 						// not reload yet
-						youCantShoot();
+						youCantShoot(x, y);
 					}
 				}
 				else {
 					// wait
-					youCantShoot();
+					youCantShoot(x, y);
 				}
 			}
 		}
 	}
 
-	private void youCantShoot() {
+	private void youCantShoot(int x, int y) {
 		mSoundPool.play(mSoundIndexes[2],
 			mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
 			1, 0, 1.0f);

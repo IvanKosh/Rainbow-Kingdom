@@ -21,4 +21,8 @@
 	<string name="quest_text7">О, царь! Дай краски.</string>
 	<string name="quest_text8">Алоха. Я торговец с Гавайев, продадите ли Вы мне краску?</string>
 	<string name="quest_text9">У-о-ра!!! Дай кво краску! Или туи сражатся!!!</string>
+	<string name="can_complete">Можно завершить...</string>
+	<string name="effects">Эффекты</string>
+	<string name="music">Музыка</string>
+	<string name="need_more">Нужно больше...</string>
 </resources>

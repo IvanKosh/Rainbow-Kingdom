@@ -19,7 +19,7 @@
 		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_alignParentTop="true"
 		android:gravity="center"
-		android:text="Music"/>
+		android:text="@string/music"/>
 
 	<SeekBar
 		android:id="@+id/settings_music_seek_bar"
@@ -39,7 +39,7 @@
 		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_below="@id/settings_music_seek_bar"
 		android:gravity="center"
-		android:text="Effects"/>
+		android:text="@string/effects"/>
 
 	<SeekBar
 		android:id="@+id/settings_effects_seek_bar"
