@@ -51,4 +51,13 @@
 		android:progressDrawable="@drawable/progress"
 		android:thumb="@drawable/red_scrubber_control"/>
 
+	<Button
+		android:id="@+id/run_tutorial_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/settings_effects_seek_bar"
+		android:layout_centerHorizontal="true"
+		android:padding="@dimen/fab_margin"
+		android:text="@string/run_tutorial"/>
+
 </RelativeLayout>

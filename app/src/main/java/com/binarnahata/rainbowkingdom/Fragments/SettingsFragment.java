@@ -5,11 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
+import com.binarnahata.rainbowkingdom.RKMainActivity;
 
 /**
  * RainbowKingdom
@@ -75,6 +77,16 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				mVolume.setEffectsVolume(seekBar.getProgress() / 100f);
+			}
+		});
+
+		Button run_tutorial = (Button) view.findViewById(R.id.run_tutorial_button);
+		run_tutorial.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity) getContext()).runFragment(new TutorialFragment());
+				}
 			}
 		});
 

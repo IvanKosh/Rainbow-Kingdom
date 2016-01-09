@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.binarnahata.rainbowkingdom.Adapters.PageAdapter;
 import com.binarnahata.rainbowkingdom.R;
@@ -34,11 +36,22 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_tutorial, container, false);
 
+		RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+		int count = radioGroup.getChildCount();
+		final ArrayList<RadioButton> radioButtons = new ArrayList<>();
+		for (int i = 0; i < count; i++) {
+			View o = radioGroup.getChildAt(i);
+			if (o instanceof RadioButton) {
+				radioButtons.add((RadioButton) o);
+			}
+		}
+		radioButtons.get(0).setChecked(true);
+
 		List<Fragment> fragments = getFragments();
 
 		final PageAdapter pageAdapter = new PageAdapter(getFragmentManager(), fragments);
 
-		ViewPager pager = (ViewPager) view.findViewById(R.id.viewpager);
+		ViewPager pager = (ViewPager) view.findViewById(R.id.viewPager);
 		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -46,7 +59,7 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 
 			@Override
 			public void onPageSelected(int position) {
-				Log.d(TAG, String.valueOf(position));
+				radioButtons.get(position).setChecked(true);
 			}
 
 			@Override
@@ -66,6 +79,7 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 		fList.add(PageFragment.newInstance("Fragment 1"));
 		fList.add(PageFragment.newInstance("Fragment 2"));
 		fList.add(PageFragment.newInstance("Fragment 3"));
+		fList.add(PageFragment.newInstance("Fragment 4"));
 
 		return fList;
 	}
