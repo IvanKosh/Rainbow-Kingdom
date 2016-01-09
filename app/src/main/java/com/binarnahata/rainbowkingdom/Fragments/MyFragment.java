@@ -2,6 +2,7 @@ package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class MyFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		String message = getArguments().getString(EXTRA_MESSAGE);
-		View v = inflater.inflate(R.layout.myfragment_layout, container, false);
+		View v = inflater.inflate(R.layout.fragment_tutorial, container, false);
 		TextView messageTextView = (TextView)v.findViewById(R.id.textView);
 		messageTextView.setText(message);
 		return v;

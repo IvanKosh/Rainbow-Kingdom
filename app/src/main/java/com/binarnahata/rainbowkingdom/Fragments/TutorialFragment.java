@@ -2,76 +2,68 @@ package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.binarnahata.rainbowkingdom.Adapters.PageAdapter;
 import com.binarnahata.rainbowkingdom.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RainbowKingdom
- * Created on 09.01.16, 12:44
+ * Created on 09.01.16, 16:00
  *
  * @author bat
  * @version 0.1
  */
-public class TutorialFragment extends Fragment implements BackPressedInterface {
+public class TutorialFragment extends Fragment {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = TutorialFragment.class.getSimpleName();
-
-	private int mXDown;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public static TutorialFragment newInstance(int index) {
-		TutorialFragment result = new TutorialFragment();
-		Bundle args = new Bundle();
-		args.putInt("index", index);
-		result.setArguments(args);
-		return result;
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.d(TAG, String.valueOf(getArguments().getInt("someInt", 0)));
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_tutorial, container, false);
-		Log.d(TAG, "onCreateView");
-		view.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-					case MotionEvent.ACTION_DOWN:
-						mXDown = (int) event.getX();
-						break;
+		View view = inflater.inflate(R.layout.fragment_tutorial2, container, false);
 
-					case MotionEvent.ACTION_UP:
-						if (event.getX() - mXDown > 30) {
-							Log.d(TAG, "move RIGHT");
-						}
-						if (event.getX() - mXDown < -30) {
-							Log.d(TAG, "move LEFT");
-						}
-						break;
-				}
-				return true;
+		List<Fragment> fragments = getFragments();
+
+		final PageAdapter pageAdapter = new PageAdapter(getFragmentManager(), fragments);
+
+		ViewPager pager = (ViewPager) view.findViewById(R.id.viewpager);
+		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+			}
+			@Override
+			public void onPageSelected(int position) {
+				Log.d(TAG, String.valueOf(position));
+			}
+			@Override
+			public void onPageScrollStateChanged(int state) {
 			}
 		});
-		return view;
-	}
+		pager.setAdapter(pageAdapter);
 
-	@Override
-	public Fragment getNext() {
-		return new MenuFragment();
+		return view;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	private List<Fragment> getFragments(){
+		List<Fragment> fList = new ArrayList<>();
+
+		fList.add(MyFragment.newInstance("Fragment 1"));
+		fList.add(MyFragment.newInstance("Fragment 2"));
+		fList.add(MyFragment.newInstance("Fragment 3"));
+
+		return fList;
+	}
 	/* МЕТОДЫ */
 }

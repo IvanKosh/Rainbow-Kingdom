@@ -10,13 +10,11 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment;
-import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment2;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -152,7 +150,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 
 		if (prefs.getBoolean("firstRun", true)) {
 			mFragmentManager.beginTransaction()
-				.add(R.id.fragment, new TutorialFragment2(), TutorialFragment2.class.getSimpleName())
+				.add(R.id.fragment, new TutorialFragment(), TutorialFragment.class.getSimpleName())
 				.commit();
 			prefs.edit().putBoolean("firstRun", false).commit();
 		}
