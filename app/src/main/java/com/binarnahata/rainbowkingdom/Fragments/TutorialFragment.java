@@ -21,7 +21,7 @@ import java.util.List;
  * @author bat
  * @version 0.1
  */
-public class TutorialFragment extends Fragment {
+public class TutorialFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = TutorialFragment.class.getSimpleName();
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -31,7 +31,7 @@ public class TutorialFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_tutorial2, container, false);
+		View view = inflater.inflate(R.layout.fragment_tutorial, container, false);
 
 		List<Fragment> fragments = getFragments();
 
@@ -59,11 +59,16 @@ public class TutorialFragment extends Fragment {
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<>();
 
-		fList.add(MyFragment.newInstance("Fragment 1"));
-		fList.add(MyFragment.newInstance("Fragment 2"));
-		fList.add(MyFragment.newInstance("Fragment 3"));
+		fList.add(PageFragment.newInstance("Fragment 1"));
+		fList.add(PageFragment.newInstance("Fragment 2"));
+		fList.add(PageFragment.newInstance("Fragment 3"));
 
 		return fList;
+	}
+
+	@Override
+	public Fragment getNext() {
+		return new MenuFragment();
 	}
 	/* МЕТОДЫ */
 }

@@ -149,9 +149,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		}
 
 		if (prefs.getBoolean("firstRun", true)) {
-			mFragmentManager.beginTransaction()
-				.add(R.id.fragment, new TutorialFragment(), TutorialFragment.class.getSimpleName())
-				.commit();
+			runFragment(new TutorialFragment());
 			prefs.edit().putBoolean("firstRun", false).commit();
 		}
 	}
