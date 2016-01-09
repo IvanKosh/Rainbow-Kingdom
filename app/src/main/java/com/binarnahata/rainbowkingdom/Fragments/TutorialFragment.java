@@ -74,14 +74,14 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	private List<Fragment> getFragments() {
-		List<Fragment> fList = new ArrayList<>();
+		List<Fragment> fragmentList = new ArrayList<>();
 
-		fList.add(PageFragment.newInstance("Fragment 1"));
-		fList.add(PageFragment.newInstance("Fragment 2"));
-		fList.add(PageFragment.newInstance("Fragment 3"));
-		fList.add(PageFragment.newInstance("Fragment 4"));
+		fragmentList.add(PageFragment.newInstance(R.layout.page1));
+		fragmentList.add(PageFragment.newInstance(R.layout.page2));
+		fragmentList.add(PageFragment.newInstance(R.layout.page3));
+		fragmentList.add(PageFragment.newInstance(R.layout.page4));
 
-		return fList;
+		return fragmentList;
 	}
 
 	@Override

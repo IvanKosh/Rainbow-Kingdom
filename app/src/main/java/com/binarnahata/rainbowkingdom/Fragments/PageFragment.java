@@ -17,7 +17,7 @@ import com.binarnahata.rainbowkingdom.R;
  * @version 0.1
  */
 public class PageFragment extends Fragment {
-	public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+	public static final String EXTRA_LAYOUT = "EXTRA_LAYOUT";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PageFragment.class.getSimpleName();
 
@@ -25,21 +25,18 @@ public class PageFragment extends Fragment {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public static final PageFragment newInstance(String message) {
+	public static final PageFragment newInstance(int layout) {
 		PageFragment f = new PageFragment();
-		Bundle bdl = new Bundle(1);
-		bdl.putString(EXTRA_MESSAGE, message);
-		f.setArguments(bdl);
+		Bundle args = new Bundle();
+		args.putInt(EXTRA_LAYOUT, layout);
+		f.setArguments(args);
 		return f;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		String message = getArguments().getString(EXTRA_MESSAGE);
-		View v = inflater.inflate(R.layout.fragment_page, container, false);
-		TextView messageTextView = (TextView) v.findViewById(R.id.textView);
-		messageTextView.setText(message);
+		View v = inflater.inflate(getArguments().getInt(EXTRA_LAYOUT), container, false);
 		return v;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
