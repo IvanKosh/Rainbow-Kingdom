@@ -77,7 +77,7 @@ public class Color {
 	}
 
 	public static int getRandom() {
-		switch (Utils.rndInt(0, 5)) {
+		switch (Utils.rndInt(0, 6)) {
 			case 0:
 				return RED;
 			case 1:
@@ -90,8 +90,9 @@ public class Color {
 				return CYAN;
 			case 5:
 				return MAGENTA;
+			default:
+				return getRandom();
 		}
-		return BLACK;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

@@ -21,6 +21,8 @@ public class PopupTextList {
 	private Paint mPaint;
 	private ArrayList<PopupText> mPopupTexts;
 	private int mCursor;
+
+	private PopupText now = null;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public PopupText getPopupText() {
@@ -46,5 +48,8 @@ public class PopupTextList {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	public void click(int x, int y) {
+
+	}
 	/* МЕТОДЫ */
 }

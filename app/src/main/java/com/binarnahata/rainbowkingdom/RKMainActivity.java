@@ -71,16 +71,49 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	/* МЕТОДЫ */
 	public void runFragment(Fragment newFragment) {
 		List<Fragment> fragmentList = mFragmentManager.getFragments();
+		Log.d(TAG, String.valueOf(fragmentList.size()));
 		if (fragmentList != null) {
-			for (Fragment fragment : fragmentList) {
+			for (int i = fragmentList.size()-1; i > 0; i--) {
+				mFragmentManager.beginTransaction()
+					.remove(fragmentList.get(i))
+					.commit();
+			}
+			/*for (Fragment fragment : fragmentList) {
 				mFragmentManager.beginTransaction()
 					.remove(fragment)
 					.commit();
-			}
+			}*/
+		}
+
+		fragmentList = mFragmentManager.getFragments();
+		if (fragmentList != null) {
+			Log.d(TAG, String.valueOf(fragmentList.size()));
 		}
 		mFragmentManager.beginTransaction()
+			.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+			//.setCustomAnimations(null, null)
 			.add(R.id.fragment, newFragment)
 			.commit();
+
+		fragmentList = mFragmentManager.getFragments();
+		if (fragmentList != null) {
+			Log.d(TAG, String.valueOf(fragmentList.size()));
+
+			for (Fragment fragment : fragmentList) {
+				Log.d(TAG, fragment.toString());
+			}
+
+			if (fragmentList.size() > 1) {
+				mFragmentManager.beginTransaction()
+					.remove(fragmentList.get(0))
+					.commit();
+			}
+		}
+
+		fragmentList = mFragmentManager.getFragments();
+		if (fragmentList != null) {
+			Log.d(TAG, String.valueOf(fragmentList.size()));
+		}
 	}
 
 	void doBindService(){

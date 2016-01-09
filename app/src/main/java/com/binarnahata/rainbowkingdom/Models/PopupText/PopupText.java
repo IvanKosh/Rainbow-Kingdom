@@ -20,6 +20,16 @@ public class PopupText {
 	private int mLiveTime;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void revive() {
+		mLiveTime = 120;
+	}
+	public boolean isAlive() {
+		mLiveTime--;
+		if (mLiveTime > 0) {
+			return true;
+		}
+		return false;
+	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public PopupText(String text, Point bias) {
@@ -28,8 +38,5 @@ public class PopupText {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void draw(Canvas canvas) {
-
-	}
 	/* МЕТОДЫ */
 }
