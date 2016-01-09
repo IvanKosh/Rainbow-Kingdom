@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -43,6 +45,8 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	};
 	private Intent mBackgroundMusic;
 	private Volume mVolume;
+
+	SharedPreferences prefs = null;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -66,6 +70,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 
 		Resources.getInstance(this).initData();
 		Experience.getInstance(this).initData();
+		prefs = getSharedPreferences(this.getPackageName(), MODE_PRIVATE);
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
@@ -142,6 +147,13 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		super.onResume();
 		if (mBackgroundMusicService != null) {
 			mBackgroundMusicService.resumeMusic();
+		}
+
+		if (prefs.getBoolean("firstrun", true)) {
+			mFragmentManager.beginTransaction()
+				.add(R.id.fragment, TutorialFragment.newInstance(0), TutorialFragment.class.getSimpleName())
+				.commit();
+			prefs.edit().putBoolean("firstrun", false).commit();
 		}
 	}
 

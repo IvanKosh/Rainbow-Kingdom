@@ -1,10 +1,8 @@
 package com.binarnahata.rainbowkingdom.Models.Resources;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
@@ -32,7 +30,7 @@ public class Resources {
 	public static final String MAGENTA = "magenta";
 	public static final String YELLOW = "yellow";
 
-	private static SharePreferenceDataSever mSPDataSever;
+	private static SharePreferenceDataSaver mSPDataSaver;
 	private static Resources sResources;
 
 	private JSONObject mResources;
@@ -44,9 +42,9 @@ public class Resources {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Resources(Context context) {
-		mSPDataSever = SharePreferenceDataSever.getInstance(context);
+		mSPDataSaver = SharePreferenceDataSaver.getInstance(context);
 		try {
-			mResources = new JSONObject(mSPDataSever.settings.getString(APP_LOCAL_RESOURCES, getEmpty().toString()));
+			mResources = new JSONObject(mSPDataSaver.settings.getString(APP_LOCAL_RESOURCES, getEmpty().toString()));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -61,10 +59,10 @@ public class Resources {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void initData() {
-		if (!mSPDataSever.settings.contains(APP_INIT_PREFERENCES)) {
-			if (!mSPDataSever.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
+		if (!mSPDataSaver.settings.contains(APP_INIT_PREFERENCES)) {
+			if (!mSPDataSaver.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
 				mResources = getEmpty();
-				mSPDataSever.editor
+				mSPDataSaver.editor
 					.putString(APP_LOCAL_RESOURCES, mResources.toString())
 					.putBoolean(APP_INIT_PREFERENCES, true)
 					.apply();
@@ -121,7 +119,7 @@ public class Resources {
 	}
 
 	public void saveData() {
-		mSPDataSever.editor
+		mSPDataSaver.editor
 			.putString(APP_LOCAL_RESOURCES, mResources.toString())
 			.apply();
 	}

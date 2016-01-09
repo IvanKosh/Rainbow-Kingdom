@@ -2,7 +2,7 @@ package com.binarnahata.rainbowkingdom.Models;
 
 import android.content.Context;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 
 /**
  * RainbowKingdom
@@ -17,7 +17,7 @@ public class Volume {
 	private static final String APP_MUSIC = "music";
 	private static final String APP_EFFECTS = "effects";
 
-	private static SharePreferenceDataSever sSPDataSever;
+	private static SharePreferenceDataSaver sSPDataSever;
 	private static Volume sVolume;
 
 	private float mMusicVolume;
@@ -39,7 +39,7 @@ public class Volume {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Volume(Context context) {
-		sSPDataSever = SharePreferenceDataSever.getInstance(context);
+		sSPDataSever = SharePreferenceDataSaver.getInstance(context);
 		mMusicVolume = sSPDataSever.settings.getFloat(APP_MUSIC, 1f);
 		mEffectsVolume = sSPDataSever.settings.getFloat(APP_EFFECTS, 1f);
 	}

@@ -2,7 +2,7 @@ package com.binarnahata.rainbowkingdom.Models;
 
 import android.content.Context;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 
 /**
  * RainbowKingdom
@@ -16,7 +16,7 @@ public class Experience {
 	private static final String TAG = Experience.class.getSimpleName();
 	private static final String APP_LEVEL = "level";
 	private static final String APP_POINT = "point";
-	private final SharePreferenceDataSever mSPDataSever;
+	private final SharePreferenceDataSaver mSPDataSever;
 
 	private static Experience sExperience;
 
@@ -29,7 +29,7 @@ public class Experience {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Experience(Context context) {
-		mSPDataSever = SharePreferenceDataSever.getInstance(context);
+		mSPDataSever = SharePreferenceDataSaver.getInstance(context);
 		level = mSPDataSever.settings.getInt(APP_LEVEL, 0);
 		point = mSPDataSever.settings.getInt(APP_POINT, 0);
 	}
