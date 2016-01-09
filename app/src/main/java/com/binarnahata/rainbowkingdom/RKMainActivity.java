@@ -10,6 +10,8 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
@@ -153,6 +155,10 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	@Override
 	public void setVolume(float volume) {
 		mBackgroundMusicService.setVolume(volume);
+	}
+
+	public void onGoToMenu(View view) {
+		runFragment(new MenuFragment());
 	}
 	/* МЕТОДЫ */
 }

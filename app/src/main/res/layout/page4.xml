@@ -10,4 +10,10 @@
 		android:layout_height="wrap_content"
 		android:text="Hell Yeah"/>
 
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Out"
+		android:onClick="onGoToMenu"/>
+
 </LinearLayout>
