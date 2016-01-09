@@ -17,6 +17,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PageAdapter.class.getSimpleName();
 	private List<Fragment> fragments;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -25,6 +26,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 		super(fm);
 		this.fragments = fragments;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

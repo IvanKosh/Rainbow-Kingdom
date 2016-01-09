@@ -39,17 +39,18 @@ public class TopPanel {
 		mBitmapCircle = bitmapCircle;
 		mBitmapLine = bitmapLine;
 		double r = rect.height() / 2;
-		double step = rect.width() / (NUMBER_OF_HELP_BALL+1);
+		double step = rect.width() / (NUMBER_OF_HELP_BALL + 1);
 		int[] colors = {Color.MAGENTA, Color.RED, Color.YELLOW,
 			Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA};
 		BitmapCircle circle;
 		for (int i = 0; i < NUMBER_OF_HELP_BALL; i++) {
-			circle = new BitmapCircle(new Vector3(step + i*step, r), r, colors[i], mBitmapCircle);
+			circle = new BitmapCircle(new Vector3(step + i * step, r), r, colors[i], mBitmapCircle);
 			mBitmapCircles.add(circle);
 		}
-		int border = rect.height()/10;
-		mLineRect = new Rect(0, rect.bottom, rect.width(), rect.bottom+border);//new Rect(0, rect.height(), rect.width(), 10);
+		int border = rect.height() / 10;
+		mLineRect = new Rect(0, rect.bottom, rect.width(), rect.bottom + border);//new Rect(0, rect.height(), rect.width(), 10);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {

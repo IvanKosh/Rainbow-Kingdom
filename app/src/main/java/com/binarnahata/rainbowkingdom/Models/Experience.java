@@ -34,16 +34,17 @@ public class Experience {
 		point = mSPDataSever.settings.getInt(APP_POINT, 0);
 	}
 
-	public static Experience getInstance (Context context) {
+	public static Experience getInstance(Context context) {
 		if (sExperience == null) {
 			sExperience = new Experience(context);
 		}
 		return sExperience;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public int getProgress() {
-		return (int) (point*100/(Math.sqrt(level)+30));
+		return (int) (point * 100 / (Math.sqrt(level) + 30));
 	}
 
 	public void saveData() {
@@ -65,7 +66,7 @@ public class Experience {
 	public void offsetPoint(int experience) {
 		point += experience;
 		int top = (int) (Math.sqrt(level) + 30);
-		while ( top <= point ) {
+		while (top <= point) {
 			level++;
 			point -= top;
 		}

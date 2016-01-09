@@ -35,11 +35,13 @@ public class ResourceDisplay {
 	public DisplayAmount black;
 
 	public DisplayAmount now;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setColor(int color){
+	public void setColor(int color) {
 		mCircle.setColor(color);
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public ResourceDisplay(Bitmap bitmap, double radius, Rect field) {
@@ -60,7 +62,7 @@ public class ResourceDisplay {
 		mPaint.setColor(Color.BLACK);
 		mPaint.setTextSize((float) radius);
 
-		switch(mCircle.getColor()) {
+		switch (mCircle.getColor()) {
 			case Color.RED:
 				now = red;
 				mCircle.setColor(Color.RED);
@@ -94,6 +96,7 @@ public class ResourceDisplay {
 		mPaint.getTextBounds("0", 0, "0".length(), r);
 		mCenterY = (int) (field.height() / 2f + r.height() / 2f - r.bottom + field.top);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {

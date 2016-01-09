@@ -30,9 +30,9 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 
 	private boolean mIsBound = false;
 	private BackgroundMusicService mBackgroundMusicService;
-	private ServiceConnection mServiceConnection = new ServiceConnection(){
+	private ServiceConnection mServiceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();
+			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder) binder).getService();
 
 			mBackgroundMusicService.setVolume(mVolume.getMusicVolume());
 		}
@@ -46,6 +46,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	private Volume mVolume;
 
 	SharedPreferences prefs = null;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -71,6 +72,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		Experience.getInstance(this).initData();
 		prefs = getSharedPreferences(this.getPackageName(), MODE_PRIVATE);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void runFragment(Fragment newFragment) {
@@ -97,16 +99,14 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 			.commit();
 	}
 
-	void doBindService(){
+	void doBindService() {
 		bindService(new Intent(this, BackgroundMusicService.class),
 			mServiceConnection, Context.BIND_AUTO_CREATE);
 		mIsBound = true;
 	}
 
-	void doUnbindService()
-	{
-		if(mIsBound)
-		{
+	void doUnbindService() {
+		if (mIsBound) {
 			unbindService(mServiceConnection);
 			mIsBound = false;
 		}
@@ -127,8 +127,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		Fragment next = fragment.getNext();
 		if (next == null) {
 			super.onBackPressed();
-		}
-		else {
+		} else {
 			runFragment(next);
 		}
 	}

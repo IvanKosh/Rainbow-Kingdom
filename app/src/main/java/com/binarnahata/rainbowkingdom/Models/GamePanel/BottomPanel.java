@@ -40,12 +40,15 @@ public class BottomPanel {
 	public void incrementAvailableBalls() {
 		mAvailableBalls++;
 	}
+
 	public void decrementAvailableBalls() {
 		mAvailableBalls--;
 	}
+
 	public int getAvailableBalls() {
 		return mAvailableBalls;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BottomPanel(Rect dstRect, Bitmap line_h, Bitmap line_v,
@@ -63,18 +66,18 @@ public class BottomPanel {
 
 		int border = dstRect.height() / 10;
 
-		mCornerL = new Rect(centerRect.left, centerRect.top-border,
+		mCornerL = new Rect(centerRect.left, centerRect.top - border,
 			centerRect.left + border, centerRect.top);
-		mLineHLRect = new Rect(dstRect.left, dstRect.top-border,
+		mLineHLRect = new Rect(dstRect.left, dstRect.top - border,
 			centerRect.left, centerRect.top);
 		mLineVLRect = new Rect(centerRect.left, centerRect.top,
-			centerRect.left+border, dstRect.bottom);
+			centerRect.left + border, dstRect.bottom);
 
-		mCornerR = new Rect(centerRect.right-border, centerRect.top-border,
+		mCornerR = new Rect(centerRect.right - border, centerRect.top - border,
 			centerRect.right, centerRect.top);
-		mLineHRRect = new Rect(centerRect.right, centerRect.top-border,
+		mLineHRRect = new Rect(centerRect.right, centerRect.top - border,
 			dstRect.right, dstRect.top);
-		mLineVRRect = new Rect(centerRect.right-border, centerRect.top,
+		mLineVRRect = new Rect(centerRect.right - border, centerRect.top,
 			centerRect.right, centerRect.bottom);
 
 		mRectRight = new Rect(mCornerR.right, mCornerR.bottom,
@@ -88,6 +91,7 @@ public class BottomPanel {
 		mPaint.setTextAlign(Paint.Align.LEFT);
 		mPaint.setTextSize(mTextSize);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {

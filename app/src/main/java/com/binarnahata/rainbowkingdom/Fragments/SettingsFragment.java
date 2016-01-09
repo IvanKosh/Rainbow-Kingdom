@@ -24,6 +24,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 	private static final String TAG = SettingsFragment.class.getSimpleName();
 
 	private Volume mVolume;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -45,7 +46,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (getContext() instanceof VolumeControl) {
-					((VolumeControl)getContext()).setVolume(seekBar.getProgress() / 100f);
+					((VolumeControl) getContext()).setVolume(seekBar.getProgress() / 100f);
 				}
 			}
 
@@ -60,7 +61,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 		});
 
 		SeekBar effect = (SeekBar) view.findViewById(R.id.settings_effects_seek_bar);
-		effect.setProgress((int) (mVolume.getEffectsVolume()*100));
+		effect.setProgress((int) (mVolume.getEffectsVolume() * 100));
 		effect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -80,6 +81,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

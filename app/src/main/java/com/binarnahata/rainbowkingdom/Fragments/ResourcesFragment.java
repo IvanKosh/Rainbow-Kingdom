@@ -80,6 +80,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

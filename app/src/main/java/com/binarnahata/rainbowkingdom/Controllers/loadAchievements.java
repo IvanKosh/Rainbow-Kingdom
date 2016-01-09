@@ -26,6 +26,7 @@ public class loadAchievements extends AsyncTask<Void, ArrayList<Achievement>, Vo
 
 	private int mSkip;
 	private int mCount;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -36,6 +37,7 @@ public class loadAchievements extends AsyncTask<Void, ArrayList<Achievement>, Vo
 		mCount = 10;
 		mAdapter = adapter;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

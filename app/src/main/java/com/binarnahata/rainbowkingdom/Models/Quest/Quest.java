@@ -35,20 +35,25 @@ public class Quest {
 	private String mText;
 	private JSONObject mJSONRequest;
 	private int mExperience;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public UUID getId() {
 		return mId;
 	}
+
 	public int getHeroAvatar() {
 		return mContext.getResources().getIdentifier(mHeroAvatar, "drawable", mContext.getPackageName());
 	}
+
 	public String getText() {
 		return mText;
 	}
+
 	public int getExperience() {
 		return mExperience;
 	}
+
 	public String getExperienceString() {
 		return String.format(mContext.getResources().getString(R.string.reward), mExperience);
 	}
@@ -104,7 +109,7 @@ public class Quest {
 
 		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
 
-		mExperience = Utils.rndInt(4*QUEST_RATION, 12*QUEST_RATION);
+		mExperience = Utils.rndInt(4 * QUEST_RATION, 12 * QUEST_RATION);
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException { // NEVER delete
@@ -114,6 +119,7 @@ public class Quest {
 		mJSONRequest = new JSONObject(jsonObject.getString(JSON_REQUEST));
 		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	private String rndQuestText(Context context) {

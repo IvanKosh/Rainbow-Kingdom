@@ -26,11 +26,13 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 	private final Context mContext;
 	private ArrayList<Achievement> mAchievementsArrayList;
 	private Callbacks mCallbacks;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setAchievementsArrayList(ArrayList<Achievement> achievementsArrayList) {
 		mAchievementsArrayList = achievementsArrayList;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public AchievementAdapter(Context context, ArrayList<Achievement> achievementArrayList, Callbacks callbacks) {
@@ -41,7 +43,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 
 	@Override
 	public AchievementAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-													  int viewType) {
+															int viewType) {
 		View view = LayoutInflater.from(parent.getContext())
 			.inflate(R.layout.item_achievement, parent, false);
 
@@ -58,6 +60,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 		holder.mNumber.setText(String.format(mContext.getResources().getString(R.string.number), mAchievementsArrayList.get(position).getNumber()));
 		holder.mPoint.setText(String.format(mContext.getResources().getString(R.string.point), mAchievementsArrayList.get(position).getPoint()));
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void addAchievementsArrayList(ArrayList<Achievement>[] values) {
@@ -72,13 +75,14 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 		public TextView mText;
 		public TextView mNumber;
 		public TextView mPoint;
+
 		public ViewHolder(View view) {
 			super(view);
 
-			mImage = (ImageView)view.findViewById(R.id.image);
-			mText = (TextView)view.findViewById(R.id.text);
-			mNumber = (TextView)view.findViewById(R.id.number);
-			mPoint = (TextView)view.findViewById(R.id.point);
+			mImage = (ImageView) view.findViewById(R.id.image);
+			mText = (TextView) view.findViewById(R.id.text);
+			mNumber = (TextView) view.findViewById(R.id.number);
+			mPoint = (TextView) view.findViewById(R.id.point);
 		}
 	}
 

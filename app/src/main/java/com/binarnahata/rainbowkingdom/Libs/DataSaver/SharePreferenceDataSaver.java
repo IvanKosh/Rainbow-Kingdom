@@ -19,6 +19,7 @@ public class SharePreferenceDataSaver {
 
 	public SharedPreferences settings;
 	public SharedPreferences.Editor editor;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -28,7 +29,7 @@ public class SharePreferenceDataSaver {
 		editor = settings.edit();
 	}
 
-	public static SharePreferenceDataSaver getInstance (Context context) {
+	public static SharePreferenceDataSaver getInstance(Context context) {
 		if (sSharePreferenceDataSaver == null) {
 			sSharePreferenceDataSaver = new SharePreferenceDataSaver(context);
 		}

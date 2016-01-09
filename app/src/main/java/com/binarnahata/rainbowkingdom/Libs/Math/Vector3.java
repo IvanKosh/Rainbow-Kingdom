@@ -19,6 +19,7 @@ public class Vector3 {
 	public double x;
 	public double y;
 	public double z;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setXY(double x, double y) {
@@ -26,16 +27,19 @@ public class Vector3 {
 		this.y = y;
 		this.z = .0;
 	}
+
 	public void setXY(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
+
 	public void setXYZ(Vector3 v) {
 		x = v.x;
 		y = v.y;
 		z = v.z;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public Vector3() {
@@ -43,11 +47,13 @@ public class Vector3 {
 		y = .0;
 		z = .0;
 	}
+
 	public Vector3(double x, double y) {
 		this.x = x;
 		this.y = y;
 		this.z = .0;
 	}
+
 	public Vector3(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
@@ -55,21 +61,25 @@ public class Vector3 {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+
 	/**
 	 * Длинна вектора
 	 * Calculate the magnitude (length) of the vector
+	 *
 	 * @return the length of the vector
 	 */
 	public double magnitude() {
-		return Math.sqrt(x*x + y*y + z*z);
+		return Math.sqrt(x * x + y * y + z * z);
 	}
+
 	public double length() {
-		return Math.sqrt(x*x + y*y + z*z);
+		return Math.sqrt(x * x + y * y + z * z);
 	}
 
 	public Vector3 copy() {
 		return new Vector3(x, y, z);
 	}
+
 	public static Vector3 copy(Vector3 v) {
 		return new Vector3(v.x, v.y, v.z);
 	}
@@ -79,6 +89,7 @@ public class Vector3 {
 		y += v.y;
 		z += v.z;
 	}
+
 	public void offset(Vector3 v) {
 		x += v.x;
 		y += v.y;
@@ -90,6 +101,7 @@ public class Vector3 {
 		y -= v.y;
 		z -= v.z;
 	}
+
 	public void approve(Vector3 v) {
 		x -= v.x;
 		y -= v.y;
@@ -101,6 +113,7 @@ public class Vector3 {
 		y *= n;
 		z *= n;
 	}
+
 	public void mul(long n) {
 		x *= n;
 		y *= n;
@@ -112,6 +125,7 @@ public class Vector3 {
 		y /= n;
 		z /= n;
 	}
+
 	public void div(long n) {
 		x /= n;
 		y /= n;
@@ -121,25 +135,28 @@ public class Vector3 {
 	/**
 	 * Скалярное произведение
 	 * Calculate the dot product with another vector
-	 * @return  the dot product
+	 *
+	 * @return the dot product
 	 */
 	public double dot(Vector3 v) {
-		return x*v.x + y*v.y + z*v.z;
+		return x * v.x + y * v.y + z * v.z;
 	}
+
 	public static double dot(Vector3 v1, Vector3 v2) {
-		return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 	}
 
 	/**
 	 * Векторное произведение
 	 * Calculate the cross product with another vector
-	 * @return  the cross product
+	 *
+	 * @return the cross product
 	 */
 	public Vector3 cross(Vector3 v) {
 		double crossX = y * v.z - v.y * z;
 		double crossY = z * v.x - v.z * x;
 		double crossZ = x * v.y - v.x * y;
-		return(new Vector3(crossX,crossY,crossZ));
+		return (new Vector3(crossX, crossY, crossZ));
 	}
 
 	/**
@@ -154,6 +171,7 @@ public class Vector3 {
 
 	/**
 	 * Limit the length of this vector
+	 *
 	 * @param max the maximum length to limit this vector
 	 */
 	public void limit(double max) {
@@ -165,26 +183,29 @@ public class Vector3 {
 
 	/**
 	 * Calculate the angle of rotation for this vector (only 2D vectors)
+	 *
 	 * @return the angle of rotation
 	 */
 	public double heading2D() {
-		return -1*Math.atan2(-y, x);
+		return -1 * Math.atan2(-y, x);
 	}
 
 	/**
 	 * Rotates a 2D Vector
+	 *
 	 * @param theta, angle in radians to rotate vector
 	 */
 	public void rotate2D(double theta) {
 		double currentTheta = heading2D();
 		double length = length();
 		currentTheta += theta;
-		x = length*Math.cos(currentTheta);
-		y = length*Math.sin(currentTheta);
+		x = length * Math.cos(currentTheta);
+		y = length * Math.sin(currentTheta);
 	}
 
 	/**
 	 * Add two vectors
+	 *
 	 * @param v1 a vector
 	 * @param v2 another vector
 	 * @return a new vector that is the sum of v1 and v2
@@ -195,6 +216,7 @@ public class Vector3 {
 
 	/**
 	 * Subtract one vector from another
+	 *
 	 * @param v1 a vector
 	 * @param v2 another vector
 	 * @return a new vector that is v1 - v2
@@ -205,26 +227,29 @@ public class Vector3 {
 
 	/**
 	 * Divide a vector by a scalar
+	 *
 	 * @param v1 a vector
-	 * @param n scalar
+	 * @param n  scalar
 	 * @return a new vector that is v1 / n
 	 */
 	public static Vector3 div(Vector3 v1, double n) {
-		return new Vector3(v1.x/n, v1.y/n, v1.z/n);
+		return new Vector3(v1.x / n, v1.y / n, v1.z / n);
 	}
 
 	/**
 	 * Multiply a vector by a scalar
+	 *
 	 * @param v1 a vector
-	 * @param n scalar
+	 * @param n  scalar
 	 * @return a new vector that is v1 * n
 	 */
 	public static Vector3 mul(Vector3 v1, double n) {
-		return new Vector3(v1.x*n, v1.y*n, v1.z*n);
+		return new Vector3(v1.x * n, v1.y * n, v1.z * n);
 	}
 
 	/**
 	 * Rotates a 2D Vector
+	 *
 	 * @param theta, angle in radians to rotate vector
 	 * @return a new Vector object, rotated by theta
 	 */
@@ -236,11 +261,12 @@ public class Vector3 {
 		// Turn me
 		currentTheta += theta;
 		// Look, polar coordinates to cartesian!!
-		return  new Vector3(length*Math.cos(currentTheta), length*Math.cos(currentTheta));
+		return new Vector3(length * Math.cos(currentTheta), length * Math.cos(currentTheta));
 	}
 
 	/**
 	 * Calculate the Euclidean distance between two points (considering a point as a vector object)
+	 *
 	 * @param v1 a vector
 	 * @param v2 another vector
 	 * @return the Euclidean distance between v1 and v2
@@ -249,11 +275,12 @@ public class Vector3 {
 		double dx = v1.x - v2.x;
 		double dy = v1.y - v2.y;
 		double dz = v1.z - v2.z;
-		return Math.sqrt(dx*dx + dy*dy + dz*dz);
+		return Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
 	/**
 	 * Calculate the angle between two vectors, using the dot product
+	 *
 	 * @param v1 a vector
 	 * @param v2 another vector
 	 * @return the angle between the vectors

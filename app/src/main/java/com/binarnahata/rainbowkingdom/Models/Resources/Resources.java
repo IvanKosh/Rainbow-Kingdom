@@ -34,11 +34,13 @@ public class Resources {
 	private static Resources sResources;
 
 	private JSONObject mResources;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public JSONObject getResources() {
 		return mResources;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Resources(Context context) {
@@ -50,12 +52,13 @@ public class Resources {
 		}
 	}
 
-	public static Resources getInstance (Context context) {
+	public static Resources getInstance(Context context) {
 		if (sResources == null) {
 			sResources = new Resources(context);
 		}
 		return sResources;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void initData() {
@@ -112,9 +115,13 @@ public class Resources {
 	}
 
 	private static ArrayList<String> getColorPool() {
-		return new ArrayList<String>(){{
-			add(RED); add(GREEN); add(BLUE);
-			add(CYAN); add(MAGENTA); add(YELLOW);
+		return new ArrayList<String>() {{
+			add(RED);
+			add(GREEN);
+			add(BLUE);
+			add(CYAN);
+			add(MAGENTA);
+			add(YELLOW);
 		}};
 	}
 

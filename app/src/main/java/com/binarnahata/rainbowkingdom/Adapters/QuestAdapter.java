@@ -44,6 +44,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	private JSONObject mJSONObject;
 	private SharedPreferences mSettings;
 	private SharedPreferences.Editor mEditor;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -87,8 +88,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 			});
 			holder.mQuestStatus.setTextColor(CAN_COMPLETE_COLOR);
 			holder.mQuestStatus.setText(R.string.can_complete);
-		}
-		else {
+		} else {
 			holder.mQuestStatus.setTextColor(NEED_MORE_COLOR);
 			holder.mQuestStatus.setText(R.string.need_more);
 		}
@@ -98,6 +98,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		holder.mRequest.setText(mQuestArrayList.get(position).getJSONRequestString());
 		holder.mExperience.setText(mQuestArrayList.get(position).getExperienceString());
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -107,6 +108,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		public TextView mRequest;
 		public TextView mExperience;
 		public TextView mQuestStatus;
+
 		public ViewHolder(View view) {
 			super(view);
 

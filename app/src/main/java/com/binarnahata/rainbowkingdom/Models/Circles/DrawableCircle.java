@@ -17,20 +17,24 @@ public class DrawableCircle extends SimpleCircle {
 	private static final String TAG = DrawableCircle.class.getSimpleName();
 
 	private int mColor;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public int getColor() {
 		return mColor;
 	}
+
 	public void setColor(int color) {
 		mColor = color;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public DrawableCircle(Vector3 position, double radius, int color) {
 		super(position, radius);
 		mColor = color;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {

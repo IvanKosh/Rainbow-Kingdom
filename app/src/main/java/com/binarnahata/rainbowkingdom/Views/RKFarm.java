@@ -96,6 +96,7 @@ public class RKFarm extends BH_SurfaceView {
 			endGame(event);
 		}
 	}
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -110,8 +111,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		if (android.os.Build.VERSION.SDK_INT < 21) {
 			setSoundPool17();
-		}
-		else {
+		} else {
 			setSoundPool21();
 		}
 
@@ -148,17 +148,17 @@ public class RKFarm extends BH_SurfaceView {
 	public void surfaceCreated(SurfaceHolder holder) {
 		mForRect = new Rect(0, 0, getWidth(), getHeight());
 
-		mRadius = getWidth() < getHeight() ? getWidth()/20 : getHeight()/20;
+		mRadius = getWidth() < getHeight() ? getWidth() / 20 : getHeight() / 20;
 		sMaxSpeed = mRadius >> 2;
 		mDiameter = mRadius << 1;
-		mForTouch = new Rect(0, 0, getWidth(), getHeight()-mDiameter*2);
-		mRectField = new Rect(mRadius, mRadius+mDiameter, getWidth()-mRadius, mForTouch.bottom);
+		mForTouch = new Rect(0, 0, getWidth(), getHeight() - mDiameter * 2);
+		mRectField = new Rect(mRadius, mRadius + mDiameter, getWidth() - mRadius, mForTouch.bottom);
 
 		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.fon);
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 		mLineH = BitmapFactory.decodeResource(getResources(), R.drawable.line_h);
 		mTopPanel = new TopPanel(mPaint, new Rect(0, 0, getWidth(), mDiameter), mBall, mLineH);
-		mBottomPanel = new BottomPanel(new Rect(0, getHeight()-mDiameter, getWidth(), getHeight()),
+		mBottomPanel = new BottomPanel(new Rect(0, getHeight() - mDiameter, getWidth(), getHeight()),
 			mLineH,
 			BitmapFactory.decodeResource(getResources(), R.drawable.line_v),
 			BitmapFactory.decodeResource(getResources(), R.drawable.corner_bl),
@@ -167,7 +167,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		initCircles();
 
-		mBallPool = new BallPool(mBall, mDiameter, new Vector3(getWidth()/2, getHeight()-mDiameter));
+		mBallPool = new BallPool(mBall, mDiameter, new Vector3(getWidth() / 2, getHeight() - mDiameter));
 		mResourceDisplay = new ResourceDisplay(mBall, mRadius, mBottomPanel.mRectLeft);
 
 		mMark = new Mark(mPaint);
@@ -179,7 +179,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		Rect r = new Rect();
 		mGameOverText = "Game Over";
-		mPaint.setTextSize(mDiameter*2);
+		mPaint.setTextSize(mDiameter * 2);
 		mPaint.getTextBounds(mGameOverText, 0, mGameOverText.length(), r);
 		mGameOverPosition = new Point((int) (getWidth() / 2f - r.width() / 2f - r.left),
 			(int) (getHeight() / 2f + r.height() / 2f - r.bottom - mDiameter));
@@ -222,6 +222,7 @@ public class RKFarm extends BH_SurfaceView {
 		Log.d(TAG, "Thread was shut down cleanly");
 		mSoundPool.release();
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override
@@ -286,8 +287,7 @@ public class RKFarm extends BH_SurfaceView {
 						mShoot = null;
 						break;
 					}
-				}
-				else {
+				} else {
 					if (RKCircle.solveCollision(circle, mShoot)) {
 						mSoundPool.play(mSoundIndexes[1],
 							mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
@@ -349,7 +349,7 @@ public class RKFarm extends BH_SurfaceView {
 		m = 0;
 		y = 0;
 		for (DrawableCircle circle : mCircles) {
-			switch(circle.getColor()) {
+			switch (circle.getColor()) {
 				case Color.RED:
 					r++;
 					break;
@@ -394,7 +394,7 @@ public class RKFarm extends BH_SurfaceView {
 
 	private void endGame(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			((RKMainActivity)mContext).runFragment(new MenuFragment());
+			((RKMainActivity) mContext).runFragment(new MenuFragment());
 		}
 	}
 
@@ -452,15 +452,13 @@ public class RKFarm extends BH_SurfaceView {
 						Vector3 speed = Vector3.sub(new Vector3(event.getX(), event.getY()), mShoot.getPosition());
 						speed.normalize();
 						mShoot.setSpeed(speed, sMaxSpeed);
-						mMark.setCoordinate((int)event.getX(), (int) event.getY());
+						mMark.setCoordinate((int) event.getX(), (int) event.getY());
 						mBottomPanel.decrementAvailableBalls();
-					}
-					else {
+					} else {
 						// not reload yet
 						youCantShoot(x, y);
 					}
-				}
-				else {
+				} else {
 					// wait
 					youCantShoot(x, y);
 				}

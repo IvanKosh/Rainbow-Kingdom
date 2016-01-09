@@ -20,12 +20,12 @@ public class PageFragment extends Fragment {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PageFragment.class.getSimpleName();
 	public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public static final PageFragment newInstance(String message)
-	{
+	public static final PageFragment newInstance(String message) {
 		PageFragment f = new PageFragment();
 		Bundle bdl = new Bundle(1);
 		bdl.putString(EXTRA_MESSAGE, message);
@@ -38,7 +38,7 @@ public class PageFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		String message = getArguments().getString(EXTRA_MESSAGE);
 		View v = inflater.inflate(R.layout.fragment_page, container, false);
-		TextView messageTextView = (TextView)v.findViewById(R.id.textView);
+		TextView messageTextView = (TextView) v.findViewById(R.id.textView);
 		messageTextView.setText(message);
 		return v;
 	}

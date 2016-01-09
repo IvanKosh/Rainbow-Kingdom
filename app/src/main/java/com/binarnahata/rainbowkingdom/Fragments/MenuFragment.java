@@ -66,7 +66,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-		mRecyclerView = (RecyclerView)view.findViewById(R.id.quests);
+		mRecyclerView = (RecyclerView) view.findViewById(R.id.quests);
 		mRecyclerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
@@ -97,7 +97,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(2));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(2));
 				}
 			}
 		});
@@ -107,7 +107,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(3));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(3));
 				}
 			}
 		});
@@ -117,7 +117,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(0));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(0));
 				}
 			}
 		});
@@ -155,11 +155,12 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	public Fragment getNext() {
 		return null;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	private void initQuestList() {
 		mQuestListArray = QuestData.getInstance(getActivity()).getQuestArrayList();
-		
+
 		while (mQuestListArray.size() < MAX_NUMBER_OF_QUESTS) {
 			mQuestListArray.add(new Quest(getContext()));
 		}

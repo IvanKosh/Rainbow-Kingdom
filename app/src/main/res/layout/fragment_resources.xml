@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:gravity="center_horizontal">
+	android:gravity="center_horizontal"
+	android:orientation="vertical">
 
 	<ImageView
 		android:layout_width="match_parent"
@@ -20,63 +20,70 @@
 
 		<TableRow
 			android:gravity="center">
+
 			<TextView
-				android:padding="@dimen/fab_margin"
 				android:gravity="center"
-				android:text="@string/resources"
-				android:minWidth="@dimen/minWidth"/>
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="@string/resources"/>
 		</TableRow>
 
 		<TableRow
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/local_red"
-				android:gravity="center"
-				android:padding="@dimen/fab_margin"
-				android:text="RED"
 				android:layout_width="match_parent"
-				android:minWidth="@dimen/minWidth"/>
+				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="RED"/>
+
 			<TextView
 				android:id="@+id/local_cyan"
-				android:gravity="center"
-				android:padding="@dimen/fab_margin"
-				android:text="CYAN"
 				android:layout_width="match_parent"
-				android:minWidth="@dimen/minWidth"/>
+				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="CYAN"/>
 		</TableRow>
 
 		<TableRow
 			android:layout_width="match_parent"
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/local_green"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="GREEN"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="GREEN"/>
+
 			<TextView
 				android:id="@+id/local_magenta"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="MAGENTA"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="MAGENTA"/>
 		</TableRow>
 
 		<TableRow
 			android:layout_width="match_parent"
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/local_blue"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="BLUE"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="BLUE"/>
+
 			<TextView
 				android:id="@+id/local_yellow"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="YELLOW"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="YELLOW"/>
 		</TableRow>
 
 	</TableLayout>
@@ -85,8 +92,8 @@
 		android:id="@+id/global_progress_bar"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_centerInParent="true"
-		android:layout_below="@id/local_resources"/>
+		android:layout_below="@id/local_resources"
+		android:layout_centerInParent="true"/>
 
 	<TableLayout
 		android:id="@+id/global_table"
@@ -96,63 +103,70 @@
 
 		<TableRow
 			android:gravity="center">
+
 			<TextView
-				android:padding="@dimen/fab_margin"
 				android:gravity="center"
-				android:text="Global"
-				android:minWidth="@dimen/minWidth"/>
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="Global"/>
 		</TableRow>
 
 		<TableRow
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/global_red"
-				android:gravity="center"
-				android:padding="@dimen/fab_margin"
-				android:text="RED"
 				android:layout_width="match_parent"
-				android:minWidth="@dimen/minWidth"/>
+				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="RED"/>
+
 			<TextView
 				android:id="@+id/global_cyan"
-				android:gravity="center"
-				android:padding="@dimen/fab_margin"
-				android:text="CYAN"
 				android:layout_width="match_parent"
-				android:minWidth="@dimen/minWidth"/>
+				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
+				android:padding="@dimen/fab_margin"
+				android:text="CYAN"/>
 		</TableRow>
 
 		<TableRow
 			android:layout_width="match_parent"
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/global_green"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="GREEN"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="GREEN"/>
+
 			<TextView
 				android:id="@+id/global_magenta"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="MAGENTA"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="MAGENTA"/>
 		</TableRow>
 
 		<TableRow
 			android:layout_width="match_parent"
 			android:gravity="center">
+
 			<TextView
 				android:id="@+id/global_blue"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="BLUE"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="BLUE"/>
+
 			<TextView
 				android:id="@+id/global_yellow"
 				android:gravity="center"
+				android:minWidth="@dimen/minWidth"
 				android:padding="@dimen/fab_margin"
-				android:text="YELLOW"
-				android:minWidth="@dimen/minWidth"/>
+				android:text="YELLOW"/>
 		</TableRow>
 
 	</TableLayout>

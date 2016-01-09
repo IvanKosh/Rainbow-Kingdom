@@ -14,8 +14,8 @@
 		android:id="@+id/settings_button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
 		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
 		android:src="@drawable/settings"/>
 
@@ -32,17 +32,17 @@
 		android:id="@+id/level"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Level 1"
-		android:gravity="center"
 		android:layout_alignParentTop="true"
 		android:layout_toLeftOf="@id/settings_button"
-		android:layout_toRightOf="@id/experience_button"/>
+		android:layout_toRightOf="@id/experience_button"
+		android:gravity="center"
+		android:text="Level 1"/>
 
 	<ProgressBar
+		android:id="@+id/experienceProgressBar"
 		style="?android:attr/progressBarStyleHorizontal"
 		android:layout_width="wrap_content"
 		android:layout_height="24dp"
-		android:id="@+id/experienceProgressBar"
 		android:layout_below="@id/level"
 		android:layout_toLeftOf="@id/settings_button"
 		android:layout_toRightOf="@id/experience_button"/>
@@ -52,8 +52,8 @@
 		android:id="@+id/navigation_buttons"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:layout_alignParentBottom="true">
+		android:layout_alignParentBottom="true"
+		android:gravity="center">
 
 		<Button
 			android:id="@+id/achievements_button"
@@ -82,8 +82,8 @@
 		android:id="@+id/farm_buttons"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:layout_above="@id/navigation_buttons">
+		android:layout_above="@id/navigation_buttons"
+		android:gravity="center">
 
 		<Button
 			android:id="@+id/fast_button"

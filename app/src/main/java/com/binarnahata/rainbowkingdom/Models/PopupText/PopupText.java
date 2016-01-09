@@ -18,11 +18,13 @@ public class PopupText {
 	private String mText;
 	private Point mBias;
 	private int mLiveTime;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void revive() {
 		mLiveTime = 120;
 	}
+
 	public boolean isAlive() {
 		mLiveTime--;
 		if (mLiveTime > 0) {
@@ -30,6 +32,7 @@ public class PopupText {
 		}
 		return false;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public PopupText(String text, Point bias) {

@@ -19,6 +19,7 @@ public class MovableCircle extends BitmapCircle {
 
 	protected Vector3 mRoute;
 	protected double mSpeed;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setSpeed(Vector3 speed) {
@@ -26,14 +27,17 @@ public class MovableCircle extends BitmapCircle {
 		limitedSpeed();
 		mRoute = Vector3.div(speed, mSpeed);
 	}
+
 	public void setSpeed(Vector3 route_n, double speed) {
 		mRoute = route_n;
 		mSpeed = speed;
 		limitedSpeed();
 	}
+
 	public Vector3 getSpeed() {
 		return Vector3.mul(mRoute, mSpeed);
 	}
+
 	/*public void setSpeed(double speed, Vector3 speed_n) {
 		if (speed > )
 	}*/
@@ -42,6 +46,7 @@ public class MovableCircle extends BitmapCircle {
 	public MovableCircle(Vector3 position, double radius, int color, Bitmap bitmap) {
 		super(position, radius, color, bitmap);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void move() {
@@ -71,12 +76,15 @@ public class MovableCircle extends BitmapCircle {
 	public void toRight() {
 		mRoute.x = Math.abs(mRoute.x);
 	}
+
 	public void toLeft() {
 		mRoute.x = -Math.abs(mRoute.x);
 	}
+
 	public void toDown() {
 		mRoute.y = Math.abs(mRoute.y);
 	}
+
 	public void toUp() {
 		mRoute.y = -Math.abs(mRoute.y);
 	}

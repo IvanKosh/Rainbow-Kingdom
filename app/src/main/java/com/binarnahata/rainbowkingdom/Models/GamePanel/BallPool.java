@@ -35,19 +35,21 @@ public class BallPool {
 
 	private RKCircle mFirstBall;
 	private RKCircle mSecondBall;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public RKCircle getCircle() {
 		if (needMoveState) {
 			return null;
 		}
-		RKCircle circle	= mFirstBall;
+		RKCircle circle = mFirstBall;
 		mFirstBall = mSecondBall;
 		mSecondBall = new RKCircle(Vector3.copy(mStart), mRadius, Color.getRandom(), mBitmap);
 		Log.d(TAG, mSecondBall.toString());
 		needMoveState = true;
 		return circle;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BallPool(Bitmap bitmap, int diameter, Vector3 to) {
@@ -56,11 +58,11 @@ public class BallPool {
 		mBitmap = bitmap;
 		mDiameter = diameter;
 		mRadius = diameter >> 1;
-		mStart = new Vector3(to.x, to.y+diameter*2);
+		mStart = new Vector3(to.x, to.y + diameter * 2);
 
 		// генерация пула шаров
 		mFirstBall = new RKCircle(Vector3.copy(to), mRadius, Color.getRandom(), mBitmap);
-		mSecondBall = new RKCircle(new Vector3(mTo.x, mTo.y+mDiameter),
+		mSecondBall = new RKCircle(new Vector3(mTo.x, mTo.y + mDiameter),
 			mRadius, Color.getRandom(), mBitmap);
 	}
 

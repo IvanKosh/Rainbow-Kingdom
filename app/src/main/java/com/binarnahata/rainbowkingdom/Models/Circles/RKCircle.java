@@ -15,6 +15,7 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
 public class RKCircle extends MovableCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKCircle.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -22,6 +23,7 @@ public class RKCircle extends MovableCircle {
 	public RKCircle(Vector3 position, double radius, int color, Bitmap bitmap) {
 		super(position, radius, color, bitmap);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public static RKCircle merge(MovableCircle circle1, MovableCircle circle2) {

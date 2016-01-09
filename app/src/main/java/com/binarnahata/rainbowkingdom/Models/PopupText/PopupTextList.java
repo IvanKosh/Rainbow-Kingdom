@@ -23,6 +23,7 @@ public class PopupTextList {
 	private int mCursor;
 
 	private PopupText now = null;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public PopupText getPopupText() {
@@ -31,6 +32,7 @@ public class PopupTextList {
 		}
 		return mPopupTexts.get(mCursor++);
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public PopupTextList(String[] strings, int textSize) {
@@ -41,11 +43,12 @@ public class PopupTextList {
 			Rect r = new Rect();
 			mPaint.getTextBounds(text, 0, text.length(), r);
 			mPopupTexts.add(new PopupText(text,
-				new Point(- r.width() / 2 - r.left, r.height() / 2 - r.bottom)));
+				new Point(-r.width() / 2 - r.left, r.height() / 2 - r.bottom)));
 		}
 		Collections.shuffle(mPopupTexts);
 		mCursor = 0;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void click(int x, int y) {

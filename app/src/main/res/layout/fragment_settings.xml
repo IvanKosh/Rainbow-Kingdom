@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
 	<ImageView
 		android:layout_width="match_parent"
@@ -15,40 +15,40 @@
 		android:id="@+id/music_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="@dimen/fab_margin"
-		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_alignParentTop="true"
 		android:gravity="center"
-		android:text="@string/music"/>
+		android:padding="@dimen/fab_margin"
+		android:text="@string/music"
+		android:textSize="@dimen/activity_horizontal_margin"/>
 
 	<SeekBar
 		android:id="@+id/settings_music_seek_bar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_below="@id/music_text"
 		android:paddingLeft="@dimen/activity_vertical_margin"
 		android:paddingRight="@dimen/activity_vertical_margin"
-		android:layout_below="@id/music_text"
 		android:progressDrawable="@drawable/progress"
-		android:thumb="@drawable/red_scrubber_control" />
+		android:thumb="@drawable/red_scrubber_control"/>
 
 	<TextView
 		android:id="@+id/effect_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="@dimen/fab_margin"
-		android:textSize="@dimen/activity_horizontal_margin"
 		android:layout_below="@id/settings_music_seek_bar"
 		android:gravity="center"
-		android:text="@string/effects"/>
+		android:padding="@dimen/fab_margin"
+		android:text="@string/effects"
+		android:textSize="@dimen/activity_horizontal_margin"/>
 
 	<SeekBar
 		android:id="@+id/settings_effects_seek_bar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_below="@id/effect_text"
 		android:paddingLeft="@dimen/activity_vertical_margin"
 		android:paddingRight="@dimen/activity_vertical_margin"
-		android:layout_below="@id/effect_text"
 		android:progressDrawable="@drawable/progress"
-		android:thumb="@drawable/red_scrubber_control" />
+		android:thumb="@drawable/red_scrubber_control"/>
 
 </RelativeLayout>

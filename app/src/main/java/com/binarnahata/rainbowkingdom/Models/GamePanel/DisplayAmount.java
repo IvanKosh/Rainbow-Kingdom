@@ -17,6 +17,7 @@ public class DisplayAmount {
 	private static final String TAG = DisplayAmount.class.getSimpleName();
 
 	public int amount;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -24,6 +25,7 @@ public class DisplayAmount {
 	public DisplayAmount() {
 		amount = 0;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void display(Canvas canvas, int x, int y, Paint paint) {

@@ -20,53 +20,56 @@ public class GameLoop extends Thread {
 	private static final String TAG = GameLoop.class.getSimpleName();
 
 	// desired fps
-	private final static int    MAX_FPS = 50;
+	private final static int MAX_FPS = 50;
 	// maximum number of frames to be skipped
-	private final static int    MAX_FRAME_SKIPS = 5;
+	private final static int MAX_FRAME_SKIPS = 5;
 	// the frame period
-	private final static int    FRAME_PERIOD = 1000 / MAX_FPS;
+	private final static int FRAME_PERIOD = 1000 / MAX_FPS;
 
 	// Stuff for stats */
 	private DecimalFormat df = new DecimalFormat("0.##");  // 2 dp
 	// we'll be reading the stats every second
-	private final static int    STAT_INTERVAL = 1000; //ms
+	private final static int STAT_INTERVAL = 1000; //ms
 	// the average will be calculated by storing
 	// the last n FPSs
-	private final static int    FPS_HISTORY_NR = 10;
+	private final static int FPS_HISTORY_NR = 10;
 	// last time the status was stored
 	private long lastStatusStore = 0;
 	// the status time counter
-	private long statusIntervalTimer    = 0l;
+	private long statusIntervalTimer = 0l;
 	// number of frames skipped since the game started
-	private long totalFramesSkipped         = 0l;
+	private long totalFramesSkipped = 0l;
 	// number of frames skipped in a store cycle (1 sec)
-	private long framesSkippedPerStatCycle  = 0l;
+	private long framesSkippedPerStatCycle = 0l;
 
 
 	// number of rendered frames in an interval
 	private int frameCountPerStatCycle = 0;
 	private long totalFrameCount = 0l;
 	// the last FPS values
-	private double  fpsStore[];
+	private double fpsStore[];
 	// the number of times the stat has been read
-	private long    statsCount = 0;
+	private long statsCount = 0;
 	// the average FPS since the game started
-	private double  averageFps = 0.0;
+	private double averageFps = 0.0;
 
 	private boolean mRunning; // flag to hold game state
 	private final SurfaceHolder mSurfaceHolder;
 	private BH_SurfaceView mGame;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setRunning(Boolean running) {
 		mRunning = running;
 	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public GameLoop(SurfaceHolder surfaceHolder, BH_SurfaceView game) {
 		mSurfaceHolder = surfaceHolder;
 		mGame = game;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override
@@ -96,14 +99,13 @@ public class GameLoop extends Thread {
 					// draws the canvas on the panel
 					try {
 						mGame.render(canvas); // TODO: при разрушении Surface не понимает что уже не работает. Проблемы с синхронизацией.
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						Log.e(TAG, "Фигня какая-то");
 					}
 					// calculate how long did the cycle take
 					timeDiff = System.currentTimeMillis() - beginTime;
 					// calculate sleep time
-					sleepTime = (int)(FRAME_PERIOD - timeDiff);
+					sleepTime = (int) (FRAME_PERIOD - timeDiff);
 
 					if (sleepTime > 0) {
 						// if sleepTime > 0 we're OK
@@ -154,10 +156,10 @@ public class GameLoop extends Thread {
 	 * The statistics - it is called every cycle, it checks if time since last
 	 * store is greater than the statistics gathering period (1 sec) and if so
 	 * it calculates the FPS for the last period and stores it.
-	 *
-	 *  It tracks the number of frames per period. The number of frames since
-	 *  the start of the period are summed up and the calculation takes part
-	 *  only if the next period and the frame count is reset to 0.
+	 * <p/>
+	 * It tracks the number of frames per period. The number of frames since
+	 * the start of the period are summed up and the calculation takes part
+	 * only if the next period and the frame count is reset to 0.
 	 */
 	private void storeStats() {
 		frameCountPerStatCycle++;
@@ -168,7 +170,7 @@ public class GameLoop extends Thread {
 
 		if (statusIntervalTimer >= lastStatusStore + STAT_INTERVAL) {
 			// calculate the actual frames pers status check interval
-			double actualFps = (double)(frameCountPerStatCycle);
+			double actualFps = (double) (frameCountPerStatCycle);
 
 			//stores the latest fps in the array
 			fpsStore[(int) statsCount % FPS_HISTORY_NR] = actualFps;

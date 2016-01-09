@@ -28,6 +28,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	//private final Context mContext;
 	MediaPlayer mPlayer;
 	private int length = 0;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -37,6 +38,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 			return BackgroundMusicService.this;
 		}
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Nullable
@@ -68,7 +70,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		});
 	}
 
-	public int onStartCommand (Intent intent , int flags, int startId) {
+	public int onStartCommand(Intent intent, int flags, int startId) {
 		mPlayer.start();
 		return START_STICKY;
 	}
@@ -76,7 +78,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 	public void pauseMusic() {
 		if (mPlayer.isPlaying()) {
 			mPlayer.pause();
-			length=mPlayer.getCurrentPosition();
+			length = mPlayer.getCurrentPosition();
 		}
 	}
 
@@ -107,8 +109,7 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 			try {
 				mPlayer.stop();
 				mPlayer.release();
-			}
-			finally {
+			} finally {
 				mPlayer = null;
 			}
 		}
@@ -119,12 +120,11 @@ public class BackgroundMusicService extends Service implements MediaPlayer.OnErr
 		// TODO Auto-generated method stub
 
 		Toast.makeText(this, "Music player failed", Toast.LENGTH_SHORT).show();
-		if(mPlayer != null)
-		{
-			try{
+		if (mPlayer != null) {
+			try {
 				mPlayer.stop();
 				mPlayer.release();
-			}finally {
+			} finally {
 				mPlayer = null;
 			}
 		}

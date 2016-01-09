@@ -24,6 +24,7 @@ import java.util.List;
 public class TutorialFragment extends Fragment implements BackPressedInterface {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = TutorialFragment.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -42,10 +43,12 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 			}
+
 			@Override
 			public void onPageSelected(int position) {
 				Log.d(TAG, String.valueOf(position));
 			}
+
 			@Override
 			public void onPageScrollStateChanged(int state) {
 			}
@@ -54,9 +57,10 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	private List<Fragment> getFragments(){
+	private List<Fragment> getFragments() {
 		List<Fragment> fList = new ArrayList<>();
 
 		fList.add(PageFragment.newInstance("Fragment 1"));

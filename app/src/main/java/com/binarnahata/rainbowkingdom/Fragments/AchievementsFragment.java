@@ -55,7 +55,7 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_achievements, container, false);
 
-		mRecyclerView = (RecyclerView)view.findViewById(R.id.achievements);
+		mRecyclerView = (RecyclerView) view.findViewById(R.id.achievements);
 		mRecyclerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
@@ -65,6 +65,7 @@ public class AchievementsFragment extends Fragment implements BackPressedInterfa
 		mSumTextView.setText(String.valueOf(mSum));
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override
