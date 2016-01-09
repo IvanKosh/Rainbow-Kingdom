@@ -16,6 +16,7 @@ import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment;
+import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment2;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -149,11 +150,11 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 			mBackgroundMusicService.resumeMusic();
 		}
 
-		if (prefs.getBoolean("firstrun", true)) {
+		if (prefs.getBoolean("firstRun", true)) {
 			mFragmentManager.beginTransaction()
-				.add(R.id.fragment, TutorialFragment.newInstance(0), TutorialFragment.class.getSimpleName())
+				.add(R.id.fragment, new TutorialFragment2(), TutorialFragment2.class.getSimpleName())
 				.commit();
-			prefs.edit().putBoolean("firstrun", false).commit();
+			prefs.edit().putBoolean("firstRun", false).commit();
 		}
 	}
 

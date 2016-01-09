@@ -23,7 +23,7 @@
 			<TextView
 				android:padding="@dimen/fab_margin"
 				android:gravity="center"
-				android:text="Local"
+				android:text="@string/resources"
 				android:minWidth="@dimen/minWidth"/>
 		</TableRow>
 
