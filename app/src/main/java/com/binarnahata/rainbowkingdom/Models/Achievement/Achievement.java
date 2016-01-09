@@ -19,6 +19,11 @@ public class Achievement {
 	private int mNecessary;
 	private String mTag;
 
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	public Achievement() {
+	}
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public int getId() {
@@ -79,11 +84,6 @@ public class Achievement {
 
 	public int getNumber() {
 		return mProgress / mNecessary;
-	}
-
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Achievement() {
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

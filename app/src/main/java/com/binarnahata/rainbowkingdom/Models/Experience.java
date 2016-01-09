@@ -16,10 +16,8 @@ public class Experience {
 	private static final String TAG = Experience.class.getSimpleName();
 	private static final String APP_LEVEL = "level";
 	private static final String APP_POINT = "point";
-	private final SharePreferenceDataSaver mSPDataSever;
-
 	private static Experience sExperience;
-
+	private final SharePreferenceDataSaver mSPDataSever;
 	private int level;
 	private int point;
 	private String result;

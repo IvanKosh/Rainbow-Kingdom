@@ -3,8 +3,6 @@ package com.binarnahata.rainbowkingdom.Libs.Math;
 
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
-import java.util.Vector;
-
 /**
  * RainbowKingdom
  * Created on 30.12.15, 17:41
@@ -19,26 +17,6 @@ public class Vector3 {
 	public double x;
 	public double y;
 	public double z;
-
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setXY(double x, double y) {
-		this.x = x;
-		this.y = y;
-		this.z = .0;
-	}
-
-	public void setXY(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
-	public void setXYZ(Vector3 v) {
-		x = v.x;
-		y = v.y;
-		z = v.z;
-	}
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -59,148 +37,13 @@ public class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	/* МЕТОДЫ */
-
-	/**
-	 * Длинна вектора
-	 * Calculate the magnitude (length) of the vector
-	 *
-	 * @return the length of the vector
-	 */
-	public double magnitude() {
-		return Math.sqrt(x * x + y * y + z * z);
-	}
-
-	public double length() {
-		return Math.sqrt(x * x + y * y + z * z);
-	}
-
-	public Vector3 copy() {
-		return new Vector3(x, y, z);
-	}
 
 	public static Vector3 copy(Vector3 v) {
 		return new Vector3(v.x, v.y, v.z);
 	}
 
-	public void add(Vector3 v) {
-		x += v.x;
-		y += v.y;
-		z += v.z;
-	}
-
-	public void offset(Vector3 v) {
-		x += v.x;
-		y += v.y;
-		z += v.z;
-	}
-
-	public void sub(Vector3 v) {
-		x -= v.x;
-		y -= v.y;
-		z -= v.z;
-	}
-
-	public void approve(Vector3 v) {
-		x -= v.x;
-		y -= v.y;
-		z -= v.z;
-	}
-
-	public void mul(double n) {
-		x *= n;
-		y *= n;
-		z *= n;
-	}
-
-	public void mul(long n) {
-		x *= n;
-		y *= n;
-		z *= n;
-	}
-
-	public void div(double n) {
-		x /= n;
-		y /= n;
-		z /= n;
-	}
-
-	public void div(long n) {
-		x /= n;
-		y /= n;
-		z /= n;
-	}
-
-	/**
-	 * Скалярное произведение
-	 * Calculate the dot product with another vector
-	 *
-	 * @return the dot product
-	 */
-	public double dot(Vector3 v) {
-		return x * v.x + y * v.y + z * v.z;
-	}
-
 	public static double dot(Vector3 v1, Vector3 v2) {
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-	}
-
-	/**
-	 * Векторное произведение
-	 * Calculate the cross product with another vector
-	 *
-	 * @return the cross product
-	 */
-	public Vector3 cross(Vector3 v) {
-		double crossX = y * v.z - v.y * z;
-		double crossY = z * v.x - v.z * x;
-		double crossZ = x * v.y - v.x * y;
-		return (new Vector3(crossX, crossY, crossZ));
-	}
-
-	/**
-	 * Normalize the vector to length 1 (make it a unit vector)
-	 */
-	public void normalize() {
-		double m = length();
-		if (m > 0) {
-			div(m);
-		}
-	}
-
-	/**
-	 * Limit the length of this vector
-	 *
-	 * @param max the maximum length to limit this vector
-	 */
-	public void limit(double max) {
-		if (length() > max) {
-			normalize();
-			mul(max);
-		}
-	}
-
-	/**
-	 * Calculate the angle of rotation for this vector (only 2D vectors)
-	 *
-	 * @return the angle of rotation
-	 */
-	public double heading2D() {
-		return -1 * Math.atan2(-y, x);
-	}
-
-	/**
-	 * Rotates a 2D Vector
-	 *
-	 * @param theta, angle in radians to rotate vector
-	 */
-	public void rotate2D(double theta) {
-		double currentTheta = heading2D();
-		double length = length();
-		currentTheta += theta;
-		x = length * Math.cos(currentTheta);
-		y = length * Math.sin(currentTheta);
 	}
 
 	/**
@@ -213,6 +56,8 @@ public class Vector3 {
 	public static Vector3 add(Vector3 v1, Vector3 v2) {
 		return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 	}
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	/* МЕТОДЫ */
 
 	/**
 	 * Subtract one vector from another
@@ -294,6 +139,159 @@ public class Vector3 {
 		Vector3 result = new Vector3(Utils.rndDouble(), Utils.rndDouble());
 		result.normalize();
 		return result;
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void setXY(double x, double y) {
+		this.x = x;
+		this.y = y;
+		this.z = .0;
+	}
+
+	public void setXY(double x, double y, double z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+
+	public void setXYZ(Vector3 v) {
+		x = v.x;
+		y = v.y;
+		z = v.z;
+	}
+
+	/**
+	 * Длинна вектора
+	 * Calculate the magnitude (length) of the vector
+	 *
+	 * @return the length of the vector
+	 */
+	public double magnitude() {
+		return Math.sqrt(x * x + y * y + z * z);
+	}
+
+	public double length() {
+		return Math.sqrt(x * x + y * y + z * z);
+	}
+
+	public Vector3 copy() {
+		return new Vector3(x, y, z);
+	}
+
+	public void add(Vector3 v) {
+		x += v.x;
+		y += v.y;
+		z += v.z;
+	}
+
+	public void offset(Vector3 v) {
+		x += v.x;
+		y += v.y;
+		z += v.z;
+	}
+
+	public void sub(Vector3 v) {
+		x -= v.x;
+		y -= v.y;
+		z -= v.z;
+	}
+
+	public void approve(Vector3 v) {
+		x -= v.x;
+		y -= v.y;
+		z -= v.z;
+	}
+
+	public void mul(double n) {
+		x *= n;
+		y *= n;
+		z *= n;
+	}
+
+	public void mul(long n) {
+		x *= n;
+		y *= n;
+		z *= n;
+	}
+
+	public void div(double n) {
+		x /= n;
+		y /= n;
+		z /= n;
+	}
+
+	public void div(long n) {
+		x /= n;
+		y /= n;
+		z /= n;
+	}
+
+	/**
+	 * Скалярное произведение
+	 * Calculate the dot product with another vector
+	 *
+	 * @return the dot product
+	 */
+	public double dot(Vector3 v) {
+		return x * v.x + y * v.y + z * v.z;
+	}
+
+	/**
+	 * Векторное произведение
+	 * Calculate the cross product with another vector
+	 *
+	 * @return the cross product
+	 */
+	public Vector3 cross(Vector3 v) {
+		double crossX = y * v.z - v.y * z;
+		double crossY = z * v.x - v.z * x;
+		double crossZ = x * v.y - v.x * y;
+		return (new Vector3(crossX, crossY, crossZ));
+	}
+
+	/**
+	 * Normalize the vector to length 1 (make it a unit vector)
+	 */
+	public void normalize() {
+		double m = length();
+		if (m > 0) {
+			div(m);
+		}
+	}
+
+	/**
+	 * Limit the length of this vector
+	 *
+	 * @param max the maximum length to limit this vector
+	 */
+	public void limit(double max) {
+		if (length() > max) {
+			normalize();
+			mul(max);
+		}
+	}
+
+	/**
+	 * Calculate the angle of rotation for this vector (only 2D vectors)
+	 *
+	 * @return the angle of rotation
+	 */
+	public double heading2D() {
+		return -1 * Math.atan2(-y, x);
+	}
+
+	/**
+	 * Rotates a 2D Vector
+	 *
+	 * @param theta, angle in radians to rotate vector
+	 */
+	public void rotate2D(double theta) {
+		double currentTheta = heading2D();
+		double length = length();
+		currentTheta += theta;
+		x = length * Math.cos(currentTheta);
+		y = length * Math.sin(currentTheta);
 	}
 
 	public String toString() {

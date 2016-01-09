@@ -1,8 +1,6 @@
 package com.binarnahata.rainbowkingdom.Libs;
 
-import android.content.Context;
 import android.graphics.Point;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
 

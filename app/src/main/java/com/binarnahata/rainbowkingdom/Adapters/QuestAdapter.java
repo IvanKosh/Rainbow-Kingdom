@@ -29,10 +29,10 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> {
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = QuestAdapter.class.getSimpleName();
 	public static final String APP_PREFERENCES = "resources";
 	public static final int CAN_COMPLETE_COLOR = Color.rgb(0x33, 0xCC, 0x33);
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = QuestAdapter.class.getSimpleName();
 	private static final int NEED_MORE_COLOR = Color.rgb(0xCC, 0x33, 0x33);
 	private final Context mContext;
 	private final Experience mExperience;
@@ -99,6 +99,19 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		holder.mExperience.setText(mQuestArrayList.get(position).getExperienceString());
 	}
 
+	@Override
+	public int getItemCount() {
+		return (mQuestArrayList != null ? mQuestArrayList.size() : 0);
+	}
+
+	public void updateSettings() {
+		mJSONObject = mResources.getResources();
+	}
+
+	public interface Callback {
+		void onSelect();
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -119,19 +132,6 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 			mExperience = (TextView) view.findViewById(R.id.experience);
 			mQuestStatus = (TextView) view.findViewById(R.id.quest_status);
 		}
-	}
-
-	@Override
-	public int getItemCount() {
-		return (mQuestArrayList != null ? mQuestArrayList.size() : 0);
-	}
-
-	public interface Callback {
-		void onSelect();
-	}
-
-	public void updateSettings() {
-		mJSONObject = mResources.getResources();
 	}
 	/* МЕТОДЫ */
 }

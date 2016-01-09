@@ -19,19 +19,19 @@ import com.binarnahata.rainbowkingdom.Controllers.GameLoop;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Circles.DrawableCircle;
-import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
+import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
+import com.binarnahata.rainbowkingdom.Models.GameMode.GameMode;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BallPool;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.BottomPanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
-import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
-import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.RKMainActivity;
 
 import java.util.ArrayList;
@@ -44,9 +44,10 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class RKFarm extends BH_SurfaceView {
+	public static final int START_NUMBER_OF_BALLS_ON_THE_FIELD = 3;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKFarm.class.getSimpleName();
-	public static final int START_NUMBER_OF_BALLS_ON_THE_FIELD = 3;
+	public static int sMaxSpeed;
 	private final Paint mPaint;
 	private final Context mContext;
 	private final GameMode mGameMode;
@@ -58,7 +59,6 @@ public class RKFarm extends BH_SurfaceView {
 	private ArrayList<RKCircle> mCircles;
 	private RKCircle mShoot;
 	private Canvas mCanvas;
-
 	private int mRadius;
 	private int mDiameter;
 	private Rect mRectField;
@@ -73,29 +73,10 @@ public class RKFarm extends BH_SurfaceView {
 	private Rect mForRect;
 	private Bitmap mFon;
 	private Rect mForTouch;
-	public static int sMaxSpeed;
 	private String mGameOverText;
 	private Point mGameOverPosition;
 	private String mTapText;
 	private Point mTapPosition;
-
-	private interface GameState {
-		void onTouch(MotionEvent event);
-	}
-
-	private class PlayState implements GameState {
-		@Override
-		public void onTouch(MotionEvent event) {
-			shoot(event);
-		}
-	}
-
-	private class OverState implements GameState {
-		@Override
-		public void onTouch(MotionEvent event) {
-			endGame(event);
-		}
-	}
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -476,6 +457,24 @@ public class RKFarm extends BH_SurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {
 		mGameState.onTouch(event);
 		return true;
+	}
+
+	private interface GameState {
+		void onTouch(MotionEvent event);
+	}
+
+	private class PlayState implements GameState {
+		@Override
+		public void onTouch(MotionEvent event) {
+			shoot(event);
+		}
+	}
+
+	private class OverState implements GameState {
+		@Override
+		public void onTouch(MotionEvent event) {
+			endGame(event);
+		}
 	}
 	/* МЕТОДЫ */
 }

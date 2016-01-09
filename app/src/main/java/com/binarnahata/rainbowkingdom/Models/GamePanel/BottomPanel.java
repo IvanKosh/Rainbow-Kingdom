@@ -15,14 +15,14 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
  * @version 0.1
  */
 public class BottomPanel {
+	public static final String TEXT_BALLS_N = "Balls: ";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = BottomPanel.class.getSimpleName();
-	public static final String TEXT_BALLS_N = "Balls: ";
+	public final Rect mRectLeft;
 	private final Bitmap mLineH;
 	private final Bitmap mLineV;
 	private final Bitmap mCornerBL;
 	private final Bitmap mCornerBR;
-
 	private final Rect mCornerL;
 	private final Rect mLineHLRect;
 	private final Rect mLineVLRect;
@@ -32,22 +32,7 @@ public class BottomPanel {
 	private final Paint mPaint;
 	private final int mTextSize;
 	private final Rect mRectRight;
-	public final Rect mRectLeft;
 	private int mAvailableBalls;
-
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void incrementAvailableBalls() {
-		mAvailableBalls++;
-	}
-
-	public void decrementAvailableBalls() {
-		mAvailableBalls--;
-	}
-
-	public int getAvailableBalls() {
-		return mAvailableBalls;
-	}
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -90,6 +75,20 @@ public class BottomPanel {
 		mPaint.setColor(Color.BLACK);
 		mPaint.setTextAlign(Paint.Align.LEFT);
 		mPaint.setTextSize(mTextSize);
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void incrementAvailableBalls() {
+		mAvailableBalls++;
+	}
+
+	public void decrementAvailableBalls() {
+		mAvailableBalls--;
+	}
+
+	public int getAvailableBalls() {
+		return mAvailableBalls;
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

@@ -3,8 +3,6 @@ package com.binarnahata.rainbowkingdom.Models.GamePanel;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.binarnahata.rainbowkingdom.Models.Components.Color;
-
 /**
  * RainbowKingdom
  * Created on 15.12.15, 11:17

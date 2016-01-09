@@ -22,10 +22,6 @@ public class ResourceDisplay {
 	private final int mAmountX;
 	private final int mCenterY;
 	private final Paint mPaint;
-
-	private BitmapCircle mCircle;
-	private Rect mField;
-
 	public DisplayAmount red;
 	public DisplayAmount green;
 	public DisplayAmount blue;
@@ -33,14 +29,9 @@ public class ResourceDisplay {
 	public DisplayAmount magenta;
 	public DisplayAmount yellow;
 	public DisplayAmount black;
-
 	public DisplayAmount now;
-
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setColor(int color) {
-		mCircle.setColor(color);
-	}
+	private BitmapCircle mCircle;
+	private Rect mField;
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -95,6 +86,12 @@ public class ResourceDisplay {
 		Rect r = new Rect();
 		mPaint.getTextBounds("0", 0, "0".length(), r);
 		mCenterY = (int) (field.height() / 2f + r.height() / 2f - r.bottom + field.top);
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void setColor(int color) {
+		mCircle.setColor(color);
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

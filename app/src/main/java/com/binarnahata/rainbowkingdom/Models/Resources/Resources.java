@@ -19,27 +19,20 @@ import java.util.Collections;
  * @version 0.1
  */
 public class Resources {
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Resources.class.getSimpleName();
-	private static final String APP_INIT_PREFERENCES = "init_preferences";
-	private static final String APP_LOCAL_RESOURCES = "local_resources";
 	public static final String RED = "red";
 	public static final String GREEN = "green";
 	public static final String BLUE = "blue";
 	public static final String CYAN = "cyan";
 	public static final String MAGENTA = "magenta";
 	public static final String YELLOW = "yellow";
-
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = Resources.class.getSimpleName();
+	private static final String APP_INIT_PREFERENCES = "init_preferences";
+	private static final String APP_LOCAL_RESOURCES = "local_resources";
 	private static SharePreferenceDataSaver mSPDataSaver;
 	private static Resources sResources;
 
 	private JSONObject mResources;
-
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public JSONObject getResources() {
-		return mResources;
-	}
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
@@ -57,21 +50,6 @@ public class Resources {
 			sResources = new Resources(context);
 		}
 		return sResources;
-	}
-
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	/* МЕТОДЫ */
-	public void initData() {
-		if (!mSPDataSaver.settings.contains(APP_INIT_PREFERENCES)) {
-			if (!mSPDataSaver.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
-				mResources = getEmpty();
-				mSPDataSaver.editor
-					.putString(APP_LOCAL_RESOURCES, mResources.toString())
-					.putBoolean(APP_INIT_PREFERENCES, true)
-					.apply();
-
-			}
-		}
 	}
 
 	private static JSONObject getEmpty() {
@@ -123,6 +101,27 @@ public class Resources {
 			add(MAGENTA);
 			add(YELLOW);
 		}};
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public JSONObject getResources() {
+		return mResources;
+	}
+
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	/* МЕТОДЫ */
+	public void initData() {
+		if (!mSPDataSaver.settings.contains(APP_INIT_PREFERENCES)) {
+			if (!mSPDataSaver.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
+				mResources = getEmpty();
+				mSPDataSaver.editor
+					.putString(APP_LOCAL_RESOURCES, mResources.toString())
+					.putBoolean(APP_INIT_PREFERENCES, true)
+					.apply();
+
+			}
+		}
 	}
 
 	public void saveData() {

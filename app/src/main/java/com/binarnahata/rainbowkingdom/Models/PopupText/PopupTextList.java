@@ -24,15 +24,6 @@ public class PopupTextList {
 
 	private PopupText now = null;
 
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public PopupText getPopupText() {
-		if (mCursor > mPopupTexts.size()) {
-			mCursor = 0;
-		}
-		return mPopupTexts.get(mCursor++);
-	}
-
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public PopupTextList(String[] strings, int textSize) {
@@ -47,6 +38,15 @@ public class PopupTextList {
 		}
 		Collections.shuffle(mPopupTexts);
 		mCursor = 0;
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public PopupText getPopupText() {
+		if (mCursor > mPopupTexts.size()) {
+			mCursor = 0;
+		}
+		return mPopupTexts.get(mCursor++);
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

@@ -19,10 +19,10 @@ import java.util.UUID;
  * @version 0.1
  */
 public class Quest {
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Quest.class.getSimpleName();
 	public static final int MAX_QUEST_REQUESTING = 3;
 	public static final int QUEST_RATION = MAX_QUEST_REQUESTING + 1;
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = Quest.class.getSimpleName();
 	private static final String JSON_ID = "id";
 	private static final String JSON_HERO_AVATAR = "hero_avatar";
 	private static final String JSON_TEXT = "text";
@@ -35,6 +35,27 @@ public class Quest {
 	private String mText;
 	private JSONObject mJSONRequest;
 	private int mExperience;
+
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	public Quest(Context context) {
+		mContext = context;
+		mId = UUID.randomUUID();
+		mHeroAvatar = Utils.rndHeroAvatar();
+		mText = rndQuestText(context);
+
+		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
+
+		mExperience = Utils.rndInt(4 * QUEST_RATION, 12 * QUEST_RATION);
+	}
+
+	public Quest(JSONObject jsonObject) throws JSONException { // NEVER delete
+		mId = UUID.fromString(jsonObject.getString(JSON_ID));
+		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
+		mText = (String) jsonObject.get(JSON_TEXT);
+		mJSONRequest = new JSONObject(jsonObject.getString(JSON_REQUEST));
+		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
+	}
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -97,27 +118,6 @@ public class Quest {
 		}
 
 		return result;
-	}
-
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public Quest(Context context) {
-		mContext = context;
-		mId = UUID.randomUUID();
-		mHeroAvatar = Utils.rndHeroAvatar();
-		mText = rndQuestText(context);
-
-		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
-
-		mExperience = Utils.rndInt(4 * QUEST_RATION, 12 * QUEST_RATION);
-	}
-
-	public Quest(JSONObject jsonObject) throws JSONException { // NEVER delete
-		mId = UUID.fromString(jsonObject.getString(JSON_ID));
-		mHeroAvatar = (String) jsonObject.get(JSON_HERO_AVATAR);
-		mText = (String) jsonObject.get(JSON_TEXT);
-		mJSONRequest = new JSONObject(jsonObject.getString(JSON_REQUEST));
-		mExperience = (int) jsonObject.get(JSON_EXPERIENCE);
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

@@ -27,18 +27,18 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 	private ArrayList<Achievement> mAchievementsArrayList;
 	private Callbacks mCallbacks;
 
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setAchievementsArrayList(ArrayList<Achievement> achievementsArrayList) {
-		mAchievementsArrayList = achievementsArrayList;
-	}
-
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public AchievementAdapter(Context context, ArrayList<Achievement> achievementArrayList, Callbacks callbacks) {
 		mContext = context;
 		mAchievementsArrayList = achievementArrayList;
 		mCallbacks = callbacks;
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void setAchievementsArrayList(ArrayList<Achievement> achievementsArrayList) {
+		mAchievementsArrayList = achievementsArrayList;
 	}
 
 	@Override
@@ -70,6 +70,15 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 		mAchievementsArrayList.addAll(values[0]);
 	}
 
+	@Override
+	public int getItemCount() {
+		return (mAchievementsArrayList != null ? mAchievementsArrayList.size() : 0);
+	}
+
+	public interface Callbacks {
+		void offsetSum(int deltaSum);
+	}
+
 	public static class ViewHolder extends RecyclerView.ViewHolder {
 		public ImageView mImage;
 		public TextView mText;
@@ -84,15 +93,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
 			mNumber = (TextView) view.findViewById(R.id.number);
 			mPoint = (TextView) view.findViewById(R.id.point);
 		}
-	}
-
-	@Override
-	public int getItemCount() {
-		return (mAchievementsArrayList != null ? mAchievementsArrayList.size() : 0);
-	}
-
-	public interface Callbacks {
-		void offsetSum(int deltaSum);
 	}
 	/* МЕТОДЫ */
 }

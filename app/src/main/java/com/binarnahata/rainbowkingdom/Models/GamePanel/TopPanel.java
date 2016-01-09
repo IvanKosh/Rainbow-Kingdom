@@ -6,8 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
-import com.binarnahata.rainbowkingdom.Models.Components.Color;
 import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,9 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class TopPanel {
+	public static final int NUMBER_OF_HELP_BALL = 7;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = TopPanel.class.getSimpleName();
-	public static final int NUMBER_OF_HELP_BALL = 7;
 	private final Paint mPaint;
 	private final Rect mRect;
 	private final ArrayList<BitmapCircle> mBitmapCircles = new ArrayList<>();

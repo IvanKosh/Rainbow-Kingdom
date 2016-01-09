@@ -3,16 +3,11 @@ package com.binarnahata.rainbowkingdom.Models.GamePanel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
-import com.binarnahata.rainbowkingdom.Libs.Utils;
-import com.binarnahata.rainbowkingdom.Models.Circles.BitmapCircle;
 import com.binarnahata.rainbowkingdom.Models.Circles.RKCircle;
 import com.binarnahata.rainbowkingdom.Models.Components.Color;
-
-import java.util.ArrayList;
 
 /**
  * RainbowKingdom
@@ -36,20 +31,6 @@ public class BallPool {
 	private RKCircle mFirstBall;
 	private RKCircle mSecondBall;
 
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public RKCircle getCircle() {
-		if (needMoveState) {
-			return null;
-		}
-		RKCircle circle = mFirstBall;
-		mFirstBall = mSecondBall;
-		mSecondBall = new RKCircle(Vector3.copy(mStart), mRadius, Color.getRandom(), mBitmap);
-		Log.d(TAG, mSecondBall.toString());
-		needMoveState = true;
-		return circle;
-	}
-
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BallPool(Bitmap bitmap, int diameter, Vector3 to) {
@@ -64,6 +45,20 @@ public class BallPool {
 		mFirstBall = new RKCircle(Vector3.copy(to), mRadius, Color.getRandom(), mBitmap);
 		mSecondBall = new RKCircle(new Vector3(mTo.x, mTo.y + mDiameter),
 			mRadius, Color.getRandom(), mBitmap);
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public RKCircle getCircle() {
+		if (needMoveState) {
+			return null;
+		}
+		RKCircle circle = mFirstBall;
+		mFirstBall = mSecondBall;
+		mSecondBall = new RKCircle(Vector3.copy(mStart), mRadius, Color.getRandom(), mBitmap);
+		Log.d(TAG, mSecondBall.toString());
+		needMoveState = true;
+		return circle;
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

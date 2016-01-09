@@ -18,6 +18,13 @@ public class DrawableCircle extends SimpleCircle {
 
 	private int mColor;
 
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	public DrawableCircle(Vector3 position, double radius, int color) {
+		super(position, radius);
+		mColor = color;
+	}
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public int getColor() {
@@ -25,13 +32,6 @@ public class DrawableCircle extends SimpleCircle {
 	}
 
 	public void setColor(int color) {
-		mColor = color;
-	}
-
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public DrawableCircle(Vector3 position, double radius, int color) {
-		super(position, radius);
 		mColor = color;
 	}
 

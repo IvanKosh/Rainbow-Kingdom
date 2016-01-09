@@ -23,6 +23,21 @@ public class Volume {
 	private float mMusicVolume;
 	private float mEffectsVolume;
 
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	private Volume(Context context) {
+		sSPDataSever = SharePreferenceDataSaver.getInstance(context);
+		mMusicVolume = sSPDataSever.settings.getFloat(APP_MUSIC, 1f);
+		mEffectsVolume = sSPDataSever.settings.getFloat(APP_EFFECTS, 1f);
+	}
+
+	public static Volume getInstance(Context context) {
+		if (sVolume == null) {
+			sVolume = new Volume(context);
+		}
+		return sVolume;
+	}
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public float getMusicVolume() {
@@ -39,21 +54,6 @@ public class Volume {
 
 	public void setEffectsVolume(float effectsVolume) {
 		mEffectsVolume = effectsVolume;
-	}
-
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	private Volume(Context context) {
-		sSPDataSever = SharePreferenceDataSaver.getInstance(context);
-		mMusicVolume = sSPDataSever.settings.getFloat(APP_MUSIC, 1f);
-		mEffectsVolume = sSPDataSever.settings.getFloat(APP_EFFECTS, 1f);
-	}
-
-	public static Volume getInstance(Context context) {
-		if (sVolume == null) {
-			sVolume = new Volume(context);
-		}
-		return sVolume;
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

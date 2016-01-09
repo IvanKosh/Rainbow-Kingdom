@@ -11,10 +11,9 @@ import android.content.SharedPreferences;
  * @version 0.1
  */
 public class SharePreferenceDataSaver {
+	public static final String APP_PREFERENCES = "preferences";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = SharePreferenceDataSaver.class.getSimpleName();
-	public static final String APP_PREFERENCES = "preferences";
-
 	private static SharePreferenceDataSaver sSharePreferenceDataSaver;
 
 	public SharedPreferences settings;

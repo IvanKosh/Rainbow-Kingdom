@@ -25,14 +25,14 @@ public class GameLoop extends Thread {
 	private final static int MAX_FRAME_SKIPS = 5;
 	// the frame period
 	private final static int FRAME_PERIOD = 1000 / MAX_FPS;
-
-	// Stuff for stats */
-	private DecimalFormat df = new DecimalFormat("0.##");  // 2 dp
 	// we'll be reading the stats every second
 	private final static int STAT_INTERVAL = 1000; //ms
 	// the average will be calculated by storing
 	// the last n FPSs
 	private final static int FPS_HISTORY_NR = 10;
+	private final SurfaceHolder mSurfaceHolder;
+	// Stuff for stats */
+	private DecimalFormat df = new DecimalFormat("0.##");  // 2 dp
 	// last time the status was stored
 	private long lastStatusStore = 0;
 	// the status time counter
@@ -41,8 +41,6 @@ public class GameLoop extends Thread {
 	private long totalFramesSkipped = 0l;
 	// number of frames skipped in a store cycle (1 sec)
 	private long framesSkippedPerStatCycle = 0l;
-
-
 	// number of rendered frames in an interval
 	private int frameCountPerStatCycle = 0;
 	private long totalFrameCount = 0l;
@@ -52,22 +50,20 @@ public class GameLoop extends Thread {
 	private long statsCount = 0;
 	// the average FPS since the game started
 	private double averageFps = 0.0;
-
 	private boolean mRunning; // flag to hold game state
-	private final SurfaceHolder mSurfaceHolder;
 	private BH_SurfaceView mGame;
-
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void setRunning(Boolean running) {
-		mRunning = running;
-	}
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public GameLoop(SurfaceHolder surfaceHolder, BH_SurfaceView game) {
 		mSurfaceHolder = surfaceHolder;
 		mGame = game;
+	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void setRunning(Boolean running) {
+		mRunning = running;
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

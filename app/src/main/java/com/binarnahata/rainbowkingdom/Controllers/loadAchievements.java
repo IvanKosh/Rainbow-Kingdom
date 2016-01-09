@@ -2,8 +2,6 @@ package com.binarnahata.rainbowkingdom.Controllers;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
 
 import com.binarnahata.rainbowkingdom.Adapters.AchievementAdapter;
 import com.binarnahata.rainbowkingdom.Libs.DataBase.AchievementDatabaseHandler;

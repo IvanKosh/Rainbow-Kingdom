@@ -1,6 +1,5 @@
 package com.binarnahata.rainbowkingdom.Models.PopupText;
 
-import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -19,6 +18,13 @@ public class PopupText {
 	private Point mBias;
 	private int mLiveTime;
 
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	public PopupText(String text, Point bias) {
+		mText = text;
+		mBias = bias;
+	}
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void revive() {
@@ -31,13 +37,6 @@ public class PopupText {
 			return true;
 		}
 		return false;
-	}
-
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public PopupText(String text, Point bias) {
-		mText = text;
-		mBias = bias;
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */

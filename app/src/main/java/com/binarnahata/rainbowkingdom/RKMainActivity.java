@@ -25,11 +25,12 @@ import java.util.List;
 public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKMainActivity.class.getSimpleName();
-
+	SharedPreferences prefs = null;
 	private FragmentManager mFragmentManager;
-
 	private boolean mIsBound = false;
 	private BackgroundMusicService mBackgroundMusicService;
+	private Intent mBackgroundMusic;
+	private Volume mVolume;
 	private ServiceConnection mServiceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName name, IBinder binder) {
 			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder) binder).getService();
@@ -42,10 +43,6 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		}
 
 	};
-	private Intent mBackgroundMusic;
-	private Volume mVolume;
-
-	SharedPreferences prefs = null;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

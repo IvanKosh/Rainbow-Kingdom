@@ -17,9 +17,9 @@ import com.binarnahata.rainbowkingdom.R;
  * @version 0.1
  */
 public class PageFragment extends Fragment {
+	public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PageFragment.class.getSimpleName();
-	public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
