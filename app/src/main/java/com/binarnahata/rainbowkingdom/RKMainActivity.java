@@ -54,7 +54,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		Utils.setRandom();
 		mFragmentManager = getSupportFragmentManager();
 		mFragmentManager.beginTransaction()
-			.add(R.id.fragment, new MenuFragment())
+			.add(R.id.fragment, new MenuFragment(), MenuFragment.class.getSimpleName())
 			.commit();
 
 		mVolume = Volume.getInstance(this);
@@ -71,49 +71,26 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	/* МЕТОДЫ */
 	public void runFragment(Fragment newFragment) {
 		List<Fragment> fragmentList = mFragmentManager.getFragments();
-		Log.d(TAG, String.valueOf(fragmentList.size()));
 		if (fragmentList != null) {
-			for (int i = fragmentList.size()-1; i > 0; i--) {
-				mFragmentManager.beginTransaction()
-					.remove(fragmentList.get(i))
-					.commit();
+			for (Fragment fragment : fragmentList) {
+				if (fragment != null) {
+					mFragmentManager.beginTransaction()
+						.remove(fragment)
+						.commit();
+				}
 			}
-			/*for (Fragment fragment : fragmentList) {
-				mFragmentManager.beginTransaction()
-					.remove(fragment)
-					.commit();
-			}*/
 		}
 
-		fragmentList = mFragmentManager.getFragments();
-		if (fragmentList != null) {
-			Log.d(TAG, String.valueOf(fragmentList.size()));
-		}
+		mFragmentManager.beginTransaction()
+			.add(R.id.fragment, newFragment, newFragment.getClass().getSimpleName())
+			.commit();
+	}
+
+	public void replaceFragment(Fragment newFragment) {
 		mFragmentManager.beginTransaction()
 			.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-			//.setCustomAnimations(null, null)
-			.add(R.id.fragment, newFragment)
+			.replace(R.id.fragment, newFragment, newFragment.getClass().getSimpleName())
 			.commit();
-
-		fragmentList = mFragmentManager.getFragments();
-		if (fragmentList != null) {
-			Log.d(TAG, String.valueOf(fragmentList.size()));
-
-			for (Fragment fragment : fragmentList) {
-				Log.d(TAG, fragment.toString());
-			}
-
-			if (fragmentList.size() > 1) {
-				mFragmentManager.beginTransaction()
-					.remove(fragmentList.get(0))
-					.commit();
-			}
-		}
-
-		fragmentList = mFragmentManager.getFragments();
-		if (fragmentList != null) {
-			Log.d(TAG, String.valueOf(fragmentList.size()));
-		}
 	}
 
 	void doBindService(){

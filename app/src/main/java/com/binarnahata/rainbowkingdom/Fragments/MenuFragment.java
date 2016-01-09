@@ -137,7 +137,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity) getActivity()).runFragment(new AchievementsFragment());
+					((RKMainActivity) getActivity()).replaceFragment(new AchievementsFragment());
 				}
 			}
 		});
