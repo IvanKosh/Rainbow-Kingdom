@@ -27,11 +27,11 @@
 	<string name="music">Music</string>
 	<string name="effects">Effects</string>
 	<string name="resources">Resources</string>
-	<string name="run_tutorial">Run tutorial</string>
+	<string name="run_tutorial">Tutorial</string>
 	<string name="go_to_menu">Go to Menu</string>
-	<string name="tutorial_1">Привет.\n\nЭто простая казуальная игра для любителей ачивок. Просто выполняей квесты, которых в игре очень много. Для этого Вам понабится фармить ресурсы.\n\nДоступно 3 режима игры:\n3+3 с рейтингом х3,\n3+7 с рейтингом х2,\n3+17 с рейтингом х1.\nБыстрый фарм выбирает произвольный режим с произвольным рейтингом (от х1 до х3).</string>
-	<string name="tutorial_2_1">Что бы собрать краску Вам необходимо выстрелив шаром попасть в шар такого же цвета. Если Вы попадете в шар другого цвета:</string>
-	<string name="tutorial_2_2">Вы получите новый цвет согласно схеме:</string>
-	<string name="tutorial_2_3">Иначе потеряете снаряд.\nДанная подсказка всегда будет с Вами в игре.</string>
-	<string name="tutorial_3">Настройки, уровень, задания, ресурсы и достижения не нуждаются в описании.\nПриятной игры.</string>
+	<string name="tutorial_1">Hello.\n\nThis is a simple casual game for fans of achievements. Just complete quests. The game has a lot of them. To do this, you need to farm resources.\n\nAvailable 3 game modes:\nthe 3+3 with a rating of x3,\n3+7  with a rating of х2,\n3+17 with a rating of х1.\nQuick farm chooses a random mode with random rating (from x1 to x3).</string>
+	<string name="tutorial_2_1"> To collect the paint you need to shot the ball and hits a ball of the same color. If you get into a ball of a different color:</string>
+	<string name="tutorial_2_2"> You will get new color according to the following scheme:</string>
+	<string name="tutorial_2_3">Otherwise, you lose the ball.\nThis tip will always be with you in the game.</string>
+	<string name="tutorial_3">Settings, levels, quests, resources, and achieve need not be described.\nEnjoy the game.</string>
 </resources>
