@@ -1,5 +1,7 @@
 package com.binarnahata.rainbowkingdom.Models.PopupText;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
@@ -13,24 +15,23 @@ public class PopupText {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PopupText.class.getSimpleName();
 	private static final int MAX_LIVE_TIME = 120;
+	private final Paint mPaint;
 
 	private String mText;
-	private Point mBias;
+	private Point mPosition;
 	private int mLiveTime;
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public PopupText(String text, Point bias) {
+	public PopupText(String text, Point bias, Paint paint) {
 		mText = text;
-		mBias = bias;
+		mPosition = bias;
+		mPaint = paint;
+		mLiveTime = 120;
 	}
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void revive() {
-		mLiveTime = 120;
-	}
-
 	public boolean isAlive() {
 		mLiveTime--;
 		if (mLiveTime > 0) {
@@ -38,7 +39,19 @@ public class PopupText {
 		}
 		return false;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
+	public void draw(Canvas canvas) {
+		canvas.drawText(mText, mPosition.x, mPosition.y, mPaint);
+	}
+
+	public PopupText copy() {
+		return new PopupText(mText, new Point(mPosition), mPaint);
+	}
+
+	public void offset(int x, int y) {
+		mPosition.offset(x, y);
+	}
 	/* МЕТОДЫ */
 }

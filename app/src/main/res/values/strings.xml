@@ -34,4 +34,14 @@
 	<string name="tutorial_2_2"> You will get new color according to the following scheme:</string>
 	<string name="tutorial_2_3">Otherwise, you lose the ball.\nThis tip will always be with you in the game.</string>
 	<string name="tutorial_3">Settings, levels, quests, resources, and achieve need not be described.\nEnjoy the game.</string>
+
+	<string name="popup_text1">wait</string>
+	<string name="popup_text2">not now</string>
+	<string name="popup_text3">can\'t</string>
+
+	<string-array name="popup_text">
+		<item>@string/popup_text1</item>
+		<item>@string/popup_text2</item>
+		<item>@string/popup_text3</item>
+	</string-array>
 </resources>

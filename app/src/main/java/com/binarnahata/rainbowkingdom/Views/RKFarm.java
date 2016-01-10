@@ -29,6 +29,8 @@ import com.binarnahata.rainbowkingdom.Models.GamePanel.BottomPanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
+import com.binarnahata.rainbowkingdom.Models.PopupText.PopupText;
+import com.binarnahata.rainbowkingdom.Models.PopupText.PopupTextManager;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
@@ -77,6 +79,8 @@ public class RKFarm extends BH_SurfaceView {
 	private Point mGameOverPosition;
 	private String mTapText;
 	private Point mTapPosition;
+	private PopupTextManager mPopupTextManager;
+	private PopupText mPopupText;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -134,6 +138,8 @@ public class RKFarm extends BH_SurfaceView {
 		mDiameter = mRadius << 1;
 		mForTouch = new Rect(0, 0, getWidth(), getHeight() - mDiameter * 2);
 		mRectField = new Rect(mRadius, mRadius + mDiameter, getWidth() - mRadius, mForTouch.bottom);
+
+		mPopupTextManager = new PopupTextManager(getResources().getStringArray(R.array.popup_text), mRadius);
 
 		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.fon);
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
@@ -392,6 +398,10 @@ public class RKFarm extends BH_SurfaceView {
 			mMark.draw(canvas);
 		}
 
+		if (mPopupText != null) {
+			mPopupText.draw(canvas);
+		}
+
 		for (RKCircle rkCircle : mCircles) {
 			rkCircle.draw(mCanvas, mPaint);
 		}
@@ -412,6 +422,7 @@ public class RKFarm extends BH_SurfaceView {
 		if (mGameState instanceof OverState) {
 			drawGameOver();
 		}
+
 	}
 
 	private void drawGameOver() {
@@ -451,6 +462,7 @@ public class RKFarm extends BH_SurfaceView {
 		mSoundPool.play(mSoundIndexes[2],
 			mVolume.getEffectsVolume(), mVolume.getEffectsVolume(),
 			1, 0, 1.0f);
+		mPopupText = mPopupTextManager.getPopupText(x, y);
 	}
 
 	@Override

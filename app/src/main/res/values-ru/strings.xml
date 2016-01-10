@@ -33,4 +33,7 @@
 	<string name="tutorial_2_2">Вы получите новый цвет согласно схеме:</string>
 	<string name="tutorial_2_3">Иначе потеряете снаряд.\nДанная подсказка всегда будет с Вами в игре.</string>
 	<string name="tutorial_3">Настройки, уровень, задания, ресурсы и достижения не нуждаются в описании.\nПриятной игры.</string>
+	<string name="popup_text1">подожди</string>
+	<string name="popup_text2">не сейчас</string>
+	<string name="popup_text3">нельзя</string>
 </resources>

@@ -3,6 +3,7 @@ package com.binarnahata.rainbowkingdom.Models.PopupText;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +15,9 @@ import java.util.Collections;
  * @author bat
  * @version 0.1
  */
-public class PopupTextList {
+public class PopupTextManager {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = PopupTextList.class.getSimpleName();
+	private static final String TAG = PopupTextManager.class.getSimpleName();
 
 	private Paint mPaint;
 	private ArrayList<PopupText> mPopupTexts;
@@ -26,15 +27,18 @@ public class PopupTextList {
 
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	public PopupTextList(String[] strings, int textSize) {
+	public PopupTextManager(String[] strings, int textSize) {
 		mPaint = new Paint();
 		mPaint.setTextSize(textSize);
 
+		mPopupTexts = new ArrayList<>();
 		for (String text : strings) {
 			Rect r = new Rect();
+			Log.d(TAG, text);
 			mPaint.getTextBounds(text, 0, text.length(), r);
 			mPopupTexts.add(new PopupText(text,
-				new Point(-r.width() / 2 - r.left, r.height() / 2 - r.bottom)));
+				new Point(-r.width() / 2 - r.left, r.height() / 2 - r.bottom),
+				mPaint));
 		}
 		Collections.shuffle(mPopupTexts);
 		mCursor = 0;
@@ -42,17 +46,16 @@ public class PopupTextList {
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public PopupText getPopupText() {
-		if (mCursor > mPopupTexts.size()) {
+	public PopupText getPopupText(int x, int y) {
+		if (mCursor == mPopupTexts.size()) {
 			mCursor = 0;
 		}
-		return mPopupTexts.get(mCursor++);
+		PopupText result = mPopupTexts.get(mCursor++).copy();
+		result.offset(x, y);
+		return result;
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
-	public void click(int x, int y) {
-
-	}
 	/* МЕТОДЫ */
 }
