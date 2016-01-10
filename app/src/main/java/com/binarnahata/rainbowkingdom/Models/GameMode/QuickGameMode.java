@@ -18,7 +18,7 @@ public class QuickGameMode extends GameMode {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public QuickGameMode() {
-		super(Utils.rndCircles(), 2);
+		super(Utils.rndCircles(), Utils.rndInt(1, 3));
 		type = "typeq";
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
