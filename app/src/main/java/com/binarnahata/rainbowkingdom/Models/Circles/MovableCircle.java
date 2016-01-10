@@ -17,7 +17,7 @@ public class MovableCircle extends BitmapCircle {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MovableCircle.class.getSimpleName();
 
-	protected Vector3 mRoute;
+	protected Vector3 direction;
 	protected double mSpeed;
 
 	/*public void setSpeed(double speed, Vector3 speed_n) {
@@ -29,28 +29,32 @@ public class MovableCircle extends BitmapCircle {
 		super(position, radius, color, bitmap);
 	}
 
-	public void setSpeed(Vector3 route_n, double speed) {
-		mRoute = route_n;
+	public void setSpeed(Vector3 direction_n, double speed) {
+		direction = direction_n;
 		mSpeed = speed;
 		limitedSpeed();
 	}
 
 	public Vector3 getSpeed() {
-		return Vector3.mul(mRoute, mSpeed);
+		return Vector3.mul(direction, mSpeed);
 	}
 
+
+	public Vector3 getDirection() {
+		return direction;
+	}
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	public void setSpeed(Vector3 speed) {
 		mSpeed = speed.length();
 		limitedSpeed();
-		mRoute = Vector3.div(speed, mSpeed);
+		direction = Vector3.div(speed, mSpeed);
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void move() {
-		mPosition.add(Vector3.mul(mRoute, mSpeed));
+		mPosition.add(Vector3.mul(direction, mSpeed));
 	}
 
 	public void checkBounds(Rect bounds) {
@@ -74,19 +78,19 @@ public class MovableCircle extends BitmapCircle {
 	}
 
 	public void toRight() {
-		mRoute.x = Math.abs(mRoute.x);
+		direction.x = Math.abs(direction.x);
 	}
 
 	public void toLeft() {
-		mRoute.x = -Math.abs(mRoute.x);
+		direction.x = -Math.abs(direction.x);
 	}
 
 	public void toDown() {
-		mRoute.y = Math.abs(mRoute.y);
+		direction.y = Math.abs(direction.y);
 	}
 
 	public void toUp() {
-		mRoute.y = -Math.abs(mRoute.y);
+		direction.y = -Math.abs(direction.y);
 	}
 
 	public void limitedSpeed() {

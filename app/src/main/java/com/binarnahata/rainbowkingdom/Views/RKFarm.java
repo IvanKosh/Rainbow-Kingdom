@@ -29,6 +29,7 @@ import com.binarnahata.rainbowkingdom.Models.GamePanel.BottomPanel;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.ResourceDisplay;
 import com.binarnahata.rainbowkingdom.Models.GamePanel.TopPanel;
 import com.binarnahata.rainbowkingdom.Models.Mark;
+import com.binarnahata.rainbowkingdom.Models.Plume.PlumeManager;
 import com.binarnahata.rainbowkingdom.Models.PopupText.PopupText;
 import com.binarnahata.rainbowkingdom.Models.PopupText.PopupTextManager;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -81,6 +82,7 @@ public class RKFarm extends BH_SurfaceView {
 	private Point mTapPosition;
 	private PopupTextManager mPopupTextManager;
 	private PopupText mPopupText;
+	private PlumeManager plumeManager;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -140,6 +142,8 @@ public class RKFarm extends BH_SurfaceView {
 		mRectField = new Rect(mRadius, mRadius + mDiameter, getWidth() - mRadius, mForTouch.bottom);
 
 		mPopupTextManager = new PopupTextManager(getResources().getStringArray(R.array.popup_text), mRadius);
+
+		plumeManager = new PlumeManager(mRadius);
 
 		mFon = BitmapFactory.decodeResource(getResources(), R.drawable.fon);
 		mBall = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
@@ -219,6 +223,7 @@ public class RKFarm extends BH_SurfaceView {
 
 	@Override
 	public void update() {
+		plumeManager.update();
 		// движение шаров
 		for (RKCircle circle : mCircles) {
 			circle.move();
@@ -234,6 +239,7 @@ public class RKFarm extends BH_SurfaceView {
 
 		// движение и коллизия выстрела
 		if (mShoot != null) {
+			plumeManager.add(mShoot.getPosition().copy(), mShoot.getDirection().copy());
 			mShoot.move();
 			mShoot.checkBounds(mRectField);
 
@@ -401,6 +407,8 @@ public class RKFarm extends BH_SurfaceView {
 		if (mPopupText != null) {
 			mPopupText.draw(canvas);
 		}
+
+		plumeManager.draw(canvas);
 
 		for (RKCircle rkCircle : mCircles) {
 			rkCircle.draw(mCanvas, mPaint);
