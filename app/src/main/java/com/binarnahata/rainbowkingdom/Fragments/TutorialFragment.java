@@ -3,7 +3,6 @@ package com.binarnahata.rainbowkingdom.Fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,10 +75,9 @@ public class TutorialFragment extends Fragment implements BackPressedInterface {
 	private List<Fragment> getFragments() {
 		List<Fragment> fragmentList = new ArrayList<>();
 
-		fragmentList.add(PageFragment.newInstance(R.layout.page1));
-		fragmentList.add(PageFragment.newInstance(R.layout.page2));
-		fragmentList.add(PageFragment.newInstance(R.layout.page3));
-		fragmentList.add(PageFragment.newInstance(R.layout.page4));
+		fragmentList.add(PageFragment.newInstance(R.layout.tutorial_page_1));
+		fragmentList.add(PageFragment.newInstance(R.layout.tutorial_page_2));
+		fragmentList.add(PageFragment.newInstance(R.layout.tutorial_page_3));
 
 		return fragmentList;
 	}

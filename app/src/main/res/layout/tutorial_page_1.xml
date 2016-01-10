@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hell Yeah"/>
+		android:layout_centerInParent="true"
+		android:gravity="center"
+		android:padding="@dimen/activity_horizontal_margin"
+		android:text="@string/tutorial_1"
+		android:textSize="@dimen/activity_horizontal_margin"/>
 
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Out"
-		android:onClick="onGoToMenu"/>
-
-</LinearLayout>
+</RelativeLayout>

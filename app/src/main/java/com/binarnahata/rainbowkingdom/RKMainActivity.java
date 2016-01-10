@@ -157,7 +157,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		mBackgroundMusicService.setVolume(volume);
 	}
 
-	public void onGoToMenu(View view) {
+	public void goToMenu(View view) {
 		runFragment(new MenuFragment());
 	}
 	/* МЕТОДЫ */
