@@ -136,7 +136,7 @@ public class Vector3 {
 	}
 
 	public static Vector3 getRandomNormal() {
-		Vector3 result = new Vector3(Utils.rndDouble(), Utils.rndDouble());
+		Vector3 result = new Vector3(Utils.randomDouble(), Utils.randomDouble());
 		result.normalize();
 		return result;
 	}

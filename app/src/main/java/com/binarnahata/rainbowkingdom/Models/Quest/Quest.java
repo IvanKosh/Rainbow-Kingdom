@@ -41,12 +41,12 @@ public class Quest {
 	public Quest(Context context) {
 		mContext = context;
 		mId = UUID.randomUUID();
-		mHeroAvatar = Utils.rndHeroAvatar();
+		mHeroAvatar = Utils.randomHeroAvatar();
 		mText = rndQuestText(context);
 
-		mJSONRequest = Resources.getRandom(Utils.rndInt(1, QUEST_RATION));
+		mJSONRequest = Resources.getRandom(Utils.randomInt(1, QUEST_RATION));
 
-		mExperience = Utils.rndInt(4 * QUEST_RATION, 12 * QUEST_RATION);
+		mExperience = Utils.randomInt(4 * QUEST_RATION, 12 * QUEST_RATION);
 	}
 
 	public Quest(JSONObject jsonObject) throws JSONException { // NEVER delete
@@ -125,7 +125,7 @@ public class Quest {
 	private String rndQuestText(Context context) {
 		return context.getResources().getString(
 			mContext.getResources().getIdentifier(
-				"quest_text" + Utils.rndInt(0, 9), "string",
+				"quest_text" + Utils.randomInt(0, 9), "string",
 				mContext.getPackageName()));
 	}
 

@@ -175,8 +175,8 @@ public class RKFarm extends BH_SurfaceView {
 		RKCircle circle;
 		for (int i = 0; i < START_NUMBER_OF_BALLS_ON_THE_FIELD; i++) {
 			circle = new RKCircle(
-				new Vector3(Utils.rndInt(mRectField.left, mRectField.right),
-					Utils.rndInt(mRectField.top, mRectField.bottom)),
+				new Vector3(Utils.randomInt(mRectField.left, mRectField.right),
+					Utils.randomInt(mRectField.top, mRectField.bottom)),
 				mRadius,
 				Color.getRandom(), mBall);
 			circle.setSpeed(Vector3.getRandomNormal());

@@ -82,7 +82,7 @@ public class Resources {
 				.put(YELLOW, 0);
 			int r;
 			for (int i = 0; i < colorNumber; i++) {
-				r = Utils.rndInt(3, 10);
+				r = Utils.randomInt(3, 10);
 				jsonObject
 					.put(colorPool.get(i), r);
 			}

@@ -30,17 +30,30 @@ public class Utils {
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	/* Рандомы */
-	public static int rndInt(int min, int max) {
+	public static int randomInt(int min, int max) {
 		int r = random.nextInt(max - min) + min;
 		return r;
 	}
 
-	public static double rndDouble() {
+	public static double randomDouble() {
 		return random.nextDouble();
 	}
 
-	public static String rndHeroAvatar() {
-		return "hero_avatar" + rndInt(0, 18);
+	public static String randomHeroAvatar() {
+		return "hero_avatar" + randomInt(0, 18);
+	}
+
+	public static int randomCircles() {
+		switch (randomInt(0, 3)) {
+			case 0:
+				return 6;
+			case 1:
+				return 10;
+			case 2:
+				return 20;
+			default:
+				return 10;
+		}
 	}
 	/* Рандомы */
 
@@ -69,19 +82,6 @@ public class Utils {
 
 	public static double distanceBetweenTwoPoint(Point start, Point end) {
 		return Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
-	}
-
-	public static int rndCircles() {
-		switch (rndInt(0, 3)) {
-			case 0:
-				return 6;
-			case 1:
-				return 10;
-			case 2:
-				return 20;
-			default:
-				return 10;
-		}
 	}
 	/* Математика */
 

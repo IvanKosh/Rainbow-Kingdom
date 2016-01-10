@@ -72,7 +72,7 @@ public class Color {
 	}
 
 	public static int getRandom() {
-		switch (Utils.rndInt(0, 6)) {
+		switch (Utils.randomInt(0, 6)) {
 			case 0:
 				return RED;
 			case 1:
