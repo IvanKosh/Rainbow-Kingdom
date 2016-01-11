@@ -278,7 +278,9 @@ public class RKFarm extends BH_SurfaceView {
 						mCircles.remove(circle);
 						mMark.die();
 						mShoot = null;
-						mPopupText.die();
+						if (mPopupText != null) {
+							mPopupText.die();
+						}
 						break;
 					}
 				} else {
@@ -293,7 +295,9 @@ public class RKFarm extends BH_SurfaceView {
 							gameOver();
 							mGameState = new OverState();
 						}
-						mPopupText.die();
+						if (mPopupText != null) {
+							mPopupText.die();
+						}
 						break;
 					}
 				}
