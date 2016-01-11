@@ -34,7 +34,6 @@ public class PopupTextManager {
 		mPopupTexts = new ArrayList<>();
 		for (String text : strings) {
 			Rect r = new Rect();
-			Log.d(TAG, text);
 			mPaint.getTextBounds(text, 0, text.length(), r);
 			mPopupTexts.add(new PopupText(text,
 				new Point(-r.width() / 2 - r.left, r.height() / 2 - r.bottom),

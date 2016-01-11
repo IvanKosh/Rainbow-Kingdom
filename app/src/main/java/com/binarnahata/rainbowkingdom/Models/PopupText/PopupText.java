@@ -14,7 +14,7 @@ import android.graphics.Point;
 public class PopupText {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = PopupText.class.getSimpleName();
-	private static final int MAX_LIVE_TIME = 120;
+	private static final int MAX_LIVE_TIME = 60;
 	private final Paint mPaint;
 
 	private String mText;
@@ -27,7 +27,7 @@ public class PopupText {
 		mText = text;
 		mPosition = bias;
 		mPaint = paint;
-		mLiveTime = 120;
+		mLiveTime = MAX_LIVE_TIME;
 	}
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
@@ -52,6 +52,10 @@ public class PopupText {
 
 	public void offset(int x, int y) {
 		mPosition.offset(x, y);
+	}
+
+	public void die() {
+		mLiveTime = 0;
 	}
 	/* МЕТОДЫ */
 }

@@ -278,6 +278,7 @@ public class RKFarm extends BH_SurfaceView {
 						mCircles.remove(circle);
 						mMark.die();
 						mShoot = null;
+						mPopupText.die();
 						break;
 					}
 				} else {
@@ -292,6 +293,7 @@ public class RKFarm extends BH_SurfaceView {
 							gameOver();
 							mGameState = new OverState();
 						}
+						mPopupText.die();
 						break;
 					}
 				}
@@ -400,12 +402,14 @@ public class RKFarm extends BH_SurfaceView {
 
 		mBallPool.draw(canvas, mPaint);
 
-		if (mMark != null) {
+		/*if (mMark != null) {
 			mMark.draw(canvas);
-		}
+		}*/
 
 		if (mPopupText != null) {
-			mPopupText.draw(canvas);
+			if (mPopupText.isAlive()) {
+				mPopupText.draw(canvas);
+			}
 		}
 
 		plumeManager.draw(canvas);
@@ -434,7 +438,7 @@ public class RKFarm extends BH_SurfaceView {
 	}
 
 	private void drawGameOver() {
-		mPaint.setColor(Color.WHITE);
+		mPaint.setColor(Color.GRAY);
 		mPaint.setTextSize(mDiameter * 2);
 		mCanvas.drawText(mGameOverText, mGameOverPosition.x, mGameOverPosition.y, mPaint);
 		mPaint.setTextSize(mDiameter);
