@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.binarnahata.rainbowkingdom.Models.Achievement.Achievement;
 import com.binarnahata.rainbowkingdom.R;
@@ -35,6 +34,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "RainbowKingdom";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_ACHIEVEMENT = "achievements";
+	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
 	private static final String KEY_ID = "id";
 	private static final String KEY_ICON = "icon";
 	private static final String KEY_TEXT = "text";
@@ -44,7 +44,6 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_PROGRESS = "progress";
 	private static final String KEY_NECESSARY = "necessary";
 	private static final String KEY_TAG = "tag";
-	public static final String SQL_GET_ACHIEVEMENTS = "SELECT * FROM " + TABLE_ACHIEVEMENT;
 	private static AchievementDatabaseHandler sADH;
 	private final Context mContext;
 	private String mKeyLocalText;
@@ -62,6 +61,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 			mKeyLocalText = KEY_RU_TEXT;
 		}
 	}
+
 	public AchievementDatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
 		mContext = context;
@@ -96,6 +96,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		// Create tables again
 		onCreate(db);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void offsetAchievementProgress(String tag, int progress) {
@@ -137,7 +138,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 		String line;
 		StringBuilder jsonString = new StringBuilder();
 		try {
-			while((line = insertReader.readLine()) != null) {
+			while ((line = insertReader.readLine()) != null) {
 				jsonString.append(line);
 			}
 		} catch (IOException e) {
@@ -158,8 +159,7 @@ public class AchievementDatabaseHandler extends SQLiteOpenHelper {
 				contentValues.put(KEY_TAG, oj.getString(KEY_TAG));
 				db.insert(TABLE_ACHIEVEMENT, null, contentValues);
 			}
-		}
-		catch (JSONException e) {
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 

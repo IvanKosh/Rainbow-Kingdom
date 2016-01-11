@@ -19,17 +19,20 @@ public class BitmapCircle extends DrawableCircle {
 	private static final String TAG = BitmapCircle.class.getSimpleName();
 
 	protected final Bitmap mBitmap;
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public Bitmap getBitmap() {
-		return mBitmap;
-	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BitmapCircle(Vector3 position, double radius, int color, Bitmap bitmap) {
 		super(position, radius, color);
 		mBitmap = bitmap;
 	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public Bitmap getBitmap() {
+		return mBitmap;
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas, Paint paint) {

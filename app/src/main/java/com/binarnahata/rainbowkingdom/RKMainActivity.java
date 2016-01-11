@@ -4,16 +4,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
 
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Fragments.BackPressedInterface;
 import com.binarnahata.rainbowkingdom.Fragments.MenuFragment;
+import com.binarnahata.rainbowkingdom.Fragments.TutorialFragment;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Resources.Resources;
@@ -24,14 +26,15 @@ import java.util.List;
 public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = RKMainActivity.class.getSimpleName();
-
+	SharedPreferences prefs = null;
 	private FragmentManager mFragmentManager;
-
 	private boolean mIsBound = false;
 	private BackgroundMusicService mBackgroundMusicService;
-	private ServiceConnection mServiceConnection = new ServiceConnection(){
+	private Intent mBackgroundMusic;
+	private Volume mVolume;
+	private ServiceConnection mServiceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName name, IBinder binder) {
-			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder)binder).getService();
+			mBackgroundMusicService = ((BackgroundMusicService.ServiceBinder) binder).getService();
 
 			mBackgroundMusicService.setVolume(mVolume.getMusicVolume());
 		}
@@ -41,8 +44,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		}
 
 	};
-	private Intent mBackgroundMusic;
-	private Volume mVolume;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -54,7 +56,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		Utils.setRandom();
 		mFragmentManager = getSupportFragmentManager();
 		mFragmentManager.beginTransaction()
-			.add(R.id.fragment, new MenuFragment())
+			.add(R.id.fragment, new MenuFragment(), MenuFragment.class.getSimpleName())
 			.commit();
 
 		mVolume = Volume.getInstance(this);
@@ -66,33 +68,43 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 
 		Resources.getInstance(this).initData();
 		Experience.getInstance(this).initData();
+		prefs = getSharedPreferences(this.getPackageName(), MODE_PRIVATE);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void runFragment(Fragment newFragment) {
 		List<Fragment> fragmentList = mFragmentManager.getFragments();
 		if (fragmentList != null) {
 			for (Fragment fragment : fragmentList) {
-				mFragmentManager.beginTransaction()
-					.remove(fragment)
-					.commit();
+				if (fragment != null) {
+					mFragmentManager.beginTransaction()
+						.remove(fragment)
+						.commit();
+				}
 			}
 		}
+
 		mFragmentManager.beginTransaction()
-			.add(R.id.fragment, newFragment)
+			.add(R.id.fragment, newFragment, newFragment.getClass().getSimpleName())
 			.commit();
 	}
 
-	void doBindService(){
+	public void replaceFragment(Fragment newFragment) {
+		mFragmentManager.beginTransaction()
+			.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+			.replace(R.id.fragment, newFragment, newFragment.getClass().getSimpleName())
+			.commit();
+	}
+
+	void doBindService() {
 		bindService(new Intent(this, BackgroundMusicService.class),
 			mServiceConnection, Context.BIND_AUTO_CREATE);
 		mIsBound = true;
 	}
 
-	void doUnbindService()
-	{
-		if(mIsBound)
-		{
+	void doUnbindService() {
+		if (mIsBound) {
 			unbindService(mServiceConnection);
 			mIsBound = false;
 		}
@@ -113,8 +125,7 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		Fragment next = fragment.getNext();
 		if (next == null) {
 			super.onBackPressed();
-		}
-		else {
+		} else {
 			runFragment(next);
 		}
 	}
@@ -133,11 +144,20 @@ public class RKMainActivity extends AppCompatActivity implements VolumeControl {
 		if (mBackgroundMusicService != null) {
 			mBackgroundMusicService.resumeMusic();
 		}
+
+		if (prefs.getBoolean("firstRun", true)) {
+			runFragment(new TutorialFragment());
+			prefs.edit().putBoolean("firstRun", false).commit();
+		}
 	}
 
 	@Override
 	public void setVolume(float volume) {
 		mBackgroundMusicService.setVolume(volume);
+	}
+
+	public void goToMenu(View view) {
+		runFragment(new MenuFragment());
 	}
 	/* МЕТОДЫ */
 }

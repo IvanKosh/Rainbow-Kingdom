@@ -27,6 +27,7 @@ public class FileDataSaver {
 	private static final String TAG = FileDataSaver.class.getSimpleName();
 	private final Context mContext;
 	private final String mFilename;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -44,6 +45,7 @@ public class FileDataSaver {
 		}
 		return null;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public <T> void saveData(ArrayList<T> list) {
@@ -58,11 +60,9 @@ public class FileDataSaver {
 				.openFileOutput(mFilename, Context.MODE_PRIVATE);
 			writer = new OutputStreamWriter(out);
 			writer.write(dataJSONArray.toString());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
@@ -83,7 +83,7 @@ public class FileDataSaver {
 			reader = new BufferedReader(new InputStreamReader(in));
 			StringBuilder jsonString = new StringBuilder();
 			String line;
-			while((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null) {
 				jsonString.append(line);
 			}
 
@@ -91,8 +91,7 @@ public class FileDataSaver {
 			for (int i = 0; i < array.length(); i++) {
 				arrayList.add(getInstance(object, array.getJSONObject(i)));
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

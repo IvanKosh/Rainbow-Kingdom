@@ -56,12 +56,18 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 		jsonObject = Resources.getInstance(getContext()).getResources();
 
 		try {
-			local_red.setText("red: " + jsonObject.getInt(Resources.RED));
-			local_green.setText("green: " + jsonObject.getInt(Resources.GREEN));
-			local_blue.setText("blue: " + jsonObject.getInt(Resources.BLUE));
-			local_cyan.setText("cyan: " + jsonObject.getInt(Resources.CYAN));
-			local_magenta.setText("magenta: " + jsonObject.getInt(Resources.MAGENTA));
-			local_yellow.setText("yellow: " + jsonObject.getInt(Resources.YELLOW));
+			local_red.setText(String.format(getContext().getResources()
+				.getString(R.string.red), jsonObject.getInt(Resources.RED)));
+			local_green.setText(String.format(getContext().getResources()
+				.getString(R.string.green), jsonObject.getInt(Resources.GREEN)));
+			local_blue.setText(String.format(getContext().getResources()
+				.getString(R.string.blue), jsonObject.getInt(Resources.BLUE)));
+			local_cyan.setText(String.format(getContext().getResources()
+				.getString(R.string.cyan), jsonObject.getInt(Resources.CYAN)));
+			local_magenta.setText(String.format(getContext().getResources()
+				.getString(R.string.magenta), jsonObject.getInt(Resources.MAGENTA)));
+			local_yellow.setText(String.format(getContext().getResources()
+				.getString(R.string.yellow), jsonObject.getInt(Resources.YELLOW)));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -74,6 +80,7 @@ public class ResourcesFragment extends Fragment implements BackPressedInterface 
 
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

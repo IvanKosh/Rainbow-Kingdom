@@ -11,9 +11,9 @@ import android.graphics.Paint;
  * @version 0.1
  */
 public class Mark {
+	public static final int LIVE_TIME = 180;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = Mark.class.getSimpleName();
-	public static final int LIVE_TIME = 180;
 	private final Paint mPaint;
 	private int mX;
 	private int mY;

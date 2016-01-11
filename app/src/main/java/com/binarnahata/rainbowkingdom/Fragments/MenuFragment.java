@@ -16,9 +16,8 @@ import com.binarnahata.rainbowkingdom.Adapters.QuestAdapter;
 import com.binarnahata.rainbowkingdom.Models.Experience;
 import com.binarnahata.rainbowkingdom.Models.Quest.Quest;
 import com.binarnahata.rainbowkingdom.Models.Quest.QuestData;
-import com.binarnahata.rainbowkingdom.RKMainActivity;
 import com.binarnahata.rainbowkingdom.R;
-import com.binarnahata.rainbowkingdom.Libs.Utils;
+import com.binarnahata.rainbowkingdom.RKMainActivity;
 
 import java.util.ArrayList;
 
@@ -31,10 +30,9 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class MenuFragment extends Fragment implements BackPressedInterface {
+	public static final int MAX_NUMBER_OF_QUESTS = 10;
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = MenuFragment.class.getSimpleName();
-	public static final int MAX_NUMBER_OF_QUESTS = 10;
-
 	private ArrayList<Quest> mQuestListArray;
 
 	private RecyclerView mRecyclerView;
@@ -66,7 +64,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 							 Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-		mRecyclerView = (RecyclerView)view.findViewById(R.id.quests);
+		mRecyclerView = (RecyclerView) view.findViewById(R.id.quests);
 		mRecyclerView.setHasFixedSize(true);
 		mLayoutManager = new LinearLayoutManager(getContext());
 		mRecyclerView.setLayoutManager(mLayoutManager);
@@ -97,7 +95,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(2));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(2));
 				}
 			}
 		});
@@ -107,7 +105,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(3));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(3));
 				}
 			}
 		});
@@ -117,7 +115,7 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onClick(View v) {
 				if (getContext() instanceof RKMainActivity) {
-					((RKMainActivity)getActivity()).runFragment(new GameFragment().newInstance(0));
+					((RKMainActivity) getActivity()).runFragment(new GameFragment().newInstance(0));
 				}
 			}
 		});
@@ -155,11 +153,12 @@ public class MenuFragment extends Fragment implements BackPressedInterface {
 	public Fragment getNext() {
 		return null;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	private void initQuestList() {
 		mQuestListArray = QuestData.getInstance(getActivity()).getQuestArrayList();
-		
+
 		while (mQuestListArray.size() < MAX_NUMBER_OF_QUESTS) {
 			mQuestListArray.add(new Quest(getContext()));
 		}

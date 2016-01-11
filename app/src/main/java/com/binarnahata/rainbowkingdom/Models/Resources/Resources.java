@@ -1,10 +1,8 @@
 package com.binarnahata.rainbowkingdom.Models.Resources;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import org.json.JSONException;
@@ -21,56 +19,37 @@ import java.util.Collections;
  * @version 0.1
  */
 public class Resources {
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	private static final String TAG = Resources.class.getSimpleName();
-	private static final String APP_INIT_PREFERENCES = "init_preferences";
-	private static final String APP_LOCAL_RESOURCES = "local_resources";
 	public static final String RED = "red";
 	public static final String GREEN = "green";
 	public static final String BLUE = "blue";
 	public static final String CYAN = "cyan";
 	public static final String MAGENTA = "magenta";
 	public static final String YELLOW = "yellow";
-
-	private static SharePreferenceDataSever mSPDataSever;
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	private static final String TAG = Resources.class.getSimpleName();
+	private static final String APP_INIT_PREFERENCES = "init_preferences";
+	private static final String APP_LOCAL_RESOURCES = "local_resources";
+	private static SharePreferenceDataSaver mSPDataSaver;
 	private static Resources sResources;
 
 	private JSONObject mResources;
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public JSONObject getResources() {
-		return mResources;
-	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Resources(Context context) {
-		mSPDataSever = SharePreferenceDataSever.getInstance(context);
+		mSPDataSaver = SharePreferenceDataSaver.getInstance(context);
 		try {
-			mResources = new JSONObject(mSPDataSever.settings.getString(APP_LOCAL_RESOURCES, getEmpty().toString()));
+			mResources = new JSONObject(mSPDataSaver.settings.getString(APP_LOCAL_RESOURCES, getEmpty().toString()));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static Resources getInstance (Context context) {
+	public static Resources getInstance(Context context) {
 		if (sResources == null) {
 			sResources = new Resources(context);
 		}
 		return sResources;
-	}
-	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	/* МЕТОДЫ */
-	public void initData() {
-		if (!mSPDataSever.settings.contains(APP_INIT_PREFERENCES)) {
-			if (!mSPDataSever.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
-				mResources = getEmpty();
-				mSPDataSever.editor
-					.putString(APP_LOCAL_RESOURCES, mResources.toString())
-					.putBoolean(APP_INIT_PREFERENCES, true)
-					.apply();
-
-			}
-		}
 	}
 
 	private static JSONObject getEmpty() {
@@ -103,7 +82,7 @@ public class Resources {
 				.put(YELLOW, 0);
 			int r;
 			for (int i = 0; i < colorNumber; i++) {
-				r = Utils.rndInt(3, 10);
+				r = Utils.randomInt(3, 10);
 				jsonObject
 					.put(colorPool.get(i), r);
 			}
@@ -114,14 +93,39 @@ public class Resources {
 	}
 
 	private static ArrayList<String> getColorPool() {
-		return new ArrayList<String>(){{
-			add(RED); add(GREEN); add(BLUE);
-			add(CYAN); add(MAGENTA); add(YELLOW);
+		return new ArrayList<String>() {{
+			add(RED);
+			add(GREEN);
+			add(BLUE);
+			add(CYAN);
+			add(MAGENTA);
+			add(YELLOW);
 		}};
 	}
 
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public JSONObject getResources() {
+		return mResources;
+	}
+
+	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
+	/* МЕТОДЫ */
+	public void initData() {
+		if (!mSPDataSaver.settings.contains(APP_INIT_PREFERENCES)) {
+			if (!mSPDataSaver.settings.getBoolean(APP_INIT_PREFERENCES, false)) {
+				mResources = getEmpty();
+				mSPDataSaver.editor
+					.putString(APP_LOCAL_RESOURCES, mResources.toString())
+					.putBoolean(APP_INIT_PREFERENCES, true)
+					.apply();
+
+			}
+		}
+	}
+
 	public void saveData() {
-		mSPDataSever.editor
+		mSPDataSaver.editor
 			.putString(APP_LOCAL_RESOURCES, mResources.toString())
 			.apply();
 	}

@@ -2,15 +2,16 @@ package com.binarnahata.rainbowkingdom.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.binarnahata.rainbowkingdom.Controllers.VolumeControl;
 import com.binarnahata.rainbowkingdom.Models.Volume;
 import com.binarnahata.rainbowkingdom.R;
+import com.binarnahata.rainbowkingdom.RKMainActivity;
 
 /**
  * RainbowKingdom
@@ -24,6 +25,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 	private static final String TAG = SettingsFragment.class.getSimpleName();
 
 	private Volume mVolume;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -45,7 +47,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (getContext() instanceof VolumeControl) {
-					((VolumeControl)getContext()).setVolume(seekBar.getProgress() / 100f);
+					((VolumeControl) getContext()).setVolume(seekBar.getProgress() / 100f);
 				}
 			}
 
@@ -60,7 +62,7 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 		});
 
 		SeekBar effect = (SeekBar) view.findViewById(R.id.settings_effects_seek_bar);
-		effect.setProgress((int) (mVolume.getEffectsVolume()*100));
+		effect.setProgress((int) (mVolume.getEffectsVolume() * 100));
 		effect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -78,8 +80,19 @@ public class SettingsFragment extends Fragment implements BackPressedInterface {
 			}
 		});
 
+		Button run_tutorial = (Button) view.findViewById(R.id.run_tutorial_button);
+		run_tutorial.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (getContext() instanceof RKMainActivity) {
+					((RKMainActivity) getContext()).runFragment(new TutorialFragment());
+				}
+			}
+		});
+
 		return view;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override

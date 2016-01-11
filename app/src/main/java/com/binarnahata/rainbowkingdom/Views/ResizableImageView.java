@@ -15,6 +15,7 @@ import android.widget.ImageView;
 public class ResizableImageView extends ImageView {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = ResizableImageView.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -22,6 +23,7 @@ public class ResizableImageView extends ImageView {
 	public ResizableImageView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	@Override
@@ -32,8 +34,7 @@ public class ResizableImageView extends ImageView {
 			int width = MeasureSpec.getSize(widthMeasureSpec);
 			int height = (int) Math.ceil((float) width * (float) d.getIntrinsicHeight() / (float) d.getIntrinsicWidth());
 			setMeasuredDimension(width, height);
-		}
-		else {
+		} else {
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		}
 	}

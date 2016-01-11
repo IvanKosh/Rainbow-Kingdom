@@ -2,7 +2,7 @@ package com.binarnahata.rainbowkingdom.Models;
 
 import android.content.Context;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 
 /**
  * RainbowKingdom
@@ -17,39 +17,45 @@ public class Volume {
 	private static final String APP_MUSIC = "music";
 	private static final String APP_EFFECTS = "effects";
 
-	private static SharePreferenceDataSever sSPDataSever;
+	private static SharePreferenceDataSaver sSPDataSever;
 	private static Volume sVolume;
 
 	private float mMusicVolume;
 	private float mEffectsVolume;
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public float getMusicVolume() {
-		return mMusicVolume;
-	}
-	public void setMusicVolume(float musicVolume) {
-		mMusicVolume = musicVolume;
-	}
-	public float getEffectsVolume() {
-		return mEffectsVolume;
-	}
-	public void setEffectsVolume(float effectsVolume) {
-		mEffectsVolume = effectsVolume;
-	}
+
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Volume(Context context) {
-		sSPDataSever = SharePreferenceDataSever.getInstance(context);
+		sSPDataSever = SharePreferenceDataSaver.getInstance(context);
 		mMusicVolume = sSPDataSever.settings.getFloat(APP_MUSIC, 1f);
 		mEffectsVolume = sSPDataSever.settings.getFloat(APP_EFFECTS, 1f);
 	}
 
-	public static Volume getInstance (Context context) {
+	public static Volume getInstance(Context context) {
 		if (sVolume == null) {
 			sVolume = new Volume(context);
 		}
 		return sVolume;
 	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public float getMusicVolume() {
+		return mMusicVolume;
+	}
+
+	public void setMusicVolume(float musicVolume) {
+		mMusicVolume = musicVolume;
+	}
+
+	public float getEffectsVolume() {
+		return mEffectsVolume;
+	}
+
+	public void setEffectsVolume(float effectsVolume) {
+		mEffectsVolume = effectsVolume;
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void saveData() {

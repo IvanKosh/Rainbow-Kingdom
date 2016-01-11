@@ -2,6 +2,7 @@ package com.binarnahata.rainbowkingdom.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,11 @@ import java.util.ArrayList;
  * @version 0.1
  */
 public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> {
+	public static final String APP_PREFERENCES = "resources";
+	public static final int CAN_COMPLETE_COLOR = Color.rgb(0x33, 0xCC, 0x33);
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = QuestAdapter.class.getSimpleName();
-	public static final String APP_PREFERENCES = "resources";
+	private static final int NEED_MORE_COLOR = Color.rgb(0xCC, 0x33, 0x33);
 	private final Context mContext;
 	private final Experience mExperience;
 	private final AchievementDatabaseHandler mDB;
@@ -41,6 +44,7 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 	private JSONObject mJSONObject;
 	private SharedPreferences mSettings;
 	private SharedPreferences.Editor mEditor;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -82,9 +86,11 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 					mCallback.onSelect();
 				}
 			});
-		}
-		else {
-			holder.mRelativeLayout.setAlpha(0.5F);
+			holder.mQuestStatus.setTextColor(CAN_COMPLETE_COLOR);
+			holder.mQuestStatus.setText(R.string.can_complete);
+		} else {
+			holder.mQuestStatus.setTextColor(NEED_MORE_COLOR);
+			holder.mQuestStatus.setText(R.string.need_more);
 		}
 
 		holder.mImage.setImageResource(mQuestArrayList.get(position).getHeroAvatar());
@@ -92,6 +98,20 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		holder.mRequest.setText(mQuestArrayList.get(position).getJSONRequestString());
 		holder.mExperience.setText(mQuestArrayList.get(position).getExperienceString());
 	}
+
+	@Override
+	public int getItemCount() {
+		return (mQuestArrayList != null ? mQuestArrayList.size() : 0);
+	}
+
+	public void updateSettings() {
+		mJSONObject = mResources.getResources();
+	}
+
+	public interface Callback {
+		void onSelect();
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -100,28 +120,18 @@ public class QuestAdapter extends RecyclerView.Adapter<QuestAdapter.ViewHolder> 
 		public TextView mText;
 		public TextView mRequest;
 		public TextView mExperience;
+		public TextView mQuestStatus;
+
 		public ViewHolder(View view) {
 			super(view);
 
-			mRelativeLayout = (RelativeLayout)view.findViewById(R.id.container);
-			mImage = (ImageView)view.findViewById(R.id.image);
-			mText = (TextView)view.findViewById(R.id.text);
-			mRequest = (TextView)view.findViewById(R.id.request);
-			mExperience = (TextView)view.findViewById(R.id.experience);
+			mRelativeLayout = (RelativeLayout) view.findViewById(R.id.container);
+			mImage = (ImageView) view.findViewById(R.id.image);
+			mText = (TextView) view.findViewById(R.id.text);
+			mRequest = (TextView) view.findViewById(R.id.request);
+			mExperience = (TextView) view.findViewById(R.id.experience);
+			mQuestStatus = (TextView) view.findViewById(R.id.quest_status);
 		}
-	}
-
-	@Override
-	public int getItemCount() {
-		return (mQuestArrayList != null ? mQuestArrayList.size() : 0);
-	}
-
-	public interface Callback {
-		void onSelect();
-	}
-
-	public void updateSettings() {
-		mJSONObject = mResources.getResources();
 	}
 	/* МЕТОДЫ */
 }

@@ -12,12 +12,13 @@ import com.binarnahata.rainbowkingdom.Libs.Utils;
 public class QuickGameMode extends GameMode {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = QuickGameMode.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public QuickGameMode() {
-		super(Utils.rndCircles(), 2);
+		super(Utils.randomCircles(), Utils.randomInt(1, 4));
 		type = "typeq";
 	}
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */

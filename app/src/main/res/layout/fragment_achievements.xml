@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
-	<ImageView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:scaleType="centerCrop"
-		android:src="@drawable/rk_fon"/>
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
 	<TextView
 		android:id="@+id/achievements_point"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:textSize="48dp"
-		android:text="0"/>
+		android:text="0"
+		android:textSize="48dp"/>
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/achievements"

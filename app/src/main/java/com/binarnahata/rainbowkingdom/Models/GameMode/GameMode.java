@@ -14,6 +14,7 @@ public abstract class GameMode {
 	public int number;
 	public int rating;
 	public String type;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

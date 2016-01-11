@@ -18,38 +18,21 @@ public class QuestData {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = QuestData.class.getSimpleName();
 	private static final String FILENAME = "quests.json";
-
-	private FileDataSaver mQuestDataSaver;
-
 	private static QuestData sQuestData;
+	private FileDataSaver mQuestDataSaver;
 	private Context mContext;
 
 	private ArrayList<Quest> mQuestArrayList;
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public ArrayList<Quest> getQuestArrayList (){
-		return mQuestArrayList;
-	}
 
-	public Quest getQuest(UUID id) {
-		for (Quest quest : mQuestArrayList) {
-			if(quest.getId().equals(id)){
-				return quest;
-			}
-		}
-
-		return null;
-	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
-	private QuestData (Context context) {
+	private QuestData(Context context) {
 		mContext = context;
 		mQuestDataSaver = new FileDataSaver(mContext, FILENAME);
 
 		try {
 			mQuestArrayList = mQuestDataSaver.loadData(Quest.class);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -60,6 +43,23 @@ public class QuestData {
 		}
 		return sQuestData;
 	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public ArrayList<Quest> getQuestArrayList() {
+		return mQuestArrayList;
+	}
+
+	public Quest getQuest(UUID id) {
+		for (Quest quest : mQuestArrayList) {
+			if (quest.getId().equals(id)) {
+				return quest;
+			}
+		}
+
+		return null;
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public boolean saveData() {

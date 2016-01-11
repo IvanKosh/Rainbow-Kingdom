@@ -15,14 +15,14 @@ import com.binarnahata.rainbowkingdom.Models.Components.Color;
  * @version 0.1
  */
 public class BottomPanel {
+	public static final String TEXT_BALLS_N = "Balls: ";
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = BottomPanel.class.getSimpleName();
-	public static final String TEXT_BALLS_N = "Balls: ";
+	public final Rect mRectLeft;
 	private final Bitmap mLineH;
 	private final Bitmap mLineV;
 	private final Bitmap mCornerBL;
 	private final Bitmap mCornerBR;
-
 	private final Rect mCornerL;
 	private final Rect mLineHLRect;
 	private final Rect mLineVLRect;
@@ -32,20 +32,8 @@ public class BottomPanel {
 	private final Paint mPaint;
 	private final int mTextSize;
 	private final Rect mRectRight;
-	public final Rect mRectLeft;
 	private int mAvailableBalls;
 
-	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
-	/* ГЕТТЕРЫ И СЕТТЕРЫ */
-	public void incrementAvailableBalls() {
-		mAvailableBalls++;
-	}
-	public void decrementAvailableBalls() {
-		mAvailableBalls--;
-	}
-	public int getAvailableBalls() {
-		return mAvailableBalls;
-	}
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	public BottomPanel(Rect dstRect, Bitmap line_h, Bitmap line_v,
@@ -63,18 +51,18 @@ public class BottomPanel {
 
 		int border = dstRect.height() / 10;
 
-		mCornerL = new Rect(centerRect.left, centerRect.top-border,
+		mCornerL = new Rect(centerRect.left, centerRect.top - border,
 			centerRect.left + border, centerRect.top);
-		mLineHLRect = new Rect(dstRect.left, dstRect.top-border,
+		mLineHLRect = new Rect(dstRect.left, dstRect.top - border,
 			centerRect.left, centerRect.top);
 		mLineVLRect = new Rect(centerRect.left, centerRect.top,
-			centerRect.left+border, dstRect.bottom);
+			centerRect.left + border, dstRect.bottom);
 
-		mCornerR = new Rect(centerRect.right-border, centerRect.top-border,
+		mCornerR = new Rect(centerRect.right - border, centerRect.top - border,
 			centerRect.right, centerRect.top);
-		mLineHRRect = new Rect(centerRect.right, centerRect.top-border,
+		mLineHRRect = new Rect(centerRect.right, centerRect.top - border,
 			dstRect.right, dstRect.top);
-		mLineVRRect = new Rect(centerRect.right-border, centerRect.top,
+		mLineVRRect = new Rect(centerRect.right - border, centerRect.top,
 			centerRect.right, centerRect.bottom);
 
 		mRectRight = new Rect(mCornerR.right, mCornerR.bottom,
@@ -88,6 +76,21 @@ public class BottomPanel {
 		mPaint.setTextAlign(Paint.Align.LEFT);
 		mPaint.setTextSize(mTextSize);
 	}
+
+	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
+	/* ГЕТТЕРЫ И СЕТТЕРЫ */
+	public void incrementAvailableBalls() {
+		mAvailableBalls++;
+	}
+
+	public void decrementAvailableBalls() {
+		mAvailableBalls--;
+	}
+
+	public int getAvailableBalls() {
+		return mAvailableBalls;
+	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {

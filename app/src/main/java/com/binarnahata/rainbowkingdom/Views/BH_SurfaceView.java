@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private String mAvgFps;
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -27,9 +28,11 @@ public abstract class BH_SurfaceView extends SurfaceView implements SurfaceHolde
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public abstract void update();
+
 	public abstract void render(Canvas canvas);
 
 	public void setAvgFps(String avgFps) {

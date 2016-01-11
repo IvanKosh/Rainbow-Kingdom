@@ -10,6 +10,7 @@ package com.binarnahata.rainbowkingdom.Models.GameMode;
 public class AverageGameMode extends GameMode {
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	private static final String TAG = AverageGameMode.class.getSimpleName();
+
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */

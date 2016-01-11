@@ -2,7 +2,7 @@ package com.binarnahata.rainbowkingdom.Models;
 
 import android.content.Context;
 
-import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSever;
+import com.binarnahata.rainbowkingdom.Libs.DataSaver.SharePreferenceDataSaver;
 
 /**
  * RainbowKingdom
@@ -16,10 +16,8 @@ public class Experience {
 	private static final String TAG = Experience.class.getSimpleName();
 	private static final String APP_LEVEL = "level";
 	private static final String APP_POINT = "point";
-	private final SharePreferenceDataSever mSPDataSever;
-
 	private static Experience sExperience;
-
+	private final SharePreferenceDataSaver mSPDataSever;
 	private int level;
 	private int point;
 	private String result;
@@ -29,21 +27,22 @@ public class Experience {
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	private Experience(Context context) {
-		mSPDataSever = SharePreferenceDataSever.getInstance(context);
+		mSPDataSever = SharePreferenceDataSaver.getInstance(context);
 		level = mSPDataSever.settings.getInt(APP_LEVEL, 0);
 		point = mSPDataSever.settings.getInt(APP_POINT, 0);
 	}
 
-	public static Experience getInstance (Context context) {
+	public static Experience getInstance(Context context) {
 		if (sExperience == null) {
 			sExperience = new Experience(context);
 		}
 		return sExperience;
 	}
+
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public int getProgress() {
-		return (int) (point*100/(Math.sqrt(level)+30));
+		return (int) (point * 100 / (Math.sqrt(level) + 30));
 	}
 
 	public void saveData() {
@@ -65,7 +64,7 @@ public class Experience {
 	public void offsetPoint(int experience) {
 		point += experience;
 		int top = (int) (Math.sqrt(level) + 30);
-		while ( top <= point ) {
+		while (top <= point) {
 			level++;
 			point -= top;
 		}
