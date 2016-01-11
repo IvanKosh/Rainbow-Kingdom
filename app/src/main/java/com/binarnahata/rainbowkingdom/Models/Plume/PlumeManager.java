@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
+import com.binarnahata.rainbowkingdom.Libs.Utils;
 
 import java.util.ArrayList;
 
@@ -55,8 +56,25 @@ public class PlumeManager {
 		}
 	}
 
-	public void add(Vector3 position, Vector3 direction) {
-		particles.add(new Particle(direction, position, particleRadius, paint));
+	public void add(Vector3 goalPosition, Vector3 direction_n) {
+		// направление - нормаль
+		// нужно поменять координаты и знак на одном из них, получим поворот на
+		// 90 градусов или в одну и другую сторону
+		// нужно взять проивольную величину от 0 до радиуса и отсчитать точку от
+		// позиции по новой нормали
+		// передать полученную точку и позицию как goal
+
+		Vector3 rotateLeft = new Vector3(direction_n.y, -direction_n.x);
+		double distance = Utils.randomDouble(0, circlesRadius);
+		rotateLeft.mul(distance);
+		rotateLeft.add(goalPosition);
+		particles.add(new Particle(rotateLeft, goalPosition, particleRadius, paint));
+
+		Vector3 rotateRight = new Vector3(-direction_n.y, direction_n.x);
+		distance = Utils.randomDouble(0, circlesRadius);
+		rotateRight.mul(distance);
+		rotateRight.add(goalPosition);
+		particles.add(new Particle(rotateRight, goalPosition, particleRadius, paint));
 	}
 	/* МЕТОДЫ */
 }

@@ -39,6 +39,10 @@ public class Utils {
 		return random.nextDouble();
 	}
 
+	public static double randomDouble(double min, double max) {
+		return min + (max - min) * random.nextDouble();
+	}
+
 	public static String randomHeroAvatar() {
 		return "hero_avatar" + randomInt(0, 18);
 	}

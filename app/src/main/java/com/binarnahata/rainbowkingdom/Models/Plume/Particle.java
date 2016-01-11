@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.binarnahata.rainbowkingdom.Libs.Math.Vector3;
+import com.binarnahata.rainbowkingdom.Models.Components.Color;
 
 /**
  * RainbowKingdom
@@ -22,6 +23,7 @@ public class Particle {
 	private final float radius;
 	private final Paint paint;
 	private final Vector3 speed;
+	private int color;
 
 	/* КОНСТАНТЫ И ПЕРЕМЕННЫЕ */
 	/* ГЕТТЕРЫ И СЕТТЕРЫ */
@@ -39,11 +41,13 @@ public class Particle {
 		speed = new Vector3(goalPosition.x - position.x, goalPosition.y - position.y);
 		speed.div(PARTICLE_LIFETIME);
 		lifetime = PARTICLE_LIFETIME;
+		color = Color.getRandom();
 	}
 
 	/* КОНСТРУКТОРЫ И ДЕСТРУКТОРЫ */
 	/* МЕТОДЫ */
 	public void draw(Canvas canvas) {
+		paint.setColor(color);
 		canvas.drawCircle((float) position.x, (float) position.y, radius, paint);
 	}
 
