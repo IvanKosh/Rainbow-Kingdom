@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name" translatable="false">RainbowKingdom</string>
+	<string name="app_name" translatable="false">Rainbow Kingdom</string>
 	<string name="action_settings" translatable="false">Settings</string>
 	<string name="red">Red: %1$d\u0020</string>
 	<string name="green">Green: %1$d\u0020</string>
